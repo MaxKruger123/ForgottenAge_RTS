@@ -4,85 +4,74 @@ using UnityEngine;
 
 public class SelectableUnit : MonoBehaviour
 {
-    private SpriteRenderer spriteRenderer;
-    private Color originalColor;
-    private bool isSelecting = false;
-    private Vector3 mousePosition1;
-    private GameObject selectionBox;
 
-    public GameObject selectionBoxPrefab; // Assign a prefab of a transparent grey box in the Unity inspector
+    private bool isMoving = false; // Flag to track if the unit is currently moving
 
-    void Start()
+
+    // Speed of troop movement
+    public float moveSpeed = 1f;
+
+    // Target position for movement
+    private Vector3 targetPosition;
+
+
+
+    private Collider2D collider;
+  
+
+    private void Start()
     {
-        // Get the SpriteRenderer component of the object
-        spriteRenderer = GetComponent<SpriteRenderer>();
-
-        // Store the original color of the object
-        originalColor = spriteRenderer.color;
+        collider = GetComponent<Collider2D>();
     }
 
-    void Update()
+    public void StartMoving()
     {
-        // Check for mouse click
-        if (Input.GetMouseButtonDown(0))
+        
+        isMoving = true;
+        collider.enabled = false; // Disable collider when unit starts moving
+    }
+
+    public void MoveTo(Vector3 targetPosition)
+    {
+        this.targetPosition = targetPosition;
+        isMoving = true;
+        // Disable collider while moving
+        collider.enabled = false;
+    }
+
+    private void Update()
+    {
+        if (isMoving)
         {
-            // Store the first mouse position for selection box
-            isSelecting = true;
-            mousePosition1 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            float step = moveSpeed * Time.deltaTime;
+            transform.position = Vector3.MoveTowards(transform.position, targetPosition, step);
 
-            // Instantiate selection box prefab
-            selectionBox = Instantiate(selectionBoxPrefab, mousePosition1, Quaternion.identity);
-        }
-
-        // Update the selection box
-        if (isSelecting)
-        {
-            Vector3 mousePosition2 = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            Vector3 center = (mousePosition1 + mousePosition2) / 2f;
-
-            // Calculate size based on mouse position
-            float width = Mathf.Abs(mousePosition1.x - mousePosition2.x);
-            float height = Mathf.Abs(mousePosition1.y - mousePosition2.y);
-
-            // Set position and size of selection box
-            selectionBox.transform.position = center;
-            selectionBox.transform.localScale = new Vector3(width, height, 1f);
-        }
-
-        // Check for mouse release
-        if (Input.GetMouseButtonUp(0))
-        {
-            // Reset selection box
-            isSelecting = false;
-
-            // Get the bounds of the selection box
-            Bounds selectionBounds = selectionBox.GetComponent<SpriteRenderer>().bounds;
-            Debug.Log("Selection Box Bounds: " + selectionBounds);
-
-            // Loop through all selectable units
-            foreach (SelectableUnit selectableUnit in FindObjectsOfType<SelectableUnit>())
+            if (transform.position == targetPosition)
             {
-                // Get the bounds of the current unit
-                Bounds unitBounds = selectableUnit.GetComponent<SpriteRenderer>().bounds;
-                Debug.Log("Unit Bounds: " + unitBounds);
-
-                // Check if the bounds of the unit overlap with the bounds of the selection box
-                if (unitBounds.Intersects(selectionBounds))
-                {
-                    // Unit's bounds intersect with the selection box
-                    Debug.Log("Unit selected: " + selectableUnit.gameObject.name);
-                    SelectUnit(selectableUnit);
-                }
+                isMoving = false;
+                // Re-enable collider when movement is complete
+                collider.enabled = true;
             }
-
-            // Destroy the selection box object
-            Destroy(selectionBox);
         }
     }
 
-    void SelectUnit(SelectableUnit selectableUnit)
+    public void StopMoving()
     {
-        // Change color to green
-        selectableUnit.spriteRenderer.color = Color.green;
+        isMoving = false;
+        collider.enabled = true; // Re-enable collider when unit stops moving
     }
+
+    public void ResumeMoving()
+    {
+        StartMoving(); // Resuming moving is just starting to move again
+    }
+
+    public bool HasReachedDestination()
+    {
+        // Implement logic to check if the unit has reached its destination
+        // Return true if the unit has reached its destination, false otherwise
+        return !isMoving; // Example: assuming the unit stops moving when it reaches the destination
+    }
+
+
 }
