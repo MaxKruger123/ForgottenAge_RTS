@@ -87,9 +87,11 @@ GameObject:
   - component: {fileID: 4333686759213449494}
   - component: {fileID: 57585568868204791}
   - component: {fileID: 5561977592791738242}
+  - component: {fileID: 4953249232632933989}
+  - component: {fileID: 2278883036439628074}
   m_Layer: 0
   m_Name: Basic_Troop_Enemy
-  m_TagString: SelectableUnit
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -152,7 +154,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0.17973852, a: 1}
+  m_Color: {r: 1, g: 0, b: 0.15846825, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -234,6 +236,36 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &4953249232632933989
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910245958655939564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a3f4bc9569f872640b5640fda2a1fba6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxHealth: 10
+  currentHealth: 0
+  healthBar: {fileID: 6984048917535477332}
+--- !u!114 &2278883036439628074
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4910245958655939564}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9eace3610a1d14646af0ed60c6916f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  attackRange: 2
+  minDistanceToAlly: 2
 --- !u!1 &7241903363827648978
 GameObject:
   m_ObjectHideFlags: 0

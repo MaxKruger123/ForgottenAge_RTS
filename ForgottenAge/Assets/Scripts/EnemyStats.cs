@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class AllyTroopStats : MonoBehaviour
+public class EnemyStats : MonoBehaviour
 {
     public float maxHealth = 10;
     public float currentHealth;
@@ -17,11 +17,7 @@ public class AllyTroopStats : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
-        currentHealth-= damage;
+        currentHealth -= damage;
         healthBar.fillAmount = currentHealth / maxHealth;
     }
 }
