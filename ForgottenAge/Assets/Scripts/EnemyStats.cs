@@ -17,6 +17,12 @@ public class EnemyStats : MonoBehaviour
 
     public void TakeDamage(float damage)
     {
+
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+
         currentHealth -= damage;
         healthBar.fillAmount = currentHealth / maxHealth;
     }

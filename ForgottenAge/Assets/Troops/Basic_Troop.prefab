@@ -263,10 +263,10 @@ GameObject:
   m_Component:
   - component: {fileID: 4746633526091155416}
   - component: {fileID: 5764586126948114548}
-  - component: {fileID: 1708007230225471975}
   - component: {fileID: 5706941876711504180}
   - component: {fileID: 3872410307981631467}
   - component: {fileID: 3791969540599720894}
+  - component: {fileID: -1378646005801163975}
   m_Layer: 0
   m_Name: Basic_Troop
   m_TagString: SelectableUnit
@@ -342,19 +342,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1708007230225471975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6464976520044434357}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c9a05d304aad2aa448dbc284784435df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 2
 --- !u!61 &5706941876711504180
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -442,3 +429,18 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
+--- !u!114 &-1378646005801163975
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6464976520044434357}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 101fc81a26781ad4f9743f9a4bf3d361, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveSpeed: 2
+  attackRange: 2
+  minDistanceToEnemy: 2
