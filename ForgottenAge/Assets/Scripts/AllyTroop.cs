@@ -5,14 +5,22 @@ using UnityEngine;
 public class AllyTroop : MonoBehaviour
 {
     public float moveSpeed = 5f; // Speed of ally movement
-    public float attackRange = 2f; // Range for attacking
+    public float attackRange = 2f; // Range for melee attacking
     public float minDistanceToEnemy = 1.5f; // Minimum distance to enemy to avoid touching
+    public GameObject projectilePrefab; // Prefab for the projectile
+    public float projectileSpeed = 10f; // Speed of the projectile
 
     private EnemyStats targetEnemy; // Reference to the nearest enemy
     private bool isAttacking = false; // Flag to indicate if the ally is attacking
+    private bool isRanged = false; // Flag to check if the unit is ranged
 
     void Start()
     {
+        // Check if the unit is a ranged ally
+        if (gameObject.CompareTag("AllyRanged"))
+        {
+            isRanged = true;
+        }
         FindNearestEnemy();
     }
 
@@ -55,18 +63,36 @@ public class AllyTroop : MonoBehaviour
     {
         if (targetEnemy != null)
         {
-            Vector3 direction = (targetEnemy.transform.position - transform.position).normalized;
             float distanceToEnemy = Vector3.Distance(transform.position, targetEnemy.transform.position);
 
-            if (distanceToEnemy > minDistanceToEnemy)
+            if (isRanged)
             {
-                transform.position = Vector3.MoveTowards(transform.position, targetEnemy.transform.position, moveSpeed * Time.deltaTime);
+                if (distanceToEnemy > attackRange)
+                {
+                    Vector3 direction = (targetEnemy.transform.position - transform.position).normalized;
+                    transform.position = Vector3.MoveTowards(transform.position, targetEnemy.transform.position, moveSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    if (!isAttacking)
+                    {
+                        StartCoroutine(ShootProjectile());
+                    }
+                }
             }
             else
             {
-                if (!isAttacking)
+                if (distanceToEnemy > minDistanceToEnemy)
                 {
-                    AttackEnemy();
+                    Vector3 direction = (targetEnemy.transform.position - transform.position).normalized;
+                    transform.position = Vector3.MoveTowards(transform.position, targetEnemy.transform.position, moveSpeed * Time.deltaTime);
+                }
+                else
+                {
+                    if (!isAttacking)
+                    {
+                        AttackEnemy();
+                    }
                 }
             }
         }
@@ -77,9 +103,7 @@ public class AllyTroop : MonoBehaviour
         if (targetEnemy != null)
         {
             targetEnemy.TakeDamage(1.0f);
-
             isAttacking = true;
-
             StartCoroutine(ResetAttackFlag());
         }
     }
@@ -87,6 +111,42 @@ public class AllyTroop : MonoBehaviour
     IEnumerator ResetAttackFlag()
     {
         yield return new WaitForSeconds(1.0f);
+        isAttacking = false;
+    }
+
+    IEnumerator ShootProjectile()
+    {
+        isAttacking = true;
+
+        while (isAttacking && targetEnemy != null)
+        {
+            // Check if the target enemy is still alive
+            if (targetEnemy != null && !targetEnemy.IsDead())
+            {
+                // Create and shoot the projectile
+                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                if (projectile != null)
+                {
+                    // Calculate direction to the enemy's center
+                    Vector3 direction = (targetEnemy.centerObject.transform.position - transform.position).normalized;
+
+                    // Set velocity of the projectile
+                    Rigidbody2D rb = projectile.GetComponent<Rigidbody2D>();
+                    if (rb != null)
+                    {
+                        rb.velocity = direction * projectileSpeed;
+                    }
+                }
+            }
+            else
+            {
+                // Find the nearest enemy if the current target is dead
+                FindNearestEnemy();
+            }
+
+            yield return new WaitForSeconds(1.0f);
+        }
+
         isAttacking = false;
     }
 }
