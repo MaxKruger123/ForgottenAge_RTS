@@ -4,9 +4,9 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Player Troop
-  - Enemy Troop
+  - SelectableUnit
   - Enemy
+  - AllyRanged
   layers:
   - Default
   - TransparentFX
@@ -14,7 +14,7 @@ TagManager:
   - 
   - Water
   - UI
-  - 
+  - Environment
   - 
   - 
   - 
