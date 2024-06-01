@@ -131,6 +131,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4333686759213449494, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
       propertyPath: m_Name
       value: Basic_Troop_Enemy
@@ -2614,6 +2618,10 @@ PrefabInstance:
     - target: {fileID: 58733520159805711, guid: 098d91fdab547374687494ffa5ab23e1, type: 3}
       propertyPath: m_Name
       value: Ranged_Troop
+      objectReference: {fileID: 0}
+    - target: {fileID: 3241479258173409777, guid: 098d91fdab547374687494ffa5ab23e1, type: 3}
+      propertyPath: m_SortingOrder
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 5477623161266731862, guid: 098d91fdab547374687494ffa5ab23e1, type: 3}
       propertyPath: m_LocalPosition.x
