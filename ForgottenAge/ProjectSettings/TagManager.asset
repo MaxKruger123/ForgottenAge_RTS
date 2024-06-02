@@ -4,9 +4,8 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Player Troop
-  - Enemy Troop
   - Enemy
+  - Player Range
   layers:
   - Default
   - TransparentFX

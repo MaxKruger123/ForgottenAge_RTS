@@ -11,6 +11,7 @@ public class CaptureZone : MonoBehaviour
 
     private int playerCount = 0;
     private int enemyCount = 0;
+    private int playerRangeCount = 0; // Count for objects with "Player Range" tag
 
     private SpriteRenderer spriteRenderer;
     private Coroutine flashCoroutine;
@@ -26,10 +27,18 @@ public class CaptureZone : MonoBehaviour
     {
         Debug.Log("Trigger entered by: " + other.gameObject.name);
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player Range"))
         {
-            playerCount++;
-            Debug.Log("Player entered the zone. Player count: " + playerCount);
+            if (other.CompareTag("Player"))
+            {
+                playerCount++;
+                Debug.Log("Player entered the zone. Player count: " + playerCount);
+            }
+            else if (other.CompareTag("Player Range"))
+            {
+                playerRangeCount++;
+                Debug.Log("Player Range entered the zone. Player Range count: " + playerRangeCount);
+            }
         }
         else if (other.CompareTag("Enemy"))
         {
@@ -43,7 +52,7 @@ public class CaptureZone : MonoBehaviour
             uncaptureCoroutine = null;
         }
 
-        if (playerCount > 0 && enemyCount > 0)
+        if ((playerCount + playerRangeCount) > 0 && enemyCount > 0)
         {
             ResetFlashColor();
         }
@@ -53,10 +62,18 @@ public class CaptureZone : MonoBehaviour
     {
         Debug.Log("Trigger exited by: " + other.gameObject.name);
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("Player Range"))
         {
-            playerCount--;
-            Debug.Log("Player left the zone. Player count: " + playerCount);
+            if (other.CompareTag("Player"))
+            {
+                playerCount--;
+                Debug.Log("Player left the zone. Player count: " + playerCount);
+            }
+            else if (other.CompareTag("Player Range"))
+            {
+                playerRangeCount--;
+                Debug.Log("Player Range left the zone. Player Range count: " + playerRangeCount);
+            }
         }
         else if (other.CompareTag("Enemy"))
         {
@@ -64,7 +81,7 @@ public class CaptureZone : MonoBehaviour
             Debug.Log("Enemy left the zone. Enemy count: " + enemyCount);
         }
 
-        if (playerCount == 0 && enemyCount == 0 && capturingSide != null)
+        if ((playerCount + playerRangeCount) == 0 && enemyCount == 0 && capturingSide != null)
         {
             uncaptureCoroutine = StartCoroutine(UncaptureZone());
         }
@@ -72,7 +89,7 @@ public class CaptureZone : MonoBehaviour
 
     private void Update()
     {
-        if (playerCount > 0 && enemyCount == 0)
+        if ((playerCount + playerRangeCount) > 0 && enemyCount == 0)
         {
             if (capturingSide == null || capturingSide == "Player")
             {
@@ -99,7 +116,7 @@ public class CaptureZone : MonoBehaviour
                 }
             }
         }
-        else if (enemyCount > 0 && playerCount == 0)
+        else if (enemyCount > 0 && (playerCount + playerRangeCount) == 0)
         {
             if (capturingSide == null || capturingSide == "Enemy")
             {
@@ -126,7 +143,7 @@ public class CaptureZone : MonoBehaviour
                 }
             }
         }
-        else if (playerCount > 0 && enemyCount > 0)
+        else if ((playerCount + playerRangeCount) > 0 && enemyCount > 0)
         {
             Debug.Log("Zone is contested.");
             ResetFlashColor();
