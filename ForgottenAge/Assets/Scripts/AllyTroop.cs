@@ -1,10 +1,9 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AllyTroop : MonoBehaviour
 {
-    public float moveSpeed = 5f; // Speed of ally movement
     public float attackRange = 2f; // Range for melee attacking
     public float minDistanceToEnemy = 1.5f; // Minimum distance to enemy to avoid touching
     public GameObject projectilePrefab; // Prefab for the projectile
@@ -13,6 +12,8 @@ public class AllyTroop : MonoBehaviour
     private EnemyStats targetEnemy; // Reference to the nearest enemy
     private bool isAttacking = false; // Flag to indicate if the ally is attacking
     private bool isRanged = false; // Flag to check if the unit is ranged
+    private NavMeshAgent agent; // Reference to the NavMeshAgent
+    public GameObject targetTile; // Reference to the nearest tile
 
     void Start()
     {
@@ -21,6 +22,21 @@ public class AllyTroop : MonoBehaviour
         {
             isRanged = true;
         }
+
+        // Get the NavMeshAgent component
+        agent = GetComponent<NavMeshAgent>();
+
+        if (agent != null)
+        {
+            // Ensure the NavMeshAgent operates on the X-Y plane for 2D
+            agent.updateUpAxis = false;
+            agent.updateRotation = false;
+        }
+        else
+        {
+            Debug.LogError("NavMeshAgent component not found on " + gameObject.name);
+        }
+
         FindNearestEnemy();
     }
 
@@ -29,6 +45,12 @@ public class AllyTroop : MonoBehaviour
         if (targetEnemy == null)
         {
             FindNearestEnemy();
+
+            if (targetEnemy == null)
+            {
+                FindNearestTile();
+                MoveTowardsTile();
+            }
         }
         else
         {
@@ -59,6 +81,26 @@ public class AllyTroop : MonoBehaviour
         targetEnemy = nearestEnemy;
     }
 
+    void FindNearestTile()
+    {
+        GameObject[] tiles = GameObject.FindGameObjectsWithTag("MemoryTile");
+
+        float minDistance = Mathf.Infinity;
+        GameObject nearestTile = null;
+
+        foreach (GameObject tile in tiles)
+        {
+            float distance = Vector3.Distance(transform.position, tile.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestTile = tile;
+            }
+        }
+
+        targetTile = nearestTile;
+    }
+
     void MoveTowardsEnemy()
     {
         if (targetEnemy != null)
@@ -69,8 +111,10 @@ public class AllyTroop : MonoBehaviour
             {
                 if (distanceToEnemy > attackRange)
                 {
-                    Vector3 direction = (targetEnemy.transform.position - transform.position).normalized;
-                    transform.position = Vector3.MoveTowards(transform.position, targetEnemy.transform.position, moveSpeed * Time.deltaTime);
+                    if (agent != null)
+                    {
+                        agent.SetDestination(targetEnemy.transform.position);
+                    }
                 }
                 else
                 {
@@ -84,8 +128,10 @@ public class AllyTroop : MonoBehaviour
             {
                 if (distanceToEnemy > minDistanceToEnemy)
                 {
-                    Vector3 direction = (targetEnemy.transform.position - transform.position).normalized;
-                    transform.position = Vector3.MoveTowards(transform.position, targetEnemy.transform.position, moveSpeed * Time.deltaTime);
+                    if (agent != null)
+                    {
+                        agent.SetDestination(targetEnemy.transform.position);
+                    }
                 }
                 else
                 {
@@ -95,6 +141,30 @@ public class AllyTroop : MonoBehaviour
                     }
                 }
             }
+        }
+    }
+
+    void MoveTowardsTile()
+    {
+        if (targetTile != null && agent != null)
+        {
+            float distanceToTile = Vector3.Distance(transform.position, targetTile.transform.position);
+
+            // Set the stopping distance based on the distance to the tile
+            if (distanceToTile <= 5.0f)
+            {
+                agent.stoppingDistance = 0.0f; // Set stopping distance to 0 when close to the tile
+            }
+            else if (gameObject.tag == "Player")
+            {
+                agent.stoppingDistance = 2.0f; // Set a default stopping distance
+            }
+            else if (gameObject.tag == "AllyRanged")
+            {
+                agent.stoppingDistance = 5.0f;
+            }
+
+            agent.SetDestination(targetTile.transform.position);
         }
     }
 

@@ -31,6 +31,11 @@ public class CaptureZone : MonoBehaviour
             playerCount++;
             Debug.Log("Player entered the zone. Player count: " + playerCount);
         }
+        else if (other.CompareTag("AllyRanged"))
+        {
+            playerCount++;
+            Debug.Log("Player entered the zone. Player count: " + playerCount);
+        }
         else if (other.CompareTag("Enemy"))
         {
             enemyCount++;
@@ -54,6 +59,11 @@ public class CaptureZone : MonoBehaviour
         Debug.Log("Trigger exited by: " + other.gameObject.name);
 
         if (other.CompareTag("Player"))
+        {
+            playerCount--;
+            Debug.Log("Player left the zone. Player count: " + playerCount);
+        }
+        else if (other.CompareTag("AllyRanged"))
         {
             playerCount--;
             Debug.Log("Player left the zone. Player count: " + playerCount);
