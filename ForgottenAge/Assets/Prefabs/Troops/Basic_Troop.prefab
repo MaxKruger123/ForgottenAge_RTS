@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 2084216821032112502}
   - component: {fileID: 6945883943281157835}
   - component: {fileID: 4271834942883653057}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HealthBar
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -87,7 +87,7 @@ GameObject:
   - component: {fileID: 411013630051422477}
   - component: {fileID: 6049582347891058503}
   - component: {fileID: 4729004706638473977}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -188,7 +188,7 @@ GameObject:
   - component: {fileID: 5429968239790388520}
   - component: {fileID: 6438758436518463061}
   - component: {fileID: 579270782395264297}
-  m_Layer: 0
+  m_Layer: 5
   m_Name: HealthBarBG
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -333,7 +333,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 2
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0, g: 0.50561523, b: 1, a: 1}
+  m_Color: {r: 0.021804927, g: 0.05435971, b: 0.6603774, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
