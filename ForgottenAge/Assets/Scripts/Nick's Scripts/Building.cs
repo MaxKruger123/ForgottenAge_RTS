@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Building : MonoBehaviour
 {
-    public GameObject allyTroop;
-    
+    public GameObject allyTroopPrefab;
+    public GameObject rangedAllyTroopPrefab;
+    public GameObject recruitmentMenu;
+    public Concentration concentration;
+    public float spawnRadius = 4f;
+
+
     // Start is called before the first frame update
     void Start()
     {
@@ -23,16 +29,37 @@ public class Building : MonoBehaviour
         
         if (Input.GetMouseButtonDown(1)) 
         {
-            Debug.Log("Clicked");
-            SpawnTroop();
+            Vector3 mouseScreenPosition = Input.mousePosition;
+            recruitmentMenu.gameObject.SetActive(true);
+            recruitmentMenu.transform.position = mouseScreenPosition;
         }
     }
 
-    private void SpawnTroop()
+
+
+    public void SpawnTroop()
     {
-        GameObject troop = Instantiate(allyTroop, new Vector3(transform.position.x + 3, transform.position.y, transform.position.z), Quaternion.identity);
-        Debug.Log("Before setting rotation: " + troop.transform.rotation.eulerAngles);
-        troop.transform.rotation = Quaternion.Euler(0, 0, 0); // Force rotation to be strictly zero
-        Debug.Log("After setting rotation: " + troop.transform.rotation.eulerAngles);
+        if(concentration.GetConcentration() >= 5)
+        {
+            Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
+            Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
+
+            Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
+            concentration.SubtractConcentration(5);
+        }
+        
+    }
+
+    public void SpawnRangedTroop()
+    {
+        if (concentration.GetConcentration() >= 10)
+        {
+            Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
+            Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
+
+            Instantiate(rangedAllyTroopPrefab, new Vector2(transform.position.x + 3, transform.position.y), Quaternion.identity);
+            concentration.SubtractConcentration(10);
+        }
+           
     }
 }
