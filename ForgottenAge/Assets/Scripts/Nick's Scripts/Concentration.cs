@@ -19,7 +19,7 @@ public class Concentration : MonoBehaviour
     void Update()
     {
         concentrationText.text = "Concentration: " + concentration ;
-        ConcentrationIncome(1);
+        ConcentrationIncome(2);
     }
 
     public int GetConcentration()

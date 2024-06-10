@@ -8,6 +8,7 @@ public class Building : MonoBehaviour
     public GameObject allyTroopPrefab;
     public GameObject rangedAllyTroopPrefab;
     public GameObject recruitmentMenu;
+    public MenuManager menuManager;
     public Concentration concentration;
     public float spawnRadius = 4f;
 
@@ -15,6 +16,9 @@ public class Building : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        concentration = FindAnyObjectByType<Concentration>();
+        menuManager = concentration.gameObject.GetComponent<MenuManager>();
+        recruitmentMenu = menuManager.GetMenuObject("RecruitmentMenu");
         
     }
 
@@ -26,12 +30,12 @@ public class Building : MonoBehaviour
 
     private void OnMouseOver()
     {
-        
         if (Input.GetMouseButtonDown(1)) 
         {
             Vector3 mouseScreenPosition = Input.mousePosition;
             recruitmentMenu.gameObject.SetActive(true);
             recruitmentMenu.transform.position = mouseScreenPosition;
+            recruitmentMenu.GetComponent<RecruitmentMenu>().SetButton(gameObject.GetComponent<Building>());
         }
     }
 

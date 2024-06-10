@@ -5,7 +5,8 @@ using UnityEngine.UI;
 
 public class RecruitmentMenu : MonoBehaviour
 {
-    public Concentration concentration; 
+    public Concentration concentration;
+    public List<Button> buttons;
 
     
     // Start is called before the first frame update
@@ -19,20 +20,20 @@ public class RecruitmentMenu : MonoBehaviour
     {
         if(concentration.GetConcentration() < 5)
         {
-            gameObject.transform.GetChild(1).GetComponent<Button>().interactable = false;
+            buttons[0].interactable = false;
         }
         else
         {
-            gameObject.transform.GetChild(1).GetComponent<Button>().interactable = true;
+            buttons[0].interactable = true;
         }
 
         if(concentration.GetConcentration() < 10)
         {
-            gameObject.transform.GetChild(2).GetComponent<Button>().interactable = false;
+            buttons[1].interactable = false;
         }
         else
         {
-            gameObject.transform.GetChild(2).GetComponent<Button>().interactable = true;
+            buttons[1].interactable = true;
         }
     }
 
@@ -40,4 +41,13 @@ public class RecruitmentMenu : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+
+    public void SetButton(Building building)
+    {
+        buttons[0].onClick.RemoveAllListeners();
+        buttons[0].onClick.AddListener(() => building.SpawnTroop());
+        buttons[1].onClick.RemoveAllListeners();
+        buttons[1].onClick.AddListener(() => building.SpawnRangedTroop());
+    }
 }
+
