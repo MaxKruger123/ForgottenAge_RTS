@@ -37,6 +37,7 @@ public class MemoryTileConstruction : MonoBehaviour
         Instantiate(buildingPrefab, new Vector3(transform.position.x, transform.position.y, transform.position.z-0.5f),  Quaternion.identity);
         concentration.SubtractConcentration(20);
         numBuildings++;
+        constructionMenu.gameObject.SetActive(false);
     }
 
     // make it so that when a buidling is on a tile it stays captured

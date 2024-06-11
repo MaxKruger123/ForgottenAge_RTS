@@ -61,7 +61,7 @@ public class Building : MonoBehaviour
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
 
-            Instantiate(rangedAllyTroopPrefab, new Vector2(transform.position.x + 3, transform.position.y), Quaternion.identity);
+            Instantiate(rangedAllyTroopPrefab, spawnPosition, Quaternion.identity);
             concentration.SubtractConcentration(10);
         }
            
