@@ -8,6 +8,7 @@ public class Concentration : MonoBehaviour
 
     public TextMeshProUGUI concentrationText;
     public int concentration;
+    public int passiveConcentration;
 
     private float timeCounter;
 
@@ -19,7 +20,7 @@ public class Concentration : MonoBehaviour
     void Update()
     {
         concentrationText.text = "Concentration: " + concentration ;
-        ConcentrationIncome(2);
+        ConcentrationIncome(passiveConcentration);
     }
 
     public int GetConcentration()

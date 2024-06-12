@@ -12,7 +12,10 @@ public class WaveManager : MonoBehaviour
     public int[] enemiesPerWave; // Number of enemies to spawn in each wave
     private int currentWave = 0; // Current wave index
     private bool waveInProgress = false; // Flag to track if a wave is currently in progress
+    private int cardWaveCounter; // int to track how many waves until the next card icon appears
 
+    public CardScreen cardScreen; // reference to the card screen for card events
+    public int wavesUntilCardEvent;
     void Start()
     {
         StartCoroutine(StartWaveTimer());
@@ -36,6 +39,7 @@ public class WaveManager : MonoBehaviour
     void StartNextWave()
     {
         currentWave++;
+        cardWaveCounter++;
         timerText.text = "Wave " + currentWave.ToString();
 
         StartCoroutine(SpawnEnemies());
@@ -66,6 +70,22 @@ public class WaveManager : MonoBehaviour
 
         // End of wave, start countdown for next wave
         waveInProgress = false;
+
+        // if statement to check if the player should receive a card event
+        if(cardWaveCounter == wavesUntilCardEvent)
+        {
+            cardWaveCounter = 0;
+            cardScreen.ShowIconButton();
+        }
+        else
+        {
+            StartCoroutine(StartWaveTimer());
+        }
+    }
+
+    // public function so that a wave can be started after closing the card screen
+    public void StartWave()
+    {
         StartCoroutine(StartWaveTimer());
     }
 }
