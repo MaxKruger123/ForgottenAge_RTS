@@ -11,7 +11,7 @@ public class ProjectileArrow : MonoBehaviour
             EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
             if (enemyStats != null)
             {
-                enemyStats.TakeDamage(2.0f);
+                enemyStats.TakeDamage(1.0f);
                 
                 Destroy(gameObject);
             }
