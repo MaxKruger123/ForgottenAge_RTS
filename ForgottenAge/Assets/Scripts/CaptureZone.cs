@@ -19,27 +19,22 @@ public class CaptureZone : MonoBehaviour
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        Debug.Log("CaptureZone script initialized. SpriteRenderer found: " + (spriteRenderer != null));
+        //Debug.Log("CaptureZone script initialized. SpriteRenderer found: " + (spriteRenderer != null));
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        Debug.Log("Trigger entered by: " + other.gameObject.name);
+        //Debug.Log("Trigger entered by: " + other.gameObject.name);
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("AllyRanged"))
         {
             playerCount++;
-            Debug.Log("Player entered the zone. Player count: " + playerCount);
-        }
-        else if (other.CompareTag("AllyRanged"))
-        {
-            playerCount++;
-            Debug.Log("Player entered the zone. Player count: " + playerCount);
+            //Debug.Log("Player entered the zone. Player count: " + playerCount);
         }
         else if (other.CompareTag("Enemy"))
         {
             enemyCount++;
-            Debug.Log("Enemy entered the zone. Enemy count: " + enemyCount);
+            //Debug.Log("Enemy entered the zone. Enemy count: " + enemyCount);
         }
 
         if (uncaptureCoroutine != null)
@@ -56,27 +51,17 @@ public class CaptureZone : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        Debug.Log("Trigger exited by: " + other.gameObject.name);
+        //Debug.Log("Trigger exited by: " + other.gameObject.name);
 
-        if (other.CompareTag("Player"))
+        if (other.CompareTag("Player") || other.CompareTag("AllyRanged"))
         {
             playerCount--;
-            Debug.Log("Player left the zone. Player count: " + playerCount);
-        }
-        else if (other.CompareTag("AllyRanged"))
-        {
-            playerCount--;
-            Debug.Log("Player left the zone. Player count: " + playerCount);
+            //Debug.Log("Player left the zone. Player count: " + playerCount);
         }
         else if (other.CompareTag("Enemy"))
         {
             enemyCount--;
-            Debug.Log("Enemy left the zone. Enemy count: " + enemyCount);
-        }
-
-        if (playerCount == 0 && enemyCount == 0 && capturingSide != null)
-        {
-            uncaptureCoroutine = StartCoroutine(UncaptureZone());
+            //Debug.Log("Enemy left the zone. Enemy count: " + enemyCount);
         }
     }
 
@@ -92,7 +77,7 @@ public class CaptureZone : MonoBehaviour
                 }
 
                 captureProgress += Time.deltaTime;
-                Debug.Log("Player capturing the zone. Progress: " + captureProgress);
+                //Debug.Log("Player capturing the zone. Progress: " + captureProgress);
                 if (captureProgress >= captureTime)
                 {
                     Capture("Player");
@@ -101,7 +86,7 @@ public class CaptureZone : MonoBehaviour
             else
             {
                 captureProgress -= Time.deltaTime;
-                Debug.Log("Player reducing enemy capture. Progress: " + captureProgress);
+               // Debug.Log("Player reducing enemy capture. Progress: " + captureProgress);
                 if (captureProgress <= 0)
                 {
                     capturingSide = "Player";
@@ -119,7 +104,7 @@ public class CaptureZone : MonoBehaviour
                 }
 
                 captureProgress += Time.deltaTime;
-                Debug.Log("Enemy capturing the zone. Progress: " + captureProgress);
+                //Debug.Log("Enemy capturing the zone. Progress: " + captureProgress);
                 if (captureProgress >= captureTime)
                 {
                     Capture("Enemy");
@@ -128,7 +113,7 @@ public class CaptureZone : MonoBehaviour
             else
             {
                 captureProgress -= Time.deltaTime;
-                Debug.Log("Enemy reducing player capture. Progress: " + captureProgress);
+                //Debug.Log("Enemy reducing player capture. Progress: " + captureProgress);
                 if (captureProgress <= 0)
                 {
                     capturingSide = "Enemy";
@@ -138,14 +123,13 @@ public class CaptureZone : MonoBehaviour
         }
         else if (playerCount > 0 && enemyCount > 0)
         {
-            Debug.Log("Zone is contested.");
-            ResetFlashColor();
+            //Debug.Log("Zone is contested.");
         }
     }
 
     private void Capture(string side)
     {
-        Debug.Log($"{side} has captured the platform!");
+        //Debug.Log($"{side} has captured the platform!");
         captureProgress = captureTime; // Ensure capture progress is complete
         capturingSide = side;
 
@@ -162,6 +146,7 @@ public class CaptureZone : MonoBehaviour
         else if (side == "Enemy")
         {
             spriteRenderer.color = Color.red;
+            DestroyNearestBuilding(); // Destroy the nearest building when captured by enemy
         }
 
         // Add additional logic for what happens when the platform is captured
@@ -169,7 +154,7 @@ public class CaptureZone : MonoBehaviour
 
     private void ResetFlashColor()
     {
-        Debug.Log("Resetting flash color.");
+        //Debug.Log("Resetting flash color.");
         captureProgress = 0;
 
         if (flashCoroutine != null)
@@ -197,7 +182,7 @@ public class CaptureZone : MonoBehaviour
         capturingSide = null;
         captureProgress = 0;
         spriteRenderer.color = Color.white;
-        Debug.Log("Zone has become uncaptured.");
+        //Debug.Log("Zone has become uncaptured.");
     }
 
     private IEnumerator FlashColor(Color flashColor)
@@ -208,6 +193,30 @@ public class CaptureZone : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             spriteRenderer.color = Color.white;
             yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    private void DestroyNearestBuilding()
+    {
+        GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
+
+        float minDistance = Mathf.Infinity;
+        GameObject nearestBuilding = null;
+
+        foreach (GameObject building in buildings)
+        {
+            float distance = Vector3.Distance(transform.position, building.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestBuilding = building;
+            }
+        }
+
+        if (nearestBuilding != null)
+        {
+            Destroy(nearestBuilding);
+            Debug.Log("Destroyed building: " + nearestBuilding.name);
         }
     }
 }

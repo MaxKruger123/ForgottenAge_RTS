@@ -9,6 +9,7 @@ public class EnemyTroop : MonoBehaviour
     public float minDistanceToAlly = 1.5f; // Minimum distance to ally to avoid touching
 
     private AllyTroopStats targetAlly; // Reference to the nearest ally
+    private GameObject targetMemoryTile; // Reference to the nearest MemoryTile
     private bool isAttacking = false; // Flag to indicate if the enemy is attacking
     private NavMeshAgent agent; // Reference to the NavMeshAgent
 
@@ -63,6 +64,18 @@ public class EnemyTroop : MonoBehaviour
                     AttackAlly();
                 }
             }
+            else
+            {
+                FindNearestMemoryTile(); // Find the nearest MemoryTile if no ally is found
+
+                if (targetMemoryTile != null)
+                {
+                    if (agent != null && agent.isOnNavMesh)
+                    {
+                        agent.SetDestination(targetMemoryTile.transform.position);
+                    }
+                }
+            }
         }
     }
 
@@ -87,6 +100,26 @@ public class EnemyTroop : MonoBehaviour
         }
 
         targetAlly = nearestAlly;
+    }
+
+    void FindNearestMemoryTile()
+    {
+        GameObject[] memoryTiles = GameObject.FindGameObjectsWithTag("MemoryTile");
+
+        float minDistance = Mathf.Infinity;
+        GameObject nearestTile = null;
+
+        foreach (GameObject tile in memoryTiles)
+        {
+            float distance = Vector3.Distance(transform.position, tile.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestTile = tile;
+            }
+        }
+
+        targetMemoryTile = nearestTile;
     }
 
     void AttackAlly()

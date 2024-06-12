@@ -6,11 +6,12 @@ using UnityEngine.UI;
 public class ConstructionMenu : MonoBehaviour
 {
     public Concentration concentration;
+    public Button deconstructButton; // Reference to the deconstruct button
 
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -18,14 +19,13 @@ public class ConstructionMenu : MonoBehaviour
     {
         if (concentration.GetConcentration() < 20)
         {
-            gameObject.transform.GetChild(1).GetComponent<Button>().interactable = false;
+            deconstructButton.interactable = false;
         }
         else
         {
-            gameObject.transform.GetChild(1).GetComponent<Button>().interactable = true;
+            deconstructButton.interactable = true;
         }
     }
-
 
     public void HideMenu()
     {

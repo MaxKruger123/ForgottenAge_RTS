@@ -121,7 +121,7 @@ GameObject:
   - component: {fileID: 4953249232632933989}
   - component: {fileID: 2278883036439628074}
   - component: {fileID: -4334775169006875974}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Basic_Troop_Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
