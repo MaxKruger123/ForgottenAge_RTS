@@ -16,25 +16,28 @@ public class CaptureZone : MonoBehaviour
     private Coroutine flashCoroutine;
     private Coroutine uncaptureCoroutine;
 
+    private MemoryTile memoryTile; // Reference to the memory tile associated with this capture zone
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        //Debug.Log("CaptureZone script initialized. SpriteRenderer found: " + (spriteRenderer != null));
+        memoryTile = GetComponentInParent<MemoryTile>(); // Assuming the CaptureZone is a child of the MemoryTile
+
+        if (memoryTile == null)
+        {
+            Debug.LogError("MemoryTile component not found in parent of " + gameObject.name);
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        //Debug.Log("Trigger entered by: " + other.gameObject.name);
-
         if (other.CompareTag("Player") || other.CompareTag("AllyRanged"))
         {
             playerCount++;
-            //Debug.Log("Player entered the zone. Player count: " + playerCount);
         }
         else if (other.CompareTag("Enemy"))
         {
             enemyCount++;
-            //Debug.Log("Enemy entered the zone. Enemy count: " + enemyCount);
         }
 
         if (uncaptureCoroutine != null)
@@ -51,17 +54,13 @@ public class CaptureZone : MonoBehaviour
 
     private void OnTriggerExit2D(Collider2D other)
     {
-        //Debug.Log("Trigger exited by: " + other.gameObject.name);
-
         if (other.CompareTag("Player") || other.CompareTag("AllyRanged"))
         {
             playerCount--;
-            //Debug.Log("Player left the zone. Player count: " + playerCount);
         }
         else if (other.CompareTag("Enemy"))
         {
             enemyCount--;
-            //Debug.Log("Enemy left the zone. Enemy count: " + enemyCount);
         }
     }
 
@@ -77,7 +76,6 @@ public class CaptureZone : MonoBehaviour
                 }
 
                 captureProgress += Time.deltaTime;
-                //Debug.Log("Player capturing the zone. Progress: " + captureProgress);
                 if (captureProgress >= captureTime)
                 {
                     Capture("Player");
@@ -86,7 +84,6 @@ public class CaptureZone : MonoBehaviour
             else
             {
                 captureProgress -= Time.deltaTime;
-               // Debug.Log("Player reducing enemy capture. Progress: " + captureProgress);
                 if (captureProgress <= 0)
                 {
                     capturingSide = "Player";
@@ -104,7 +101,6 @@ public class CaptureZone : MonoBehaviour
                 }
 
                 captureProgress += Time.deltaTime;
-                //Debug.Log("Enemy capturing the zone. Progress: " + captureProgress);
                 if (captureProgress >= captureTime)
                 {
                     Capture("Enemy");
@@ -113,7 +109,6 @@ public class CaptureZone : MonoBehaviour
             else
             {
                 captureProgress -= Time.deltaTime;
-                //Debug.Log("Enemy reducing player capture. Progress: " + captureProgress);
                 if (captureProgress <= 0)
                 {
                     capturingSide = "Enemy";
@@ -123,13 +118,12 @@ public class CaptureZone : MonoBehaviour
         }
         else if (playerCount > 0 && enemyCount > 0)
         {
-            //Debug.Log("Zone is contested.");
+            // Zone is contested
         }
     }
 
     private void Capture(string side)
     {
-        //Debug.Log($"{side} has captured the platform!");
         captureProgress = captureTime; // Ensure capture progress is complete
         capturingSide = side;
 
@@ -146,15 +140,12 @@ public class CaptureZone : MonoBehaviour
         else if (side == "Enemy")
         {
             spriteRenderer.color = Color.red;
-            DestroyNearestBuilding(); // Destroy the nearest building when captured by enemy
+            DestroyBuildingOnTile(); // Destroy the building on this memory tile
         }
-
-        // Add additional logic for what happens when the platform is captured
     }
 
     private void ResetFlashColor()
     {
-        //Debug.Log("Resetting flash color.");
         captureProgress = 0;
 
         if (flashCoroutine != null)
@@ -182,7 +173,6 @@ public class CaptureZone : MonoBehaviour
         capturingSide = null;
         captureProgress = 0;
         spriteRenderer.color = Color.white;
-        //Debug.Log("Zone has become uncaptured.");
     }
 
     private IEnumerator FlashColor(Color flashColor)
@@ -196,27 +186,13 @@ public class CaptureZone : MonoBehaviour
         }
     }
 
-    private void DestroyNearestBuilding()
+    private void DestroyBuildingOnTile()
     {
-        GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
-
-        float minDistance = Mathf.Infinity;
-        GameObject nearestBuilding = null;
-
-        foreach (GameObject building in buildings)
+        if (memoryTile != null && memoryTile.building != null)
         {
-            float distance = Vector3.Distance(transform.position, building.transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                nearestBuilding = building;
-            }
-        }
-
-        if (nearestBuilding != null)
-        {
-            Destroy(nearestBuilding);
-            Debug.Log("Destroyed building: " + nearestBuilding.name);
+            Destroy(memoryTile.building);
+            memoryTile.building = null;
+            Debug.Log("Destroyed building on memory tile: " + memoryTile.name);
         }
     }
 }
