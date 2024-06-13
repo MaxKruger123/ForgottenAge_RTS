@@ -2640,6 +2640,16 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveManagera: {fileID: 1641135204}
+  drawnCards:
+  - {fileID: 2051761787}
+  - {fileID: 1967413680}
+  - {fileID: 1632645996}
+  cardImages:
+  - {fileID: 0}
+  - {fileID: 0}
+  image1: {fileID: 0}
+  image2: {fileID: 0}
+  image3: {fileID: 0}
 --- !u!224 &1172730930 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 1066397789194492311, guid: 580324b1ffb3eff4baa3a635fa400a78, type: 3}
@@ -2818,7 +2828,7 @@ PrefabInstance:
       objectReference: {fileID: 1164261986}
     - target: {fileID: 4243180876237676476, guid: 580324b1ffb3eff4baa3a635fa400a78, type: 3}
       propertyPath: m_Name
-      value: Card (2)
+      value: CardRight
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3191,7 +3201,7 @@ PrefabInstance:
       objectReference: {fileID: 1164261986}
     - target: {fileID: 4243180876237676476, guid: 580324b1ffb3eff4baa3a635fa400a78, type: 3}
       propertyPath: m_Name
-      value: Card (1)
+      value: CardLeft
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3337,6 +3347,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1632386408}
   m_CullTransparentMesh: 1
+--- !u!1 &1632645996 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4243180876237676476, guid: 580324b1ffb3eff4baa3a635fa400a78, type: 3}
+  m_PrefabInstance: {fileID: 1618590594}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1641135203
 GameObject:
   m_ObjectHideFlags: 0
@@ -12852,6 +12867,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1893392419}
   m_CullTransparentMesh: 1
+--- !u!1 &1967413680 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4243180876237676476, guid: 580324b1ffb3eff4baa3a635fa400a78, type: 3}
+  m_PrefabInstance: {fileID: 1201539116}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &2012331253
 GameObject:
   m_ObjectHideFlags: 0
@@ -12988,6 +13008,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2012331253}
   m_CullTransparentMesh: 1
+--- !u!1 &2051761787 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4243180876237676476, guid: 580324b1ffb3eff4baa3a635fa400a78, type: 3}
+  m_PrefabInstance: {fileID: 5783644188540006096}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &5783644188540006096
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13082,7 +13107,7 @@ PrefabInstance:
       objectReference: {fileID: 1164261986}
     - target: {fileID: 4243180876237676476, guid: 580324b1ffb3eff4baa3a635fa400a78, type: 3}
       propertyPath: m_Name
-      value: Card
+      value: CardMiddle
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
