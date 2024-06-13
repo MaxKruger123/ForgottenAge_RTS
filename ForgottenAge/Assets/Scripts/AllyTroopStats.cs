@@ -24,4 +24,20 @@ public class AllyTroopStats : MonoBehaviour
         currentHealth-= damage;
         healthBar.fillAmount = currentHealth / maxHealth;
     }
+
+    public void TakeHeals(float amount)
+    {
+        if (currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+        currentHealth += amount;
+
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+
+        healthBar.fillAmount = currentHealth / maxHealth;
+    }
 }

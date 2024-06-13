@@ -19,6 +19,7 @@ public class Building : MonoBehaviour
 
     public GameObject allyTroopPrefab;
     public GameObject rangedAllyTroopPrefab;
+    public GameObject rangedHealingTroopPrefab;
     public GameObject tankTroopPrefab;
     public GameObject recruitmentMenu;
     public GameObject recruitmentMenuTwo;
@@ -177,6 +178,18 @@ public class Building : MonoBehaviour
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
 
             Instantiate(rangedAllyTroopPrefab, spawnPosition, Quaternion.identity);
+            concentration.SubtractConcentration(10);
+        }
+    }
+
+    public void SpawnHealingTroop()
+    {
+        if (concentration.GetConcentration() >= 10)
+        {
+            Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
+            Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
+
+            Instantiate(rangedHealingTroopPrefab, spawnPosition, Quaternion.identity);
             concentration.SubtractConcentration(10);
         }
     }

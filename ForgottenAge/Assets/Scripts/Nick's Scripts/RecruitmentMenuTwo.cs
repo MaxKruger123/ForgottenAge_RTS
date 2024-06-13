@@ -51,7 +51,7 @@ public class RecruitmentMenuTwo : MonoBehaviour
         buttons[0].onClick.RemoveAllListeners();
         buttons[0].onClick.AddListener(() => building.SpawnTankTroop());
         buttons[1].onClick.RemoveAllListeners();
-        buttons[1].onClick.AddListener(() => building.SpawnRangedTroop());
+        buttons[1].onClick.AddListener(() => building.SpawnHealingTroop());
     }
 }
 

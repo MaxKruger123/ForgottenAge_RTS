@@ -10,6 +10,7 @@ TagManager:
   - MemoryTile
   - Building
   - EnemyRanged
+  - AllyHealing
   layers:
   - Default
   - TransparentFX

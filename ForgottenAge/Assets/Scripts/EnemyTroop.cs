@@ -102,7 +102,7 @@ public class EnemyTroop : MonoBehaviour
 
         foreach (AllyTroopStats ally in allyTroops)
         {
-            if (ally.gameObject.CompareTag("Player") || ally.gameObject.CompareTag("AllyRanged"))
+            if (ally.gameObject.CompareTag("Player") || ally.gameObject.CompareTag("AllyRanged") || ally.gameObject.CompareTag("AllyHealing"))
             {
                 float distance = Vector3.Distance(transform.position, ally.transform.position);
                 if (distance < minDistance)

@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 21300000, guid: 7e78fec3c40a27740ae21c037b472e96, type: 3}
+  m_Sprite: {fileID: 21300000, guid: bc00664636daa0b4baa00d5ade19dd99, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -107,6 +107,7 @@ MonoBehaviour:
   detectionRadius: 5
   allyTroopPrefab: {fileID: 6464976520044434357, guid: 717e7c35b08466842bbd5ab4e5cd15c2, type: 3}
   rangedAllyTroopPrefab: {fileID: 58733520159805711, guid: 098d91fdab547374687494ffa5ab23e1, type: 3}
+  rangedHealingTroopPrefab: {fileID: 250734653409300052, guid: 19746bc7554b77141bab1cea2bfba77c, type: 3}
   tankTroopPrefab: {fileID: 6561206551077574663, guid: 66087d2cff289d14da5e212c7eae9709, type: 3}
   recruitmentMenu: {fileID: 0}
   recruitmentMenuTwo: {fileID: 0}

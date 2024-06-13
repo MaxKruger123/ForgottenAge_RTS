@@ -79,7 +79,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 2
-  m_Sprite: {fileID: 21300000, guid: 2efc4e4b06201ec458813fa5e178b6c5, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1ec221dadbe4ec14e89b8656d8822e20, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -192,6 +192,7 @@ MonoBehaviour:
   attackRange: 7
   minDistanceToEnemy: 7
   projectilePrefab: {fileID: 986697290854198135, guid: 5225898369b354d478a6b2fcf2f8cdfc, type: 3}
+  healingProjectilePrefab: {fileID: 0}
   projectileSpeed: 10
   targetTile: {fileID: 0}
 --- !u!195 &-4291230968391600590
