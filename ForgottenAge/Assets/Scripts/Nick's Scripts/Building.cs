@@ -6,7 +6,8 @@ public class Building : MonoBehaviour
     public enum BuildingType
     {
         Default,
-        DefenseTower
+        DefenseTower,
+        UpgradedBarracks
     }
 
     public BuildingType buildingType = BuildingType.Default;
@@ -18,7 +19,9 @@ public class Building : MonoBehaviour
 
     public GameObject allyTroopPrefab;
     public GameObject rangedAllyTroopPrefab;
+    public GameObject tankTroopPrefab;
     public GameObject recruitmentMenu;
+    public GameObject recruitmentMenuTwo;
     public MenuManager menuManager;
 
     public MemoryTileConstruction memoryTile;
@@ -32,6 +35,7 @@ public class Building : MonoBehaviour
         concentration = FindAnyObjectByType<Concentration>();
         menuManager = concentration.gameObject.GetComponent<MenuManager>();
         recruitmentMenu = menuManager.GetMenuObject("RecruitmentMenu");
+        recruitmentMenuTwo = menuManager.GetMenuObject("RecruitmentMenuTwo");
 
         // Start shooting coroutine for defense towers
         if (buildingType == BuildingType.DefenseTower)
@@ -103,7 +107,7 @@ public class Building : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.Default)
         {
             // Set the selected building to this building
             MemoryTileConstruction.selectedBuilding = this;
@@ -112,6 +116,25 @@ public class Building : MonoBehaviour
             recruitmentMenu.gameObject.SetActive(true);
             recruitmentMenu.transform.position = mouseScreenPosition;
             recruitmentMenu.GetComponent<RecruitmentMenu>().SetButton(gameObject.GetComponent<Building>());
+        } else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.DefenseTower)
+        {
+            // Set the selected building to this building
+            MemoryTileConstruction.selectedBuilding = this;
+
+            Vector3 mouseScreenPosition = Input.mousePosition;
+            recruitmentMenu.gameObject.SetActive(true);
+            recruitmentMenu.transform.position = mouseScreenPosition;
+            recruitmentMenu.GetComponent<RecruitmentMenu>().SetButton(gameObject.GetComponent<Building>());
+        }
+        else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.UpgradedBarracks)
+        {
+            // Set the selected building to this building
+            MemoryTileConstruction.selectedBuilding = this;
+
+            Vector3 mouseScreenPosition = Input.mousePosition;
+            recruitmentMenuTwo.gameObject.SetActive(true);
+            recruitmentMenuTwo.transform.position = mouseScreenPosition;
+            recruitmentMenuTwo.GetComponent<RecruitmentMenuTwo>().SetButton(gameObject.GetComponent<Building>());
         }
     }
 
@@ -124,6 +147,25 @@ public class Building : MonoBehaviour
 
             Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
             concentration.SubtractConcentration(5);
+        }
+    }
+
+    public void SpawnTankTroop()
+    {
+        
+        if (concentration.GetConcentration() >= 25)
+        {
+            Debug.Log("Spawn Tank Troop");
+            Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
+            Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
+
+            Instantiate(tankTroopPrefab, spawnPosition, Quaternion.identity);
+            concentration.SubtractConcentration(25);
+
+        }
+        else
+        {
+            Debug.Log("Error");
         }
     }
 

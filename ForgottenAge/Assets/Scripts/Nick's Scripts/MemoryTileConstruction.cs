@@ -8,6 +8,7 @@ public class MemoryTileConstruction : MonoBehaviour
     public GameObject constructionMenu;
     public GameObject buildingPrefab;
     public GameObject defenseTowerPrefab;
+    public GameObject upgradedBarracksPrefab;
     public int numBuildings;
 
     public static MemoryTileConstruction selectedTile; // Track the selected tile for construction
@@ -65,6 +66,25 @@ public class MemoryTileConstruction : MonoBehaviour
         {
             GameObject currentBuilding = Instantiate(defenseTowerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(20);
+            selectedTile.numBuildings++;
+            currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
+            constructionMenu.SetActive(false);
+            selectedTile = null; // Clear the selected tile
+        }
+        else
+        {
+            Debug.Log("No tile selected or tile already has a building.");
+        }
+
+
+    }
+
+    public void ConstructUpgradedBarracks()
+    {
+        if (selectedTile != null && selectedTile.numBuildings < 1)
+        {
+            GameObject currentBuilding = Instantiate(upgradedBarracksPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
+            concentration.SubtractConcentration(50);
             selectedTile.numBuildings++;
             currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
             constructionMenu.SetActive(false);
