@@ -7,11 +7,16 @@ public class EnemyTroop : MonoBehaviour
 {
     public float attackRange = 2f; // Range for attacking
     public float minDistanceToAlly = 1.5f; // Minimum distance to ally to avoid touching
+    public float rangedAttackRange = 5f; // Range for ranged attacking
+    public GameObject projectilePrefab; // Projectile prefab to be shot by the ranged enemy
+    public float projectileSpeed = 10f; // Speed of the projectile
+    public float shootInterval = 1f; // Interval between shots
 
     private AllyTroopStats targetAlly; // Reference to the nearest ally
     private GameObject targetMemoryTile; // Reference to the nearest MemoryTile
     private bool isAttacking = false; // Flag to indicate if the enemy is attacking
     private NavMeshAgent agent; // Reference to the NavMeshAgent
+    private Coroutine shootingCoroutine; // Coroutine for shooting
 
     void Start()
     {
@@ -58,10 +63,19 @@ public class EnemyTroop : MonoBehaviour
                         agent.SetDestination(targetAlly.transform.position);
                     }
                 }
-                else
+                else if (gameObject.tag == "Enemy")
                 {
                     // Attack the ally when in range
                     AttackAlly();
+                }
+                else if (gameObject.tag == "EnemyRanged")
+                {
+                    // Stop moving and shoot the ally
+                    agent.ResetPath();
+                    if (shootingCoroutine == null)
+                    {
+                        shootingCoroutine = StartCoroutine(ShootAlly());
+                    }
                 }
             }
             else
@@ -138,5 +152,28 @@ public class EnemyTroop : MonoBehaviour
     {
         yield return new WaitForSeconds(2.0f); // Adjust the duration as needed
         isAttacking = false;
+    }
+
+    IEnumerator ShootAlly()
+    {
+        while (true)
+        {
+            if (targetAlly != null)
+            {
+                Vector3 direction = (targetAlly.transform.position - transform.position).normalized;
+                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+            }
+
+            yield return new WaitForSeconds(shootInterval);
+        }
+    }
+
+    private void OnDestroy()
+    {
+        if (shootingCoroutine != null)
+        {
+            StopCoroutine(shootingCoroutine);
+        }
     }
 }

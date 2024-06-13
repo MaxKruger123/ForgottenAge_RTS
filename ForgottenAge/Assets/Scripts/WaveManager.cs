@@ -3,13 +3,19 @@ using TMPro;
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
+public class Wave
+{
+    public List<GameObject> enemyPrefabs; // List of enemy prefabs for this wave
+    public int enemiesToSpawn; // Number of enemies to spawn in this wave
+}
+
 public class WaveManager : MonoBehaviour
 {
     public TMP_Text timerText; // Reference to the TextMeshPro text element displaying the timer
     public float waveDuration = 20f; // Duration of each wave
-    public GameObject enemyPrefab; // Reference to the enemy prefab
     public Transform[] spawnPoints; // Array of spawn points for enemies
-    public int[] enemiesPerWave; // Number of enemies to spawn in each wave
+    public List<Wave> waves; // List of waves
     private int currentWave = 0; // Current wave index
     private bool waveInProgress = false; // Flag to track if a wave is currently in progress
 
@@ -35,20 +41,32 @@ public class WaveManager : MonoBehaviour
 
     void StartNextWave()
     {
-        currentWave++;
-        timerText.text = "Wave " + currentWave.ToString();
+        if (currentWave < waves.Count)
+        {
+            currentWave++;
+            timerText.text = "Wave " + currentWave.ToString();
 
-        StartCoroutine(SpawnEnemies());
+            StartCoroutine(SpawnEnemies());
+        }
+        else
+        {
+            timerText.text = "All Waves Completed!";
+        }
     }
 
     IEnumerator SpawnEnemies()
     {
         waveInProgress = true;
 
-        // Spawn enemies for the current wave
-        int enemiesToSpawn = enemiesPerWave[currentWave - 1];
+        // Get the current wave
+        Wave wave = waves[currentWave - 1];
+        int enemiesToSpawn = wave.enemiesToSpawn;
+
         for (int i = 0; i < enemiesToSpawn; i++)
         {
+            // Choose a random enemy prefab from the list
+            GameObject enemyPrefab = wave.enemyPrefabs[Random.Range(0, wave.enemyPrefabs.Count)];
+
             // Choose a spawn point based on the index
             int spawnPointIndex = i % spawnPoints.Length;
             Vector3 spawnPosition = spawnPoints[spawnPointIndex].position;
@@ -59,7 +77,7 @@ public class WaveManager : MonoBehaviour
         }
 
         // Check if all enemies are dead
-        while (GameObject.FindWithTag("Enemy") != null)
+        while (GameObject.FindWithTag("Enemy") != null && GameObject.FindWithTag("EnemyRanged") != null)
         {
             yield return null;
         }

@@ -30,7 +30,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.56, y: -0.05, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 1.4, y: 1.4, z: 1.4}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -76,8 +76,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.4433962, g: 0.4433962, b: 0.4433962, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 8341ac859421f674ebf1433059d22adf, type: 3}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -99,10 +99,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 51f2ce553371f03458c176bc1d6403f5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  buildingType: 0
+  projectilePrefab: {fileID: 0}
+  projectileSpeed: 10
+  shootInterval: 1
+  shootTimer: 0
+  detectionRadius: 5
   allyTroopPrefab: {fileID: 6464976520044434357, guid: 717e7c35b08466842bbd5ab4e5cd15c2, type: 3}
   rangedAllyTroopPrefab: {fileID: 58733520159805711, guid: 098d91fdab547374687494ffa5ab23e1, type: 3}
+  tankTroopPrefab: {fileID: 0}
   recruitmentMenu: {fileID: 0}
+  recruitmentMenuTwo: {fileID: 0}
   menuManager: {fileID: 0}
+  memoryTile: {fileID: 0}
   concentration: {fileID: 0}
   spawnRadius: 5
 --- !u!61 &63747561332078797
@@ -141,7 +150,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 2.9, y: 2.23}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

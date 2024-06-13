@@ -9,6 +9,7 @@ TagManager:
   - AllyRanged
   - MemoryTile
   - Building
+  - EnemyRanged
   layers:
   - Default
   - TransparentFX

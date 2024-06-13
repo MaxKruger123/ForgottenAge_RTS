@@ -67,7 +67,7 @@ public class AllyTroop : MonoBehaviour
 
         foreach (EnemyStats enemy in enemyTroops)
         {
-            if (enemy.gameObject.CompareTag("Enemy"))
+            if (enemy.gameObject.CompareTag("Enemy") || enemy.gameObject.CompareTag("EnemyRanged"))
             {
                 float distance = Vector3.Distance(transform.position, enemy.transform.position);
                 if (distance < minDistance)
@@ -150,12 +150,8 @@ public class AllyTroop : MonoBehaviour
         {
             float distanceToTile = Vector3.Distance(transform.position, targetTile.transform.position);
 
-            // Set the stopping distance based on the distance to the tile
-            if (distanceToTile <= 5.0f)
-            {
-                agent.stoppingDistance = 0.0f; // Set stopping distance to 0 when close to the tile
-            }
-            else if (gameObject.tag == "Player")
+            
+            if (gameObject.tag == "Player")
             {
                 agent.stoppingDistance = 2.0f; // Set a default stopping distance
             }
@@ -214,7 +210,7 @@ public class AllyTroop : MonoBehaviour
                 FindNearestEnemy();
             }
 
-            yield return new WaitForSeconds(1.0f);
+            yield return new WaitForSeconds(1f);
         }
 
         isAttacking = false;

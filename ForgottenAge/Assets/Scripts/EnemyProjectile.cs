@@ -2,9 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ProjectileArrow : MonoBehaviour
+public class EnemyProjectile : MonoBehaviour
 {
-
     void Start()
     {
         Destroy(gameObject, 5f);
@@ -12,13 +11,13 @@ public class ProjectileArrow : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy") || collision.CompareTag("EnemyRanged"))
+        if (collision.CompareTag("Player") || collision.CompareTag("AllyRanged"))
         {
-            EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
-            if (enemyStats != null)
+            AllyTroopStats allyTroopStats = collision.GetComponent<AllyTroopStats>();
+            if (allyTroopStats != null)
             {
-                enemyStats.TakeDamage(1.0f);
-                
+                allyTroopStats.TakeDamage(1.0f);
+
                 Destroy(gameObject);
             }
         }
@@ -26,6 +25,6 @@ public class ProjectileArrow : MonoBehaviour
 
     void Update()
     {
-        
+
     }
 }
