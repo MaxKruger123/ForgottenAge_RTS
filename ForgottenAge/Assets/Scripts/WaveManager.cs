@@ -77,12 +77,12 @@ public class WaveManager : MonoBehaviour
 
             // Instantiate enemy at the chosen spawn point
             Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-            
+
             yield return new WaitForSeconds(1f); // Adjust this delay as needed
         }
 
         // Check if all enemies are dead
-        while (GameObject.FindWithTag("Enemy") != null && GameObject.FindWithTag("EnemyRanged") != null)
+        while (GameObject.FindGameObjectWithTag("Enemy") != null || GameObject.FindGameObjectWithTag("EnemyRanged") != null)
         {
             yield return null;
         }
@@ -90,7 +90,7 @@ public class WaveManager : MonoBehaviour
         // End of wave, start countdown for next wave
         waveInProgress = false;
 
-        // if statement to check if the player should receive a card event
+        // Check if the player should receive a card event
         if (cardWaveCounter == wavesUntilCardEvent)
         {
             cardWaveCounter = 0;
@@ -102,7 +102,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    // public function so that a wave can be started after closing the card screen
+    // Public function so that a wave can be started after closing the card screen
     public void StartWave()
     {
         StartCoroutine(StartWaveTimer());
