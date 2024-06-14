@@ -7,16 +7,23 @@ public class AllyTroop : MonoBehaviour
 {
     public float attackRange = 2f; // Range for attacking
     public float minDistanceToEnemy = 1.5f; // Minimum distance to enemy to avoid touching
-    public float rangedAttackRange = 5f; // Range for ranged attacking
+    public float rangedAttackRange = 7f; // Range for ranged attacking
     public GameObject projectilePrefab; // Projectile prefab to be shot by the ranged ally
     public float projectileSpeed = 10f; // Speed of the projectile
     public float shootInterval = 1f; // Interval between shots
 
+    public float healRange = 5f; // Range for healing
+    public float healAmount = 10f; // Amount of health to restore
+    public GameObject healingProjectilePrefab; // Projectile prefab for healing
+    public float healInterval = 2f; // Interval between heals
+
     private EnemyTroop targetEnemy; // Reference to the nearest enemy
     private GameObject targetMemoryTile; // Reference to the nearest MemoryTile
+    private AllyTroop targetAlly; // Reference to the nearest ally to heal
     private bool isAttacking = false; // Flag to indicate if the ally is attacking
     private NavMeshAgent agent; // Reference to the NavMeshAgent
     private Coroutine shootingCoroutine; // Coroutine for shooting
+    private Coroutine healingCoroutine; // Coroutine for healing
 
     void Start()
     {
@@ -70,13 +77,15 @@ public class AllyTroop : MonoBehaviour
                 }
                 else if (gameObject.CompareTag("AllyRanged"))
                 {
-                    
                     // Stop moving and shoot the enemy
                     agent.ResetPath();
                     if (shootingCoroutine == null)
                     {
-                        
-                        shootingCoroutine = StartCoroutine(ShootEnemy());
+                        // Check if enemy is within ranged attack range
+                        if (distanceToEnemy < rangedAttackRange)
+                        {
+                            shootingCoroutine = StartCoroutine(ShootEnemy());
+                        }
                     }
                 }
             }
@@ -105,6 +114,37 @@ public class AllyTroop : MonoBehaviour
                     }
                 }
             }
+
+            if (gameObject.CompareTag("AllyHealing"))
+            {
+                if (targetAlly == null || targetAlly.GetComponent<AllyTroopStats>().currentHealth >= targetAlly.GetComponent<AllyTroopStats>().maxHealth)
+                {
+                    FindNearestAllyToHeal(); // Find the nearest ally to heal with lowest health
+                }
+
+                if (targetAlly != null)
+                {
+                    float distanceToAlly = Vector3.Distance(transform.position, targetAlly.transform.position);
+
+                    // Move towards the ally, but maintain heal range
+                    if (distanceToAlly > healRange)
+                    {
+                        if (agent != null && agent.isOnNavMesh)
+                        {
+                            agent.SetDestination(targetAlly.transform.position);
+                        }
+                    }
+                    else
+                    {
+                        // Heal the ally when in range
+                        agent.ResetPath();
+                        if (healingCoroutine == null)
+                        {
+                            healingCoroutine = StartCoroutine(ShootHealingProjectile());
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -117,14 +157,12 @@ public class AllyTroop : MonoBehaviour
 
         foreach (EnemyTroop enemy in enemyTroops)
         {
-            
-                float distance = Vector3.Distance(transform.position, enemy.transform.position);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearestEnemy = enemy;
-                }
-            
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestEnemy = enemy;
+            }
         }
 
         targetEnemy = nearestEnemy;
@@ -173,6 +211,32 @@ public class AllyTroop : MonoBehaviour
         targetMemoryTile = nearestTile;
     }
 
+    void FindNearestAllyToHeal()
+    {
+        AllyTroop[] allyTroops = FindObjectsOfType<AllyTroop>();
+
+        float minDistance = Mathf.Infinity;
+        float minHealth = Mathf.Infinity;
+        AllyTroop nearestAlly = null;
+
+        foreach (AllyTroop ally in allyTroops)
+        {
+            float allyHealth = ally.GetComponent<AllyTroopStats>().currentHealth;
+            if (ally != this && allyHealth < ally.GetComponent<AllyTroopStats>().maxHealth)
+            {
+                float distance = Vector3.Distance(transform.position, ally.transform.position);
+                if (allyHealth < minHealth || (allyHealth == minHealth && distance < minDistance))
+                {
+                    minHealth = allyHealth;
+                    minDistance = distance;
+                    nearestAlly = ally;
+                }
+            }
+        }
+
+        targetAlly = nearestAlly;
+    }
+
     void AttackEnemy()
     {
         // Perform attack on the enemy
@@ -196,15 +260,33 @@ public class AllyTroop : MonoBehaviour
     {
         while (targetEnemy != null)
         {
-           
-            Vector3 direction = (targetEnemy.transform.position - transform.position).normalized;
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+            // Check distance again to ensure enemy is still within range
+            float distanceToEnemy = Vector3.Distance(transform.position, targetEnemy.transform.position);
+            if (distanceToEnemy <= rangedAttackRange)
+            {
+                Vector3 direction = (targetEnemy.transform.position - transform.position).normalized;
+                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+            }
 
             yield return new WaitForSeconds(shootInterval);
         }
 
         shootingCoroutine = null;
+    }
+
+    IEnumerator ShootHealingProjectile()
+    {
+        while (targetAlly != null && targetAlly.GetComponent<AllyTroopStats>().currentHealth < targetAlly.GetComponent<AllyTroopStats>().maxHealth)
+        {
+            Vector3 direction = (targetAlly.transform.position - transform.position).normalized;
+            GameObject healingProjectile = Instantiate(healingProjectilePrefab, transform.position, Quaternion.identity);
+            healingProjectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+
+            yield return new WaitForSeconds(healInterval);
+        }
+
+        healingCoroutine = null;
     }
 
     private void OnDestroy()
@@ -213,5 +295,11 @@ public class AllyTroop : MonoBehaviour
         {
             StopCoroutine(shootingCoroutine);
         }
+        if (healingCoroutine != null)
+        {
+            StopCoroutine(healingCoroutine);
+        }
     }
+
 }
+
