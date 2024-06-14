@@ -16,6 +16,10 @@ public class CaptureZone : MonoBehaviour
     private Coroutine flashCoroutine;
     private Coroutine uncaptureCoroutine;
 
+    public TileController tileController;
+
+    public bool captureFlag = false;
+
     private MemoryTile memoryTile; // Reference to the memory tile associated with this capture zone
 
     private void Start()
@@ -104,6 +108,7 @@ public class CaptureZone : MonoBehaviour
                 if (captureProgress >= captureTime)
                 {
                     Capture("Enemy");
+                    
                 }
             }
             else
@@ -133,14 +138,18 @@ public class CaptureZone : MonoBehaviour
             flashCoroutine = null;
         }
 
-        if (side == "Player")
+        if (side == "Player" && !captureFlag)
         {
             spriteRenderer.color = Color.blue;
+            tileController.tilesCaptured++;
+            captureFlag = true;
+
         }
-        else if (side == "Enemy")
+        else if (side == "Enemy" && !captureFlag)
         {
             spriteRenderer.color = Color.red;
-            DestroyBuildingOnTile(); // Destroy the building on this memory tile
+            tileController.tilesCaptured--;
+            captureFlag = true;
         }
     }
 
@@ -155,6 +164,7 @@ public class CaptureZone : MonoBehaviour
         }
 
         spriteRenderer.color = Color.white; // Reset to default color when contested or neutral
+        
     }
 
     private IEnumerator UncaptureZone()
@@ -173,6 +183,7 @@ public class CaptureZone : MonoBehaviour
         capturingSide = null;
         captureProgress = 0;
         spriteRenderer.color = Color.white;
+        
     }
 
     private IEnumerator FlashColor(Color flashColor)
@@ -183,6 +194,7 @@ public class CaptureZone : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             spriteRenderer.color = Color.white;
             yield return new WaitForSeconds(0.5f);
+            captureFlag = false;
         }
     }
 

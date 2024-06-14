@@ -11,15 +11,20 @@ public class Concentration : MonoBehaviour
 
     private float timeCounter;
 
+    public TileController tileController;
+
+    public int income;
+
     void Start()
     {
-
+        income = 2 + tileController.tilesCaptured;
     }
 
     void Update()
     {
         concentrationText.text = "Concentration: " + concentration ;
-        ConcentrationIncome(2);
+        ConcentrationIncome(2 + tileController.tilesCaptured);
+        income = 2 + tileController.tilesCaptured;
     }
 
     public int GetConcentration()
