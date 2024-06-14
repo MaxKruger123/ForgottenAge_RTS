@@ -18,6 +18,8 @@ public class CaptureZone : MonoBehaviour
 
     public TileController tileController;
 
+    public bool captured = false;
+
     public bool captureFlag = false;
 
     private MemoryTile memoryTile; // Reference to the memory tile associated with this capture zone
@@ -142,6 +144,7 @@ public class CaptureZone : MonoBehaviour
         {
             spriteRenderer.color = Color.blue;
             tileController.tilesCaptured++;
+            captured = true;
             captureFlag = true;
 
         }
@@ -149,6 +152,7 @@ public class CaptureZone : MonoBehaviour
         {
             spriteRenderer.color = Color.red;
             tileController.tilesCaptured--;
+            captured = false;
             captureFlag = true;
         }
     }

@@ -21,6 +21,17 @@ public class EnemyProjectile : MonoBehaviour
                 Destroy(gameObject);
             }
         }
+        else if(collision.CompareTag("Building"))
+        {
+            BuildingStats buildingStats = collision.GetComponent<BuildingStats>();
+
+            if (buildingStats != null)
+            {
+                buildingStats.TakeDamage(1.0f);
+
+                Destroy(gameObject);
+            }
+        }
     }
 
     void Update()

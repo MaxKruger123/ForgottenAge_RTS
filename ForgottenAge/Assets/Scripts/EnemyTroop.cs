@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -14,7 +13,7 @@ public class EnemyTroop : MonoBehaviour
 
     private AllyTroopStats targetAlly; // Reference to the nearest ally
     private GameObject targetMemoryTile; // Reference to the nearest MemoryTile
-    private GameObject targetBuilding; // Reference to the nearest building
+    public GameObject targetBuilding; // Reference to the nearest building
     private bool isAttacking = false; // Flag to indicate if the enemy is attacking
     private NavMeshAgent agent; // Reference to the NavMeshAgent
     private Coroutine shootingCoroutine; // Coroutine for shooting
@@ -64,12 +63,12 @@ public class EnemyTroop : MonoBehaviour
                         agent.SetDestination(targetAlly.transform.position);
                     }
                 }
-                else if (gameObject.tag == "Enemy")
+                else if (gameObject.CompareTag("Enemy"))
                 {
                     // Attack the ally when in range
                     AttackAlly();
                 }
-                else if (gameObject.tag == "EnemyRanged")
+                else if (gameObject.CompareTag("EnemyRanged"))
                 {
                     // Stop moving and shoot the ally
                     agent.ResetPath();
@@ -87,18 +86,34 @@ public class EnemyTroop : MonoBehaviour
                 {
                     float distanceToBuilding = Vector3.Distance(transform.position, targetBuilding.transform.position);
 
-                    // Move towards the building
-                    if (distanceToBuilding > attackRange)
+                    if (gameObject.CompareTag("Enemy") && distanceToBuilding > attackRange || gameObject.CompareTag("EnemyRanged") && distanceToBuilding > rangedAttackRange)
                     {
                         if (agent != null && agent.isOnNavMesh)
                         {
-                            agent.SetDestination(targetBuilding.transform.position);
+                            if (gameObject.CompareTag("Enemy"))
+                            {
+                                agent.SetDestination(targetBuilding.transform.position);
+                            }
+                            else if(gameObject.CompareTag("EnemyRanged"))
+                            {
+                                agent.SetDestination(targetBuilding.transform.position);
+                            }
+
                         }
                     }
-                    else
+                    else if (gameObject.CompareTag("Enemy") && distanceToBuilding <= attackRange)
                     {
                         // Attack the building when in range
                         AttackBuilding();
+                    }
+                    else if (gameObject.CompareTag("EnemyRanged") && distanceToBuilding <= rangedAttackRange)
+                    {
+                        // Stop moving and shoot the building
+                        agent.ResetPath();
+                        if (shootingCoroutine == null)
+                        {
+                            shootingCoroutine = StartCoroutine(ShootBuilding());
+                        }
                     }
                 }
                 else
@@ -198,10 +213,10 @@ public class EnemyTroop : MonoBehaviour
         if (targetBuilding != null)
         {
             // Assuming the building has a Health component
-            BuildingStats buildingstats = targetBuilding.GetComponent<BuildingStats>();
-            if (buildingstats != null)
+            BuildingStats buildingHealth = targetBuilding.GetComponent<BuildingStats>();
+            if (buildingHealth != null)
             {
-                buildingstats.TakeDamage(1.0f);
+                buildingHealth.TakeDamage(1.0f);
             }
 
             // Set flag to indicate attacking
@@ -220,17 +235,30 @@ public class EnemyTroop : MonoBehaviour
 
     IEnumerator ShootAlly()
     {
-        while (true)
+        while (targetAlly != null)
         {
-            if (targetAlly != null)
-            {
-                Vector3 direction = (targetAlly.transform.position - transform.position).normalized;
-                GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-                projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
-            }
+            Vector3 direction = (targetAlly.transform.position - transform.position).normalized;
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
 
             yield return new WaitForSeconds(shootInterval);
         }
+
+        shootingCoroutine = null;
+    }
+
+    IEnumerator ShootBuilding()
+    {
+        while (targetBuilding != null)
+        {
+            Vector3 direction = (targetBuilding.transform.position - transform.position).normalized;
+            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+            projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+
+            yield return new WaitForSeconds(shootInterval);
+        }
+
+        shootingCoroutine = null;
     }
 
     private void OnDestroy()

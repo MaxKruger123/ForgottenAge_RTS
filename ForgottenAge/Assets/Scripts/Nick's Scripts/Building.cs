@@ -119,13 +119,7 @@ public class Building : MonoBehaviour
             recruitmentMenu.GetComponent<RecruitmentMenu>().SetButton(gameObject.GetComponent<Building>());
         } else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.DefenseTower)
         {
-            // Set the selected building to this building
-            MemoryTileConstruction.selectedBuilding = this;
-
-            Vector3 mouseScreenPosition = Input.mousePosition;
-            recruitmentMenu.gameObject.SetActive(true);
-            recruitmentMenu.transform.position = mouseScreenPosition;
-            recruitmentMenu.GetComponent<RecruitmentMenu>().SetButton(gameObject.GetComponent<Building>());
+            
         }
         else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.UpgradedBarracks)
         {

@@ -10,6 +10,7 @@ public class MemoryTileConstruction : MonoBehaviour
     public GameObject defenseTowerPrefab;
     public GameObject upgradedBarracksPrefab;
     public int numBuildings;
+    public CaptureZone captureZone;
 
     public static MemoryTileConstruction selectedTile; // Track the selected tile for construction
 
@@ -22,7 +23,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1) && numBuildings < 1)
+        if (Input.GetMouseButtonDown(1) && numBuildings < 1 && captureZone.captured)
         {
             selectedTile = this; // Set the selected tile for construction
             Vector3 mouseScreenPosition = Input.mousePosition;

@@ -184,7 +184,7 @@ Transform:
   m_GameObject: {fileID: 74769136}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.27, y: 0.86, z: 3.1146147}
+  m_LocalPosition: {x: 47.9, y: -4.5, z: 3.1146147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -385,7 +385,7 @@ Transform:
   m_GameObject: {fileID: 124934474}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 17.49, y: -6.52, z: 3.1146147}
+  m_LocalPosition: {x: -0.17, y: -39.5, z: 3.1146147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -880,7 +880,7 @@ Transform:
   m_GameObject: {fileID: 519420028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.85, y: -9.38, z: -19.04}
+  m_LocalPosition: {x: -0, y: -4.8, z: -19.04}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2131,6 +2131,7 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   numBuildings: 0
+  captureZone: {fileID: 894166588}
 --- !u!58 &894166584
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2260,6 +2261,7 @@ MonoBehaviour:
   captureTime: 5
   uncaptureTime: 20
   tileController: {fileID: 1214543806}
+  captured: 0
   captureFlag: 0
 --- !u!212 &894166589
 SpriteRenderer:
@@ -4254,10 +4256,6 @@ PrefabInstance:
     - target: {fileID: 5477623161266731862, guid: 098d91fdab547374687494ffa5ab23e1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 9019572591517015838, guid: 098d91fdab547374687494ffa5ab23e1, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -0.4
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -126453,6 +126451,7 @@ MonoBehaviour:
   captureTime: 5
   uncaptureTime: 20
   tileController: {fileID: 1214543806}
+  captured: 0
   captureFlag: 0
 --- !u!212 &1786741179
 SpriteRenderer:
@@ -126640,6 +126639,7 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   numBuildings: 0
+  captureZone: {fileID: 1786741178}
 --- !u!114 &1786741185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126766,6 +126766,7 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   numBuildings: 0
+  captureZone: {fileID: 1849003610}
 --- !u!58 &1849003606
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -126895,6 +126896,7 @@ MonoBehaviour:
   captureTime: 5
   uncaptureTime: 20
   tileController: {fileID: 1214543806}
+  captured: 0
   captureFlag: 0
 --- !u!212 &1849003611
 SpriteRenderer:
@@ -127804,6 +127806,7 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   numBuildings: 0
+  captureZone: {fileID: 2033309790}
 --- !u!58 &2033309786
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -127933,6 +127936,7 @@ MonoBehaviour:
   captureTime: 5
   uncaptureTime: 20
   tileController: {fileID: 1214543806}
+  captured: 0
   captureFlag: 0
 --- !u!212 &2033309791
 SpriteRenderer:
@@ -128020,8 +128024,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -962.69, y: -549.41}
-  m_SizeDelta: {x: 122.6776, y: 67.9739}
+  m_AnchoredPosition: {x: -967.2925, y: -546.876}
+  m_SizeDelta: {x: 158.7862, y: 89.7128}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2082902091
 MonoBehaviour:
