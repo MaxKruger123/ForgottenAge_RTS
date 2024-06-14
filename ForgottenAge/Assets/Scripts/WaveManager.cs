@@ -19,6 +19,10 @@ public class WaveManager : MonoBehaviour
     private int currentWave = 0; // Current wave index
     private bool waveInProgress = false; // Flag to track if a wave is currently in progress
 
+    public int cardWaveCounter; // int to track how many waves until the next card icon appears
+    public CardScreen cardScreen; // reference to the card screen for card events
+    public int wavesUntilCardEvent;
+
     void Start()
     {
         StartCoroutine(StartWaveTimer());
@@ -44,6 +48,7 @@ public class WaveManager : MonoBehaviour
         if (currentWave < waves.Count)
         {
             currentWave++;
+            cardWaveCounter++;
             timerText.text = "Wave " + currentWave.ToString();
 
             StartCoroutine(SpawnEnemies());
@@ -57,7 +62,6 @@ public class WaveManager : MonoBehaviour
     IEnumerator SpawnEnemies()
     {
         waveInProgress = true;
-
         // Get the current wave
         Wave wave = waves[currentWave - 1];
         int enemiesToSpawn = wave.enemiesToSpawn;
@@ -73,6 +77,7 @@ public class WaveManager : MonoBehaviour
 
             // Instantiate enemy at the chosen spawn point
             Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            
             yield return new WaitForSeconds(1f); // Adjust this delay as needed
         }
 
@@ -84,6 +89,22 @@ public class WaveManager : MonoBehaviour
 
         // End of wave, start countdown for next wave
         waveInProgress = false;
+
+        // if statement to check if the player should receive a card event
+        if (cardWaveCounter == wavesUntilCardEvent)
+        {
+            cardWaveCounter = 0;
+            cardScreen.ShowIconButton();
+        }
+        else
+        {
+            StartCoroutine(StartWaveTimer());
+        }
+    }
+
+    // public function so that a wave can be started after closing the card screen
+    public void StartWave()
+    {
         StartCoroutine(StartWaveTimer());
     }
 }
