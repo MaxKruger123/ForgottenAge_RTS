@@ -31,6 +31,8 @@ public class Building : MonoBehaviour
 
     private Coroutine shootingCoroutine;
 
+    public GameObject spawnEffect;
+
     void Start()
     {
         concentration = FindAnyObjectByType<Concentration>();
@@ -142,6 +144,7 @@ public class Building : MonoBehaviour
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
 
             Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
             concentration.SubtractConcentration(5);
         }
     }
@@ -156,6 +159,7 @@ public class Building : MonoBehaviour
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
 
             Instantiate(tankTroopPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
             concentration.SubtractConcentration(25);
 
         }
@@ -173,6 +177,7 @@ public class Building : MonoBehaviour
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
 
             Instantiate(rangedAllyTroopPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
             concentration.SubtractConcentration(10);
         }
     }
@@ -185,6 +190,7 @@ public class Building : MonoBehaviour
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
 
             Instantiate(rangedHealingTroopPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
             concentration.SubtractConcentration(10);
         }
     }
