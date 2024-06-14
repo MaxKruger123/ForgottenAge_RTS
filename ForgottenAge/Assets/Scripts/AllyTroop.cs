@@ -63,17 +63,19 @@ public class AllyTroop : MonoBehaviour
                         agent.SetDestination(targetEnemy.transform.position);
                     }
                 }
-                else if (gameObject.CompareTag("Player") || gameObject.CompareTag("AllyRanged"))
+                else if (gameObject.CompareTag("Player"))
                 {
                     // Attack the enemy when in range
                     AttackEnemy();
                 }
                 else if (gameObject.CompareTag("AllyRanged"))
                 {
+                    
                     // Stop moving and shoot the enemy
                     agent.ResetPath();
                     if (shootingCoroutine == null)
                     {
+                        
                         shootingCoroutine = StartCoroutine(ShootEnemy());
                     }
                 }
@@ -115,15 +117,14 @@ public class AllyTroop : MonoBehaviour
 
         foreach (EnemyTroop enemy in enemyTroops)
         {
-            if (!enemy.gameObject.CompareTag("EnemyHealing"))
-            {
+            
                 float distance = Vector3.Distance(transform.position, enemy.transform.position);
                 if (distance < minDistance)
                 {
                     minDistance = distance;
                     nearestEnemy = enemy;
                 }
-            }
+            
         }
 
         targetEnemy = nearestEnemy;
@@ -195,6 +196,7 @@ public class AllyTroop : MonoBehaviour
     {
         while (targetEnemy != null)
         {
+           
             Vector3 direction = (targetEnemy.transform.position - transform.position).normalized;
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
