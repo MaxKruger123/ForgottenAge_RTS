@@ -14,6 +14,7 @@ public class EnemyTroop : MonoBehaviour
 
     private AllyTroopStats targetAlly; // Reference to the nearest ally
     private GameObject targetMemoryTile; // Reference to the nearest MemoryTile
+    private GameObject targetBuilding; // Reference to the nearest building
     private bool isAttacking = false; // Flag to indicate if the enemy is attacking
     private NavMeshAgent agent; // Reference to the NavMeshAgent
     private Coroutine shootingCoroutine; // Coroutine for shooting
@@ -80,13 +81,36 @@ public class EnemyTroop : MonoBehaviour
             }
             else
             {
-                FindNearestMemoryTile(); // Find the nearest MemoryTile if no ally is found
+                FindNearestBuilding(); // Find the nearest building if no ally is found
 
-                if (targetMemoryTile != null)
+                if (targetBuilding != null)
                 {
-                    if (agent != null && agent.isOnNavMesh)
+                    float distanceToBuilding = Vector3.Distance(transform.position, targetBuilding.transform.position);
+
+                    // Move towards the building
+                    if (distanceToBuilding > attackRange)
                     {
-                        agent.SetDestination(targetMemoryTile.transform.position);
+                        if (agent != null && agent.isOnNavMesh)
+                        {
+                            agent.SetDestination(targetBuilding.transform.position);
+                        }
+                    }
+                    else
+                    {
+                        // Attack the building when in range
+                        AttackBuilding();
+                    }
+                }
+                else
+                {
+                    FindNearestMemoryTile(); // Find the nearest MemoryTile if no building is found
+
+                    if (targetMemoryTile != null)
+                    {
+                        if (agent != null && agent.isOnNavMesh)
+                        {
+                            agent.SetDestination(targetMemoryTile.transform.position);
+                        }
                     }
                 }
             }
@@ -136,6 +160,26 @@ public class EnemyTroop : MonoBehaviour
         targetMemoryTile = nearestTile;
     }
 
+    void FindNearestBuilding()
+    {
+        GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
+
+        float minDistance = Mathf.Infinity;
+        GameObject nearestBuilding = null;
+
+        foreach (GameObject building in buildings)
+        {
+            float distance = Vector3.Distance(transform.position, building.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestBuilding = building;
+            }
+        }
+
+        targetBuilding = nearestBuilding;
+    }
+
     void AttackAlly()
     {
         // Perform attack on the ally
@@ -146,6 +190,26 @@ public class EnemyTroop : MonoBehaviour
 
         // Wait for a short duration before resetting the attack flag
         StartCoroutine(ResetAttackFlag());
+    }
+
+    void AttackBuilding()
+    {
+        // Perform attack on the building
+        if (targetBuilding != null)
+        {
+            // Assuming the building has a Health component
+            BuildingStats buildingstats = targetBuilding.GetComponent<BuildingStats>();
+            if (buildingstats != null)
+            {
+                buildingstats.TakeDamage(1.0f);
+            }
+
+            // Set flag to indicate attacking
+            isAttacking = true;
+
+            // Wait for a short duration before resetting the attack flag
+            StartCoroutine(ResetAttackFlag());
+        }
     }
 
     IEnumerator ResetAttackFlag()

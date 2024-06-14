@@ -39,7 +39,7 @@ public class CaptureZone : MonoBehaviour
         {
             playerCount++;
         }
-        else if (other.CompareTag("Enemy"))
+        else if (other.CompareTag("Enemy") || other.CompareTag("EnemyRanged"))
         {
             enemyCount++;
         }
