@@ -22,7 +22,7 @@ public class AllyTroop : MonoBehaviour
     private AllyTroop targetAlly; // Reference to the nearest ally to heal
     private bool isAttacking = false; // Flag to indicate if the ally is attacking
     private NavMeshAgent agent; // Reference to the NavMeshAgent
-    private Coroutine shootingCoroutine; // Coroutine for shooting
+    public Coroutine shootingCoroutine; // Coroutine for shooting
     private Coroutine healingCoroutine; // Coroutine for healing
 
     void Start()

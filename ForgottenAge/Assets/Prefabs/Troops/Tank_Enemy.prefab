@@ -108,7 +108,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.38811806, y: 0.3818062, z: 1}
+  m_LocalScale: {x: 0.50412655, y: 0.5194473, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4656851925389279720}
@@ -228,6 +228,7 @@ MonoBehaviour:
   projectilePrefab: {fileID: 0}
   projectileSpeed: 10
   shootInterval: 1
+  targetBuilding: {fileID: 0}
 --- !u!195 &2309602299970033282
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -238,7 +239,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 1
+  m_Speed: 2
   m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 120

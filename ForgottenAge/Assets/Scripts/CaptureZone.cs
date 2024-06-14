@@ -24,6 +24,8 @@ public class CaptureZone : MonoBehaviour
 
     private MemoryTile memoryTile; // Reference to the memory tile associated with this capture zone
 
+    public MemoryTileConstruction numBuildings;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -72,7 +74,7 @@ public class CaptureZone : MonoBehaviour
 
     private void Update()
     {
-        if (playerCount > 0 && enemyCount == 0)
+        if (playerCount > 0 && enemyCount == 0 && numBuildings.numBuildings == 0)
         {
             if (capturingSide == null || capturingSide == "Player")
             {
@@ -97,12 +99,13 @@ public class CaptureZone : MonoBehaviour
                 }
             }
         }
-        else if (enemyCount > 0 && playerCount == 0)
+        else if (enemyCount > 0 && playerCount == 0 && numBuildings.numBuildings == 0)
         {
             if (capturingSide == null || capturingSide == "Enemy")
             {
                 if (flashCoroutine == null)
                 {
+                    captured = false;
                     flashCoroutine = StartCoroutine(FlashColor(Color.red));
                 }
 
@@ -160,6 +163,7 @@ public class CaptureZone : MonoBehaviour
     private void ResetFlashColor()
     {
         captureProgress = 0;
+        captureFlag = false;
 
         if (flashCoroutine != null)
         {
