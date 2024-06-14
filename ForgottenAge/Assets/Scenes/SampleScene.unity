@@ -958,6 +958,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panSpeed: 20
   panBorderThickness: 10
+  scrollSpeed: 20
+  minY: 10
+  maxY: 80
 --- !u!1 &532915861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2848,6 +2851,7 @@ MonoBehaviour:
   tileController: {fileID: 1214543806}
   captured: 0
   captureFlag: 0
+  numBuildings: {fileID: 894166583}
 --- !u!212 &894166589
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -127111,6 +127115,7 @@ MonoBehaviour:
   tileController: {fileID: 1214543806}
   captured: 0
   captureFlag: 0
+  numBuildings: {fileID: 1786741184}
 --- !u!212 &1786741179
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -127696,6 +127701,7 @@ MonoBehaviour:
   tileController: {fileID: 1214543806}
   captured: 0
   captureFlag: 0
+  numBuildings: {fileID: 1849003605}
 --- !u!212 &1849003611
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -128736,6 +128742,7 @@ MonoBehaviour:
   tileController: {fileID: 1214543806}
   captured: 0
   captureFlag: 0
+  numBuildings: {fileID: 2033309785}
 --- !u!212 &2033309791
 SpriteRenderer:
   m_ObjectHideFlags: 0
