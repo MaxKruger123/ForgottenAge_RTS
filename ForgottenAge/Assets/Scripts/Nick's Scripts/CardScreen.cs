@@ -10,18 +10,17 @@ public class CardScreen : MonoBehaviour
 
     public List<CardData> cardDataList = new List<CardData>();
     public List<GameObject> drawnCards = new List<GameObject>();
-    public List<Sprite> cardImages = new List<Sprite>();
 
-    public Image image1;
-    public Image image2;
-    public Image image3;
+    //public List<Sprite> cardImages = new List<Sprite>();
+
+    public GameObject minimap;
 
     public GameObject eventButton;
 
     // Start is called before the first frame update
     void Start()
     {
-        CreateCardDataSet();
+        //CreateCardDataSet();
     }
 
     // Update is called once per frame
@@ -33,6 +32,7 @@ public class CardScreen : MonoBehaviour
     public void ShowScreen()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        //minimap.SetActive(false);
         DrawFromDeck();
         HideIconButton();
     }
@@ -40,6 +40,7 @@ public class CardScreen : MonoBehaviour
     public void CloseScreen()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        //minimap.SetActive(true);
         HideIconButton();
         waveManager.StartWave();
     }
@@ -55,7 +56,7 @@ public class CardScreen : MonoBehaviour
         gameObject.transform.GetChild(1).gameObject.SetActive(false);
     }
 
-    public void CreateCardDataSet()
+    /*public void CreateCardDataSet()
     {
         // Title, bufftype, buffvalue, debuff, debuffvalue, sprite, description
         cardDataList.Add(new CardData("Concentration", "Concentration Per Second", 5, "", 0, cardImages[0], "Gain extra concentration per second"));
@@ -84,7 +85,7 @@ public class CardScreen : MonoBehaviour
 
         cardDataList.Add(new CardData("Synaptic Overload", "Defense Tower Damage", 2, "", 0, cardImages[0], ""));
 
-    }
+    }*/
 
     public void DrawFromDeck()
     {
@@ -100,25 +101,25 @@ public class CardScreen : MonoBehaviour
             // buff
             drawnCards[i].transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].buffType;
             // if there is no buff it wont display anything for it
-            if (cardDataList[randNum].buff == 0)
+            if (cardDataList[randNum].buffValue == 0)
             {
                 drawnCards[i].transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
             }
             else
             {
-                drawnCards[i].transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].buff.ToString();
+                drawnCards[i].transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].buffValue.ToString();
             }
             
             // debuff
             drawnCards[i].transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].debuffType;
             // if there is no debuff it wont display anything for it
-            if (cardDataList[randNum].debuff == 0)
+            if (cardDataList[randNum].debuffValue == 0)
             {
                 drawnCards[i].transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
             }
             else
             {
-                drawnCards[i].transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].debuff.ToString();
+                drawnCards[i].transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].debuffValue.ToString();
             }
                 
             

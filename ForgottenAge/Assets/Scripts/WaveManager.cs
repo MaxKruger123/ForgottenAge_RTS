@@ -22,6 +22,7 @@ public class WaveManager : MonoBehaviour
     public int cardWaveCounter; // int to track how many waves until the next card icon appears
     public CardScreen cardScreen; // reference to the card screen for card events
     public int wavesUntilCardEvent;
+    public GameObject enemySpawnEffect;
 
     void Start()
     {
@@ -77,6 +78,7 @@ public class WaveManager : MonoBehaviour
 
             // Instantiate enemy at the chosen spawn point
             Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(enemySpawnEffect, spawnPosition, Quaternion.identity);
 
             yield return new WaitForSeconds(1f); // Adjust this delay as needed
         }

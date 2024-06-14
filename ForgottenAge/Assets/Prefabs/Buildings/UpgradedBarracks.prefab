@@ -192,6 +192,7 @@ MonoBehaviour:
   memoryTile: {fileID: 0}
   concentration: {fileID: 0}
   spawnRadius: 8
+  spawnEffect: {fileID: 3259086518229417968, guid: 0ee12f2ba532a654a83dd4e462c7e7d2, type: 3}
 --- !u!61 &2355374107090665178
 BoxCollider2D:
   m_ObjectHideFlags: 0
