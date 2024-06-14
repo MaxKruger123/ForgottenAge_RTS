@@ -18,6 +18,8 @@ public class EnemyTroop : MonoBehaviour
     private NavMeshAgent agent; // Reference to the NavMeshAgent
     private Coroutine shootingCoroutine; // Coroutine for shooting
 
+    private EnemyStats enemyStats; // Reference to the enemy's stats
+
     void Start()
     {
         // Get the NavMeshAgent component
@@ -43,14 +45,28 @@ public class EnemyTroop : MonoBehaviour
         {
             Debug.LogError("NavMeshAgent component not found on " + gameObject.name);
         }
+
+        // Get the EnemyStats component
+        enemyStats = GetComponent<EnemyStats>();
+        if (enemyStats == null)
+        {
+            Debug.LogError("EnemyStats component not found on " + gameObject.name);
+        }
     }
 
     void Update()
     {
+        if (enemyStats.currentHealth < enemyStats.maxHealth)
+        {
+            FindNearestAlly(); // Prioritize attacking allies if damaged
+        }
+        else
+        {
+            FindNearestBuilding(); // Prioritize attacking buildings if not damaged
+        }
+
         if (!isAttacking)
         {
-            FindNearestAlly(); // Find the nearest ally troop
-
             if (targetAlly != null)
             {
                 float distanceToAlly = Vector3.Distance(transform.position, targetAlly.transform.position);
@@ -78,54 +94,45 @@ public class EnemyTroop : MonoBehaviour
                     }
                 }
             }
-            else
+            else if (targetBuilding != null)
             {
-                FindNearestBuilding(); // Find the nearest building if no ally is found
+                float distanceToBuilding = Vector3.Distance(transform.position, targetBuilding.transform.position);
 
-                if (targetBuilding != null)
+                if (gameObject.CompareTag("Enemy") && distanceToBuilding > attackRange || gameObject.CompareTag("EnemyRanged") && distanceToBuilding > rangedAttackRange)
                 {
-                    float distanceToBuilding = Vector3.Distance(transform.position, targetBuilding.transform.position);
-
-                    if (gameObject.CompareTag("Enemy") && distanceToBuilding > attackRange || gameObject.CompareTag("EnemyRanged") && distanceToBuilding > rangedAttackRange)
+                    if (agent != null && agent.isOnNavMesh)
                     {
-                        if (agent != null && agent.isOnNavMesh)
-                        {
-                            if (gameObject.CompareTag("Enemy"))
-                            {
-                                agent.SetDestination(targetBuilding.transform.position);
-                            }
-                            else if(gameObject.CompareTag("EnemyRanged"))
-                            {
-                                agent.SetDestination(targetBuilding.transform.position);
-                            }
-
-                        }
-                    }
-                    else if (gameObject.CompareTag("Enemy") && distanceToBuilding <= attackRange)
-                    {
-                        // Attack the building when in range
-                        AttackBuilding();
-                    }
-                    else if (gameObject.CompareTag("EnemyRanged") && distanceToBuilding <= rangedAttackRange)
-                    {
-                        // Stop moving and shoot the building
-                        agent.ResetPath();
-                        if (shootingCoroutine == null)
-                        {
-                            shootingCoroutine = StartCoroutine(ShootBuilding());
-                        }
+                        agent.SetDestination(targetBuilding.transform.position);
                     }
                 }
-                else
+                else if (gameObject.CompareTag("Enemy") && distanceToBuilding <= attackRange)
                 {
-                    FindNearestMemoryTile(); // Find the nearest MemoryTile if no building is found
-
-                    if (targetMemoryTile != null)
+                    // Attack the building when in range
+                    AttackBuilding();
+                }
+                else if (gameObject.CompareTag("EnemyRanged") && distanceToBuilding <= rangedAttackRange)
+                {
+                    // Stop moving and shoot the building
+                    agent.ResetPath();
+                    if (shootingCoroutine == null)
                     {
-                        if (agent != null && agent.isOnNavMesh)
-                        {
-                            agent.SetDestination(targetMemoryTile.transform.position);
-                        }
+                        shootingCoroutine = StartCoroutine(ShootBuilding());
+                    }
+                }
+            }
+            else
+            {
+                if (targetAlly == null)
+                {
+                    FindNearestBuilding();
+                }
+                FindNearestMemoryTile(); // Find the nearest MemoryTile if no building or ally is found
+
+                if (targetMemoryTile != null)
+                {
+                    if (agent != null && agent.isOnNavMesh)
+                    {
+                        agent.SetDestination(targetMemoryTile.transform.position);
                     }
                 }
             }

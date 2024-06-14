@@ -21,7 +21,7 @@ public class AllyTroopStats : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        currentHealth-= damage;
+        currentHealth -= damage;
         healthBar.fillAmount = currentHealth / maxHealth;
     }
 

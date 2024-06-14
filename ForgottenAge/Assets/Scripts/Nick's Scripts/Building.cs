@@ -30,7 +30,6 @@ public class Building : MonoBehaviour
     public float spawnRadius = 4f;
 
     private Coroutine shootingCoroutine;
-    public GameObject spawnEffect;
 
     void Start()
     {
@@ -42,7 +41,7 @@ public class Building : MonoBehaviour
         // Start shooting coroutine for defense towers
         if (buildingType == BuildingType.DefenseTower)
         {
-            
+
             shootingCoroutine = StartCoroutine(ShootRoutine());
         }
     }
@@ -118,9 +117,10 @@ public class Building : MonoBehaviour
             recruitmentMenu.gameObject.SetActive(true);
             recruitmentMenu.transform.position = mouseScreenPosition;
             recruitmentMenu.GetComponent<RecruitmentMenu>().SetButton(gameObject.GetComponent<Building>());
-        } else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.DefenseTower)
+        }
+        else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.DefenseTower)
         {
-            
+
         }
         else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.UpgradedBarracks)
         {
@@ -142,15 +142,13 @@ public class Building : MonoBehaviour
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
 
             Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
-            GameObject effect = Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
-            effect.transform.parent = null;
             concentration.SubtractConcentration(5);
         }
     }
 
     public void SpawnTankTroop()
     {
-        
+
         if (concentration.GetConcentration() >= 25)
         {
             Debug.Log("Spawn Tank Troop");
@@ -158,7 +156,6 @@ public class Building : MonoBehaviour
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
 
             Instantiate(tankTroopPrefab, spawnPosition, Quaternion.identity);
-            Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
             concentration.SubtractConcentration(25);
 
         }
@@ -176,7 +173,6 @@ public class Building : MonoBehaviour
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
 
             Instantiate(rangedAllyTroopPrefab, spawnPosition, Quaternion.identity);
-            Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
             concentration.SubtractConcentration(10);
         }
     }
@@ -189,7 +185,6 @@ public class Building : MonoBehaviour
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
 
             Instantiate(rangedHealingTroopPrefab, spawnPosition, Quaternion.identity);
-            Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
             concentration.SubtractConcentration(10);
         }
     }

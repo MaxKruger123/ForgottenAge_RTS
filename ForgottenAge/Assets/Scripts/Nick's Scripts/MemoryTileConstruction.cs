@@ -12,6 +12,7 @@ public class MemoryTileConstruction : MonoBehaviour
     public int numBuildings;
     public CaptureZone captureZone;
 
+
     public static MemoryTileConstruction selectedTile; // Track the selected tile for construction
 
     public static Building selectedBuilding; // Track the selected building for deconstruction
@@ -44,7 +45,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructBuilding()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1)
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration > 20)
         {
             GameObject currentBuilding = Instantiate(buildingPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(20);
@@ -63,7 +64,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructDefenseTower()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1)
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration > 40)
         {
             GameObject currentBuilding = Instantiate(defenseTowerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(20);
@@ -82,7 +83,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructUpgradedBarracks()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1)
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration > 100)
         {
             GameObject currentBuilding = Instantiate(upgradedBarracksPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(50);
