@@ -13,6 +13,7 @@ public class CardScreen : MonoBehaviour
 
     //public List<Sprite> cardImages = new List<Sprite>();
 
+    public GameObject minimap;
 
     public GameObject eventButton;
 
@@ -31,6 +32,7 @@ public class CardScreen : MonoBehaviour
     public void ShowScreen()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(true);
+        //minimap.SetActive(false);
         DrawFromDeck();
         HideIconButton();
     }
@@ -38,6 +40,7 @@ public class CardScreen : MonoBehaviour
     public void CloseScreen()
     {
         gameObject.transform.GetChild(0).gameObject.SetActive(false);
+        //minimap.SetActive(true);
         HideIconButton();
         waveManager.StartWave();
     }
