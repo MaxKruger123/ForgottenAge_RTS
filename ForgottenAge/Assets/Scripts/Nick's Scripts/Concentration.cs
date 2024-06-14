@@ -8,7 +8,6 @@ public class Concentration : MonoBehaviour
 
     public TextMeshProUGUI concentrationText;
     public int concentration;
-    public int passiveConcentration;
 
     private float timeCounter;
 
@@ -24,12 +23,8 @@ public class Concentration : MonoBehaviour
     void Update()
     {
         concentrationText.text = "Concentration: " + concentration ;
-<<<<<<< HEAD
         ConcentrationIncome(2 + tileController.tilesCaptured);
         income = 2 + tileController.tilesCaptured;
-=======
-        ConcentrationIncome(passiveConcentration);
->>>>>>> origin/Nick-Branch
     }
 
     public int GetConcentration()
