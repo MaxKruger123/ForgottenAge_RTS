@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class ProjectileArrow : MonoBehaviour
 {
-
+    public GameObject particle;
     void Start()
     {
         Destroy(gameObject, 5f);
@@ -21,6 +21,7 @@ public class ProjectileArrow : MonoBehaviour
                 
                 Destroy(gameObject);
             }
+            Instantiate(particle, transform.position, Quaternion.identity);
         }
     }
 

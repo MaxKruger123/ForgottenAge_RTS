@@ -1052,6 +1052,10 @@ PrefabInstance:
       propertyPath: waveManager
       value: 
       objectReference: {fileID: 1641135204}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.size
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 9006143345174173478, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5

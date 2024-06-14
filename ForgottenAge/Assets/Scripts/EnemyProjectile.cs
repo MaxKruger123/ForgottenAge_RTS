@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class EnemyProjectile : MonoBehaviour
 {
+    public GameObject particle;
     void Start()
     {
         Destroy(gameObject, 5f);
@@ -20,6 +21,7 @@ public class EnemyProjectile : MonoBehaviour
 
                 Destroy(gameObject);
             }
+            Instantiate(particle, transform.position, Quaternion.identity);
         }
         else if(collision.CompareTag("Building"))
         {
