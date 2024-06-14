@@ -51,16 +51,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   waveManager: {fileID: 0}
+  cardDataList: []
   drawnCards:
   - {fileID: 3942152183649167646}
   - {fileID: 1982764662107058882}
   - {fileID: 4624921133145153147}
-  cardImages:
-  - {fileID: 0}
-  - {fileID: 0}
-  image1: {fileID: 0}
-  image2: {fileID: 0}
-  image3: {fileID: 0}
   eventButton: {fileID: 5908708491752517438}
 --- !u!1 &3899210053896473892
 GameObject:
