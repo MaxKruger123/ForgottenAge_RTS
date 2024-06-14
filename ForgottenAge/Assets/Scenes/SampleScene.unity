@@ -1110,8 +1110,404 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1641135204}
     - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.size
+      propertyPath: cardImages.Array.size
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.size
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[0].buff
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[1].buff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[2].buff
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[3].buff
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[4].buff
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[5].buff
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[6].buff
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[7].buff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[8].buff
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[9].buff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[0].image
+      value: 
+      objectReference: {fileID: 21300000, guid: d30c426556240b94cb6d1cba7253c474, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[0].title
+      value: Concentration
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[10].buff
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[11].buff
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[12].buff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[1].image
+      value: 
+      objectReference: {fileID: 21300000, guid: a13a80c4a3164314e85b8b91be3f8be2, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[1].title
+      value: Glass Cannon
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[2].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 62d556c1784447c468862017d9efe9da, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[2].title
+      value: The Dreamer
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[3].image
+      value: 
+      objectReference: {fileID: 21300000, guid: ade10be02660fff44a622f54e8150bed, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[3].title
+      value: Focus
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[4].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 0f430ebb54e069d4f8b6a0f2e4491085, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[4].title
+      value: Dreamer's Resolve
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[5].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 48dedc80a91469242952ae42dc7d1525, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[5].title
+      value: Perilous Insight
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[6].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 423c259416f39334cbc76a87f3be0d8e, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[6].title
+      value: Fortified Respite
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[7].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 13d21419056e6b24396432e860504477, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[7].title
+      value: Cursed Blessing
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[8].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 060c67630482e6a4f958b45f53ff2f2b, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[8].title
+      value: Neuron Activation
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[9].image
+      value: 
+      objectReference: {fileID: 21300000, guid: f13239c507aed744a8c88796a157bdd7, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[9].title
+      value: Shifting Tides
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[10].image
+      value: 
+      objectReference: {fileID: 21300000, guid: 97122edaa021ed04eb2be060500fde92, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[10].title
+      value: Cognitive Fortification
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[11].image
+      value: 
+      objectReference: {fileID: 21300000, guid: b02264135a7dc5942a9f5c2336142aca, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[11].title
+      value: Structural Recall
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[12].image
+      value: 
+      objectReference: {fileID: 21300000, guid: bf958bb15b517ef41a9628da2447ecc2, type: 3}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[12].title
+      value: Synaptic Overload
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[1].debuff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[2].debuff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[3].debuff
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[4].debuff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[5].debuff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[6].debuff
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[7].debuff
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[8].debuff
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[9].debuff
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[0].buffType
+      value: Concentration Per Second
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[1].buffType
+      value: Ally Melee Damage
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[2].buffType
+      value: Dream Token
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[3].buffType
+      value: Concentration
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[4].buffType
+      value: Dream Token
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[5].buffType
+      value: Concentration Per Second
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[6].buffType
+      value: Passive Tank Healing
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[7].buffType
+      value: Ally Damage
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[8].buffType
+      value: Concentration
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[9].buffType
+      value: Gain Memory Tile
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[0].buffValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[10].buffType
+      value: Allies Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[11].buffType
+      value: Heal All Buidlings
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[12].buffType
+      value: Defense Tower Damage
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[1].buffValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[2].buffValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[3].buffValue
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[4].buffValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[5].buffValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[7].buffValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[8].buffValue
+      value: 400
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[9].buffValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[10].buffValue
+      value: 20
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[11].buffValue
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[12].buffValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[1].debuffType
+      value: Ally Troop Health
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[2].debuffType
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[3].debuffType
+      value: All Troop Cost
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[4].debuffType
+      value: Destroy Random Building
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[5].debuffType
+      value: Enemy damage multiply
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[6].debuffType
+      value: Ally Ranged Reload
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[7].debuffType
+      value: Memory Tile Are Lost
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[8].debuffType
+      value: Skip Wave
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[9].debuffType
+      value: Chance Allies Become Enemies
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[10].debuffType
+      value: Chance Allies Become Enemies
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[11].debuffType
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[1].debuffValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[3].debuffValue
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[4].debuffValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[5].debuffValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[6].debuffValue
+      value: -1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[7].debuffValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[8].debuffValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[0].descriptionText
+      value: Gain extra concentration per second
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[1].descriptionText
+      value: Your troops do more damage but are weaker
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[2].descriptionText
+      value: Gain one dream token
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[3].descriptionText
+      value: Gain one dream token
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[4].descriptionText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[10].descriptionText
+      value: '%'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardDataList.Array.data[11].descriptionText
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 9006143345174173478, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: m_Pivot.x
@@ -1191,6 +1587,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9006143345174173478, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9192639599998314936, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
