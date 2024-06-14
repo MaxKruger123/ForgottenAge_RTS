@@ -3,7 +3,18 @@ guid: 51f2ce553371f03458c176bc1d6403f5
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2
-  defaultReferences: []
+  defaultReferences:
+  - projectilePrefab: {instanceID: 0}
+  - allyTroopPrefab: {instanceID: 0}
+  - rangedAllyTroopPrefab: {instanceID: 0}
+  - rangedHealingTroopPrefab: {instanceID: 0}
+  - tankTroopPrefab: {instanceID: 0}
+  - recruitmentMenu: {instanceID: 0}
+  - recruitmentMenuTwo: {instanceID: 0}
+  - menuManager: {instanceID: 0}
+  - memoryTile: {instanceID: 0}
+  - concentration: {instanceID: 0}
+  - spawnEffect: {fileID: 3259086518229417968, guid: 0ee12f2ba532a654a83dd4e462c7e7d2, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}
   userData: 
