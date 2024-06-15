@@ -5,8 +5,12 @@ using UnityEngine;
 public class EnemyProjectile : MonoBehaviour
 {
     public GameObject particle;
+
+    private CardManager cardManager;
+
     void Start()
     {
+        cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         Destroy(gameObject, 5f);
     }
 
@@ -17,7 +21,7 @@ public class EnemyProjectile : MonoBehaviour
             AllyTroopStats allyTroopStats = collision.GetComponent<AllyTroopStats>();
             if (allyTroopStats != null)
             {
-                allyTroopStats.TakeDamage(1.0f);
+                allyTroopStats.TakeDamage(cardManager.enemyMeleeDamage);
 
                 Destroy(gameObject);
             }
@@ -29,7 +33,7 @@ public class EnemyProjectile : MonoBehaviour
 
             if (buildingStats != null)
             {
-                buildingStats.TakeDamage(1.0f);
+                buildingStats.TakeDamage(cardManager.enemyMeleeDamage);
 
                 Destroy(gameObject);
             }

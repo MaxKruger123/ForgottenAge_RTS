@@ -5,8 +5,10 @@ using UnityEngine;
 public class ProjectileArrow : MonoBehaviour
 {
     public GameObject particle;
+    private CardManager cardManager;
     void Start()
     {
+        cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         Destroy(gameObject, 5f);
     }
 
@@ -17,7 +19,7 @@ public class ProjectileArrow : MonoBehaviour
             EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
             if (enemyStats != null)
             {
-                enemyStats.TakeDamage(1.0f);
+                enemyStats.TakeDamage(cardManager.allyRangedDamage);
                 
                 Destroy(gameObject);
             }

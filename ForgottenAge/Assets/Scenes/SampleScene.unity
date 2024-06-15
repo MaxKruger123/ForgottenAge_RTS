@@ -694,8 +694,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   concentrationText: {fileID: 924336688}
   concentration: 0
+  maxConcentration: 0
   tileController: {fileID: 1214543806}
   income: 0
+  CS: 0
 --- !u!114 &392824353
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1130,6 +1132,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1772688141}
     - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: cardManager
+      value: 
+      objectReference: {fileID: 551477857}
+    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: waveManager
       value: 
       objectReference: {fileID: 1641135204}
@@ -1375,7 +1381,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: cardDataList.Array.data[0].buffValue
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: cardDataList.Array.data[10].buffType
@@ -1615,17 +1621,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9192639599998314936, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6373637997003943795, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1168699075492532521, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 551477857}
   m_SourcePrefab: {fileID: 100100000, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
 --- !u!224 &551477852 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9006143345174173478, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+  m_PrefabInstance: {fileID: 551477851}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &551477853 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1168699075492532521, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
   m_PrefabInstance: {fileID: 551477851}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &551477856 stripped
@@ -1633,12 +1647,34 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
   m_PrefabInstance: {fileID: 551477851}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
+  m_GameObject: {fileID: 551477853}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 242f58c9d637a4544a5572aa541c14fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &551477857
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 551477853}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 566a08fcd26ee854c8218e8212f64762, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cardScreen: {fileID: 551477856}
+  concentration: {fileID: 392824352}
+  waveManager: {fileID: 1641135204}
+  allyMeleeTroops: []
+  allyMeleeDamage: 1
+  allyRangedDamage: 1
+  allyShootInterval: 1.5
+  enemyMeleeDamage: 1
+  troopCostModifier: 0
+  passiveHealing: 0
 --- !u!1001 &557928648
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2673,6 +2709,7 @@ MonoBehaviour:
   buildingPrefab: {fileID: 6815607758482877518, guid: 5204f3e1049618540b6ce62f7dcd48f1, type: 3}
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
+  concentrationStorage: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 894166588}
 --- !u!58 &894166584
@@ -5173,9 +5210,90 @@ MonoBehaviour:
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
     enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 25
+  currentWave: 0
   cardWaveCounter: 0
   cardScreen: {fileID: 551477856}
-  wavesUntilCardEvent: 2
+  wavesUntilCardEvent: 1
   enemySpawnEffect: {fileID: 3259086518229417968, guid: 6728eb66ff0838141b30759b5fb72ac1, type: 3}
 --- !u!4 &1641135205
 Transform:
@@ -127197,6 +127315,7 @@ MonoBehaviour:
   buildingPrefab: {fileID: 6815607758482877518, guid: 5204f3e1049618540b6ce62f7dcd48f1, type: 3}
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
+  concentrationStorage: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 1786741178}
 --- !u!114 &1786741185
@@ -127464,6 +127583,7 @@ MonoBehaviour:
   buildingPrefab: {fileID: 6815607758482877518, guid: 5204f3e1049618540b6ce62f7dcd48f1, type: 3}
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
+  concentrationStorage: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 1849003610}
 --- !u!58 &1849003606
@@ -128504,6 +128624,7 @@ MonoBehaviour:
   buildingPrefab: {fileID: 6815607758482877518, guid: 5204f3e1049618540b6ce62f7dcd48f1, type: 3}
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
+  concentrationStorage: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 2033309790}
 --- !u!58 &2033309786

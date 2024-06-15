@@ -10,7 +10,6 @@ public class AllyTroop : MonoBehaviour
     public float rangedAttackRange = 7f; // Range for ranged attacking
     public GameObject projectilePrefab; // Projectile prefab to be shot by the ranged ally
     public float projectileSpeed = 10f; // Speed of the projectile
-    public float shootInterval = 1f; // Interval between shots
 
     public float healRange = 5f; // Range for healing
     public float healAmount = 10f; // Amount of health to restore
@@ -25,8 +24,12 @@ public class AllyTroop : MonoBehaviour
     public Coroutine shootingCoroutine; // Coroutine for shooting
     private Coroutine healingCoroutine; // Coroutine for healing
 
+    private CardManager cardManager;
+
     void Start()
     {
+        cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
+        
         // Get the NavMeshAgent component
         agent = GetComponent<NavMeshAgent>();
 
@@ -241,7 +244,7 @@ public class AllyTroop : MonoBehaviour
     {
         // Perform attack on the enemy
         EnemyStats enemyStats = targetEnemy.GetComponent<EnemyStats>();
-        enemyStats.TakeDamage(1.0f);
+        enemyStats.TakeDamage(cardManager.allyMeleeDamage);
 
         // Set flag to indicate attacking
         isAttacking = true;
@@ -269,7 +272,7 @@ public class AllyTroop : MonoBehaviour
                 projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
             }
 
-            yield return new WaitForSeconds(shootInterval);
+            yield return new WaitForSeconds(cardManager.allyShootInterval);
         }
 
         shootingCoroutine = null;

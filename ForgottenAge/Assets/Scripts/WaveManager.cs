@@ -16,7 +16,7 @@ public class WaveManager : MonoBehaviour
     public float waveDuration = 20f; // Duration of each wave
     public Transform[] spawnPoints; // Array of spawn points for enemies
     public List<Wave> waves; // List of waves
-    private int currentWave = 0; // Current wave index
+    public int currentWave = 0; // Current wave index
     private bool waveInProgress = false; // Flag to track if a wave is currently in progress
 
     public int cardWaveCounter; // int to track how many waves until the next card icon appears
@@ -108,5 +108,15 @@ public class WaveManager : MonoBehaviour
     public void StartWave()
     {
         StartCoroutine(StartWaveTimer());
+    }
+
+    public void SetCurrentWave(int num)
+    {
+        currentWave = num;
+    }
+
+    public int GetCurrentWave()
+    {
+        return currentWave;
     }
 }

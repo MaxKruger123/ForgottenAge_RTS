@@ -41,6 +41,8 @@ public class Building : MonoBehaviour
     public TextMeshProUGUI queueText;
     public Image queueImage;
 
+
+    public CardManager cardManager;
     
 
     private enum TroopType
@@ -58,6 +60,7 @@ public class Building : MonoBehaviour
         menuManager = concentration.gameObject.GetComponent<MenuManager>();
         recruitmentMenu = menuManager.GetMenuObject("RecruitmentMenu");
         recruitmentMenuTwo = menuManager.GetMenuObject("RecruitmentMenuTwo");
+        cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
 
         // Start shooting coroutine for defense towers
         if (buildingType == BuildingType.DefenseTower)
@@ -233,21 +236,21 @@ public class Building : MonoBehaviour
 
     public void SpawnTroop()
     {
-        EnqueueTroop(TroopType.Ally, 5);
+        EnqueueTroop(TroopType.Ally, 5 + cardManager.troopCostModifier);
     }
 
     public void SpawnTankTroop()
     {
-        EnqueueTroop(TroopType.Tank, 25);
+        EnqueueTroop(TroopType.Tank, 25 + cardManager.troopCostModifier);
     }
 
     public void SpawnRangedTroop()
     {
-        EnqueueTroop(TroopType.Ranged, 10);
+        EnqueueTroop(TroopType.Ranged, 10 + cardManager.troopCostModifier);
     }
 
     public void SpawnHealingTroop()
     {
-        EnqueueTroop(TroopType.Healing, 10);
+        EnqueueTroop(TroopType.Healing, 10 + cardManager.troopCostModifier);
     }
 }
