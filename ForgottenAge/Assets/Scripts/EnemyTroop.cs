@@ -19,9 +19,13 @@ public class EnemyTroop : MonoBehaviour
     private Coroutine shootingCoroutine; // Coroutine for shooting
 
     private EnemyStats enemyStats; // Reference to the enemy's stats
+   
+
+    private CardManager cardManager;
 
     void Start()
     {
+        cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         // Get the NavMeshAgent component
         agent = GetComponent<NavMeshAgent>();
 
@@ -205,7 +209,7 @@ public class EnemyTroop : MonoBehaviour
     void AttackAlly()
     {
         // Perform attack on the ally
-        targetAlly.TakeDamage(1.0f);
+        targetAlly.TakeDamage(cardManager.enemyMeleeDamage);
 
         // Set flag to indicate attacking
         isAttacking = true;
@@ -223,7 +227,7 @@ public class EnemyTroop : MonoBehaviour
             BuildingStats buildingHealth = targetBuilding.GetComponent<BuildingStats>();
             if (buildingHealth != null)
             {
-                buildingHealth.TakeDamage(1.0f);
+                buildingHealth.TakeDamage(cardManager.enemyMeleeDamage);
             }
 
             // Set flag to indicate attacking

@@ -16,9 +16,11 @@ public class Concentration : MonoBehaviour
 
     public int income;
     public bool CS = false;
+    public CardManager cardManager;
 
     void Start()
     {
+        cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         income = 2 + tileController.tilesCaptured;
         maxConcentration = 100;
     }
@@ -26,7 +28,7 @@ public class Concentration : MonoBehaviour
     void Update()
     {
         concentrationText.text = "Concentration: " + concentration ;
-        ConcentrationIncome(2 + tileController.tilesCaptured);
+        ConcentrationIncome(2 + tileController.tilesCaptured + cardManager.incomeModifier);
         income = 2 + tileController.tilesCaptured;
 
         if(concentration > maxConcentration)

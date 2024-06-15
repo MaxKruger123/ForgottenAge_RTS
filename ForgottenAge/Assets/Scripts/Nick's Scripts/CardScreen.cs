@@ -159,42 +159,55 @@ public class CardScreen : MonoBehaviour
         {
             case "Concentration":
                 cardManager.ConcentrationCard();
+                Debug.Log("Effect Applied");
                 break;
             case "Glass Cannon":
-                cardManager.ConcentrationCard();
+                cardManager.GlassCannonCard();
+                Debug.Log("Effect Applied");
                 break;
             case "The Dreamer":
-                cardManager.ConcentrationCard();
+                cardManager.TheDreamerCard();
+                Debug.Log("Effect Applied");
                 break;
             case "Focus":
                 cardManager.FocusCard();
+                Debug.Log("Effect Applied");
                 break;
             case "Dreamer's Resolve":
-                cardManager.ConcentrationCard();
+                cardManager.DreamersResolveCard();
+                Debug.Log("Effect Applied");
                 break;
             case "Perilous Insight":
-                cardManager.ConcentrationCard();
+                cardManager.PerilousInsightCard();
+                Debug.Log("Effect Applied");
                 break;
             case "Fortified Respite":
-                cardManager.ConcentrationCard();
+                cardManager.FortifiedRespiteCard();
+                Debug.Log("Effect Applied");
                 break;
             case "Cursed Blessing":
-                cardManager.ConcentrationCard();
+                cardManager.CursedBlessingCard();
+                Debug.Log("Effect Applied");
                 break;
             case "Neuron Activation":
-                cardManager.ConcentrationCard();
+                cardManager.NeuronActivationCard();
+                Debug.Log("Effect Applied");
                 break;
             case "Shifting Tides":
-                cardManager.ConcentrationCard();
+                cardManager.ShiftingTidesCard();
+                Debug.Log("Effect Applied");
                 break;
             case "Cognitive Fortification":
-                cardManager.ConcentrationCard();
+                cardManager.CognitiveFortificationCard();
+                Debug.Log("Effect Applied");
                 break;
             case "Structural Recall":
-                cardManager.ConcentrationCard();
+                cardManager.StructuralRecallCard();
+                Debug.Log("Effect Applied");
                 break;
             case "Synaptic Overload":
-                cardManager.ConcentrationCard();
+                cardManager.SynapticOverloadCard();
+                Debug.Log("Effect Applied");
                 break;
             default:
                 Debug.Log("Error: Could not find card");
