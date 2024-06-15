@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using TMPro;
 
@@ -17,6 +18,7 @@ public class CardScreen : MonoBehaviour
 
     public GameObject eventButton;
 
+    public CardManager cardManager;
     // Start is called before the first frame update
     void Start()
     {
@@ -126,9 +128,78 @@ public class CardScreen : MonoBehaviour
         }
     }
 
-    public void SelectCard()
+    public CardData GetCardData(int index)
     {
+        return cardDataList[index];
+    }
 
+   
+    public void SelectCardLeft()
+    {
+        ApplyCardEffects(2);
+        CloseScreen();
+    }
+
+    public void SelectCardMiddle()
+    {
+        ApplyCardEffects(1);
+        CloseScreen();
+    }
+
+    public void SelectCardRight()
+    {
+        ApplyCardEffects(0);
+        CloseScreen();
     }
     
+    public void ApplyCardEffects(int num)
+    {
+        string cardTitle = drawnCards[num].GetComponent<Card>().title.text;
+        switch (cardTitle)
+        {
+            case "Concentration":
+                cardManager.ConcentrationCard();
+                break;
+            case "Glass Cannon":
+                cardManager.ConcentrationCard();
+                break;
+            case "The Dreamer":
+                cardManager.ConcentrationCard();
+                break;
+            case "Focus":
+                cardManager.FocusCard();
+                break;
+            case "Dreamer's Resolve":
+                cardManager.ConcentrationCard();
+                break;
+            case "Perilous Insight":
+                cardManager.ConcentrationCard();
+                break;
+            case "Fortified Respite":
+                cardManager.ConcentrationCard();
+                break;
+            case "Cursed Blessing":
+                cardManager.ConcentrationCard();
+                break;
+            case "Neuron Activation":
+                cardManager.ConcentrationCard();
+                break;
+            case "Shifting Tides":
+                cardManager.ConcentrationCard();
+                break;
+            case "Cognitive Fortification":
+                cardManager.ConcentrationCard();
+                break;
+            case "Structural Recall":
+                cardManager.ConcentrationCard();
+                break;
+            case "Synaptic Overload":
+                cardManager.ConcentrationCard();
+                break;
+            default:
+                Debug.Log("Error: Could not find card");
+                break;
+        }
+    }
+
 }

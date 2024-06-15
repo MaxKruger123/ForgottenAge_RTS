@@ -1113,6 +1113,18 @@ PrefabInstance:
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 2299033803587892824, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectCardRight
+      objectReference: {fileID: 0}
+    - target: {fileID: 3663300487779609988, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectCardMiddle
+      objectReference: {fileID: 0}
+    - target: {fileID: 7601404173151142205, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: SelectCardLeft
+      objectReference: {fileID: 0}
     - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: minimap
       value: 
@@ -1603,7 +1615,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9192639599998314936, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
