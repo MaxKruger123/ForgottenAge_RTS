@@ -1,5 +1,8 @@
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
 
 public class Building : MonoBehaviour
 {
@@ -7,7 +10,8 @@ public class Building : MonoBehaviour
     {
         Default,
         DefenseTower,
-        UpgradedBarracks
+        UpgradedBarracks,
+        ConcentrationStorage
     }
 
     public BuildingType buildingType = BuildingType.Default;
@@ -30,8 +34,23 @@ public class Building : MonoBehaviour
     public float spawnRadius = 4f;
 
     private Coroutine shootingCoroutine;
+    private Queue<TroopType> troopQueue = new Queue<TroopType>();
+    private Coroutine spawnTroopCoroutine;
 
     public GameObject spawnEffect;
+    public TextMeshProUGUI queueText;
+    public Image queueImage;
+
+    
+
+    private enum TroopType
+    {
+        Ally,
+        Ranged,
+        Healing,
+        Tank
+        
+    }
 
     void Start()
     {
@@ -43,7 +62,6 @@ public class Building : MonoBehaviour
         // Start shooting coroutine for defense towers
         if (buildingType == BuildingType.DefenseTower)
         {
-
             shootingCoroutine = StartCoroutine(ShootRoutine());
         }
     }
@@ -52,6 +70,14 @@ public class Building : MonoBehaviour
     {
         // Increment the shoot timer
         shootTimer += Time.deltaTime;
+
+        // Update queue UI
+        queueText.text = troopQueue.Count.ToString();
+        if (spawnTroopCoroutine != null)
+        {
+            float buildTime = GetBuildTime(troopQueue.Peek());
+            queueImage.fillAmount += Time.deltaTime / buildTime;
+        }
     }
 
     // Coroutine for shooting at regular intervals
@@ -59,7 +85,6 @@ public class Building : MonoBehaviour
     {
         while (true)
         {
-            Debug.Log("Shoot?");
             // Shoot at the nearest enemy
             ShootAtNearestEnemy();
 
@@ -86,7 +111,6 @@ public class Building : MonoBehaviour
                 {
                     minDistance = distance;
                     nearestEnemy = collider.transform;
-                    Debug.Log(nearestEnemy.gameObject.name);
                 }
             }
 
@@ -136,63 +160,94 @@ public class Building : MonoBehaviour
         }
     }
 
-    public void SpawnTroop()
+    private void EnqueueTroop(TroopType troopType, int concentrationCost)
     {
-        if (concentration.GetConcentration() >= 5)
+        if (concentration.GetConcentration() >= concentrationCost)
         {
+            troopQueue.Enqueue(troopType);
+            concentration.SubtractConcentration(concentrationCost);
+
+            if (spawnTroopCoroutine == null)
+            {
+                spawnTroopCoroutine = StartCoroutine(SpawnTroopQueue());
+            }
+        }
+    }
+
+    private float GetBuildTime(TroopType troopType)
+    {
+        switch (troopType)
+        {
+            case TroopType.Ally:
+                return 8f;
+            case TroopType.Ranged:
+                return 15f;
+            case TroopType.Healing:
+                return 10f;
+            case TroopType.Tank:
+                return 25f;
+            default:
+                return 5f;
+        }
+    }
+
+    private IEnumerator SpawnTroopQueue()
+    {
+        while (troopQueue.Count > 0)
+        {
+            TroopType troopType = troopQueue.Peek();
+            float buildTime = GetBuildTime(troopType);
+            queueImage.fillAmount = 0; // Reset the progress bar
+
+            for (float timer = 0; timer < buildTime; timer += Time.deltaTime)
+            {
+                queueImage.fillAmount = timer / buildTime;
+                yield return null;
+            }
+
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
 
-            Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
+            switch (troopType)
+            {
+                case TroopType.Ally:
+                    Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
+                    break;
+                case TroopType.Ranged:
+                    Instantiate(rangedAllyTroopPrefab, spawnPosition, Quaternion.identity);
+                    break;
+                case TroopType.Healing:
+                    Instantiate(rangedHealingTroopPrefab, spawnPosition, Quaternion.identity);
+                    break;
+                case TroopType.Tank:
+                    Instantiate(tankTroopPrefab, spawnPosition, Quaternion.identity);
+                    break;
+            }
+
             Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
-            concentration.SubtractConcentration(5);
+            troopQueue.Dequeue();
         }
+
+        spawnTroopCoroutine = null;
+    }
+
+    public void SpawnTroop()
+    {
+        EnqueueTroop(TroopType.Ally, 5);
     }
 
     public void SpawnTankTroop()
     {
-
-        if (concentration.GetConcentration() >= 25)
-        {
-            Debug.Log("Spawn Tank Troop");
-            Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
-            Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
-
-            Instantiate(tankTroopPrefab, spawnPosition, Quaternion.identity);
-            Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
-            concentration.SubtractConcentration(25);
-
-        }
-        else
-        {
-            Debug.Log("Error");
-        }
+        EnqueueTroop(TroopType.Tank, 25);
     }
 
     public void SpawnRangedTroop()
     {
-        if (concentration.GetConcentration() >= 10)
-        {
-            Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
-            Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
-
-            Instantiate(rangedAllyTroopPrefab, spawnPosition, Quaternion.identity);
-            Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
-            concentration.SubtractConcentration(10);
-        }
+        EnqueueTroop(TroopType.Ranged, 10);
     }
 
     public void SpawnHealingTroop()
     {
-        if (concentration.GetConcentration() >= 10)
-        {
-            Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
-            Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
-
-            Instantiate(rangedHealingTroopPrefab, spawnPosition, Quaternion.identity);
-            Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
-            concentration.SubtractConcentration(10);
-        }
+        EnqueueTroop(TroopType.Healing, 10);
     }
-
 }

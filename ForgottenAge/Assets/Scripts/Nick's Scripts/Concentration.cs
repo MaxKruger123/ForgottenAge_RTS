@@ -8,16 +8,19 @@ public class Concentration : MonoBehaviour
 
     public TextMeshProUGUI concentrationText;
     public int concentration;
+    public int maxConcentration;
 
     private float timeCounter;
 
     public TileController tileController;
 
     public int income;
+    public bool CS = false;
 
     void Start()
     {
         income = 2 + tileController.tilesCaptured;
+        maxConcentration = 100;
     }
 
     void Update()
@@ -25,6 +28,16 @@ public class Concentration : MonoBehaviour
         concentrationText.text = "Concentration: " + concentration ;
         ConcentrationIncome(2 + tileController.tilesCaptured);
         income = 2 + tileController.tilesCaptured;
+
+        if(concentration > maxConcentration)
+        {
+            concentration = maxConcentration;
+        }
+
+        if (CS == true)
+        {
+            maxConcentration = 150;
+        }
     }
 
     public int GetConcentration()

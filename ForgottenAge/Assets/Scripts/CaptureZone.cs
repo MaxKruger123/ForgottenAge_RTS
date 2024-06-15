@@ -4,23 +4,19 @@ using System.Collections;
 public class CaptureZone : MonoBehaviour
 {
     public float captureTime = 5.0f; // Time required to capture the platform
-    public float uncaptureTime = 20.0f; // Time required to fully uncapture the platform
 
     private float captureProgress = 0;
-    private string capturingSide = null;
+    public string capturingSide = null;
 
     private int playerCount = 0;
     private int enemyCount = 0;
 
     private SpriteRenderer spriteRenderer;
     private Coroutine flashCoroutine;
-    private Coroutine uncaptureCoroutine;
 
     public TileController tileController;
 
     public bool captured = false;
-
-    public bool captureFlag = false;
 
     private MemoryTile memoryTile; // Reference to the memory tile associated with this capture zone
 
@@ -35,6 +31,8 @@ public class CaptureZone : MonoBehaviour
         {
             Debug.LogError("MemoryTile component not found in parent of " + gameObject.name);
         }
+
+        spriteRenderer.color = Color.white; // Start as uncaptured
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -46,12 +44,6 @@ public class CaptureZone : MonoBehaviour
         else if (other.CompareTag("Enemy") || other.CompareTag("EnemyRanged"))
         {
             enemyCount++;
-        }
-
-        if (uncaptureCoroutine != null)
-        {
-            StopCoroutine(uncaptureCoroutine);
-            uncaptureCoroutine = null;
         }
 
         if (playerCount > 0 && enemyCount > 0)
@@ -66,7 +58,7 @@ public class CaptureZone : MonoBehaviour
         {
             playerCount--;
         }
-        else if (other.CompareTag("Enemy"))
+        else if (other.CompareTag("Enemy") || other.CompareTag("EnemyRanged"))
         {
             enemyCount--;
         }
@@ -105,7 +97,6 @@ public class CaptureZone : MonoBehaviour
             {
                 if (flashCoroutine == null)
                 {
-                    captured = false;
                     flashCoroutine = StartCoroutine(FlashColor(Color.red));
                 }
 
@@ -113,7 +104,6 @@ public class CaptureZone : MonoBehaviour
                 if (captureProgress >= captureTime)
                 {
                     Capture("Enemy");
-
                 }
             }
             else
@@ -129,6 +119,7 @@ public class CaptureZone : MonoBehaviour
         else if (playerCount > 0 && enemyCount > 0)
         {
             // Zone is contested
+            ResetFlashColor();
         }
     }
 
@@ -143,27 +134,29 @@ public class CaptureZone : MonoBehaviour
             flashCoroutine = null;
         }
 
-        if (side == "Player" && !captureFlag)
+        if (side == "Player")
         {
             spriteRenderer.color = Color.blue;
-            tileController.tilesCaptured++;
+            if (!captured)
+            {
+                tileController.tilesCaptured++;
+            }
             captured = true;
-            captureFlag = true;
-
         }
-        else if (side == "Enemy" && !captureFlag)
+        else if (side == "Enemy")
         {
             spriteRenderer.color = Color.red;
-            tileController.tilesCaptured--;
-            captured = false;
-            captureFlag = true;
+            if (captured)
+            {
+                tileController.tilesCaptured--;
+            }
+            captured = true;
         }
     }
 
     private void ResetFlashColor()
     {
         captureProgress = 0;
-        captureFlag = false;
 
         if (flashCoroutine != null)
         {
@@ -172,26 +165,7 @@ public class CaptureZone : MonoBehaviour
         }
 
         spriteRenderer.color = Color.white; // Reset to default color when contested or neutral
-
-    }
-
-    private IEnumerator UncaptureZone()
-    {
-        float uncaptureProgress = 0;
-        Color originalColor = spriteRenderer.color;
-
-        while (uncaptureProgress < uncaptureTime)
-        {
-            uncaptureProgress += Time.deltaTime;
-            float t = uncaptureProgress / uncaptureTime;
-            spriteRenderer.color = Color.Lerp(originalColor, Color.white, t);
-            yield return null;
-        }
-
         capturingSide = null;
-        captureProgress = 0;
-        spriteRenderer.color = Color.white;
-
     }
 
     private IEnumerator FlashColor(Color flashColor)
@@ -202,7 +176,6 @@ public class CaptureZone : MonoBehaviour
             yield return new WaitForSeconds(0.5f);
             spriteRenderer.color = Color.white;
             yield return new WaitForSeconds(0.5f);
-            captureFlag = false;
         }
     }
 

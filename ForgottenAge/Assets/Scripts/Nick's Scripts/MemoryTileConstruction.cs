@@ -9,8 +9,10 @@ public class MemoryTileConstruction : MonoBehaviour
     public GameObject buildingPrefab;
     public GameObject defenseTowerPrefab;
     public GameObject upgradedBarracksPrefab;
+    public GameObject concentrationStorage;
     public int numBuildings;
     public CaptureZone captureZone;
+    public Concentration concentration;
 
 
     public static MemoryTileConstruction selectedTile; // Track the selected tile for construction
@@ -53,6 +55,26 @@ public class MemoryTileConstruction : MonoBehaviour
             currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
             constructionMenu.SetActive(false);
             selectedTile = null; // Clear the selected tile
+        }
+        else
+        {
+            Debug.Log("No tile selected or tile already has a building.");
+        }
+
+
+    }
+
+    public void ConstructConcentrationStorage()
+    {
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration > 70)
+        {
+            GameObject currentBuilding = Instantiate(concentrationStorage, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
+            concentration.SubtractConcentration(70);
+            selectedTile.numBuildings++;
+            currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
+            constructionMenu.SetActive(false);
+            selectedTile = null; // Clear the selected tile
+            concentration.CS = true;
         }
         else
         {

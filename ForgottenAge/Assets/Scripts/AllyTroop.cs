@@ -177,7 +177,7 @@ public class AllyTroop : MonoBehaviour
 
         foreach (CaptureZone zone in captureZones)
         {
-            if (!zone.captured)
+            if (!zone.captured || zone.capturingSide == "Enemy")
             {
                 float distance = Vector3.Distance(transform.position, zone.transform.position);
                 if (distance < minDistance)
