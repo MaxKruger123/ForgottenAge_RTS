@@ -94,32 +94,32 @@ public class CardScreen : MonoBehaviour
         for(int i = 0; i < 3; i++)
         {
             randNum = Random.Range(0, cardDataList.Count);
-            drawnCards[i].transform.GetChild(0).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].title; // sets drawn card title to the randomly selected cards title
-            drawnCards[i].transform.GetChild(1).GetComponent<Image>().sprite = cardDataList[randNum].image; // sets drawn card image to the randomly selected cards image
-            drawnCards[i].transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].descriptionText;
+            drawnCards[i].GetComponent<Card>().title.text = cardDataList[randNum].title; // sets drawn card title to the randomly selected cards title
+            drawnCards[i].GetComponent<Card>().image.sprite = cardDataList[randNum].image; // sets drawn card image to the randomly selected cards image
+            drawnCards[i].GetComponent<Card>().descriptionText.text = cardDataList[randNum].descriptionText;
 
             // buff
-            drawnCards[i].transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].buffType;
+            drawnCards[i].GetComponent<Card>().buffText.text = cardDataList[randNum].buffType;
             // if there is no buff it wont display anything for it
             if (cardDataList[randNum].buffValue == 0)
             {
-                drawnCards[i].transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                drawnCards[i].GetComponent<Card>().buffEffectText.text = "";
             }
             else
             {
-                drawnCards[i].transform.GetChild(3).GetChild(0).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].buffValue.ToString();
+                drawnCards[i].GetComponent<Card>().buffEffectText.text = cardDataList[randNum].buffValue.ToString();
             }
             
             // debuff
-            drawnCards[i].transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].debuffType;
+            drawnCards[i].GetComponent<Card>().debuffText.text = cardDataList[randNum].debuffType;
             // if there is no debuff it wont display anything for it
             if (cardDataList[randNum].debuffValue == 0)
             {
-                drawnCards[i].transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = "";
+                drawnCards[i].GetComponent<Card>().debuffEffectText.text = "";
             }
             else
             {
-                drawnCards[i].transform.GetChild(4).GetChild(0).GetComponent<TextMeshProUGUI>().text = cardDataList[randNum].debuffValue.ToString();
+                drawnCards[i].GetComponent<Card>().debuffEffectText.text = cardDataList[randNum].debuffValue.ToString();
             }
                 
             
