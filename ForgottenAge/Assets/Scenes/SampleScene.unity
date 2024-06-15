@@ -956,11 +956,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c60b47392f3fcf42ae1f932b3ef126d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  panSpeed: 20
+  panSpeed: 40
   panBorderThickness: 10
   scrollSpeed: 20
   minY: 10
-  maxY: 80
+  maxY: 120
 --- !u!1 &532915861
 GameObject:
   m_ObjectHideFlags: 0
@@ -2513,7 +2513,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &890316407
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2802,10 +2802,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   captureTime: 5
-  uncaptureTime: 20
+  capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  captureFlag: 0
   numBuildings: {fileID: 894166583}
 --- !u!212 &894166589
 SpriteRenderer:
@@ -127009,10 +127008,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   captureTime: 5
-  uncaptureTime: 20
+  capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  captureFlag: 0
   numBuildings: {fileID: 1786741184}
 --- !u!212 &1786741179
 SpriteRenderer:
@@ -127595,10 +127593,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   captureTime: 5
-  uncaptureTime: 20
+  capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  captureFlag: 0
   numBuildings: {fileID: 1849003605}
 --- !u!212 &1849003611
 SpriteRenderer:
@@ -128636,10 +128633,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   captureTime: 5
-  uncaptureTime: 20
+  capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  captureFlag: 0
   numBuildings: {fileID: 2033309785}
 --- !u!212 &2033309791
 SpriteRenderer:
