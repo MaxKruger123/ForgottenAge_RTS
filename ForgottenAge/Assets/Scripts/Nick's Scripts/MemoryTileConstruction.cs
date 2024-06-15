@@ -12,7 +12,7 @@ public class MemoryTileConstruction : MonoBehaviour
     public GameObject concentrationStorage;
     public int numBuildings;
     public CaptureZone captureZone;
-    public Concentration concentration;
+    
 
 
     public static MemoryTileConstruction selectedTile; // Track the selected tile for construction
@@ -22,6 +22,7 @@ public class MemoryTileConstruction : MonoBehaviour
     void Start()
     {
         constructionMenu.SetActive(false); // Ensure the construction menu is initially inactive
+        concentration = GameObject.Find("UICanvas").GetComponent<Concentration>();
     }
 
     private void OnMouseOver()

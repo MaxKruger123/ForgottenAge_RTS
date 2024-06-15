@@ -36,7 +36,7 @@ public class Concentration : MonoBehaviour
 
         if (CS == true)
         {
-            maxConcentration = 150;
+            maxConcentration = 200;
         }
     }
 
