@@ -239,9 +239,33 @@ public class Building : MonoBehaviour
         EnqueueTroop(TroopType.Ally, 5 + cardManager.troopCostModifier);
     }
 
+    public void SpawnTroopInstant()
+    {
+
+        if (concentration.dreamTokens > 1)
+        {
+            Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
+            Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
+            Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
+            concentration.dreamTokens--;
+        }
+        
+    }
+
     public void SpawnTankTroop()
     {
         EnqueueTroop(TroopType.Tank, 25 + cardManager.troopCostModifier);
+    }
+
+    public void SpawnTankTroopInstant()
+    {
+        if (concentration.dreamTokens > 1)
+        {
+            Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
+            Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
+            Instantiate(tankTroopPrefab, spawnPosition, Quaternion.identity);
+            concentration.dreamTokens --;
+        }
     }
 
     public void SpawnRangedTroop()
@@ -249,8 +273,30 @@ public class Building : MonoBehaviour
         EnqueueTroop(TroopType.Ranged, 10 + cardManager.troopCostModifier);
     }
 
+    public void SpawnRangedTroopInstant()
+    {
+        if (concentration.dreamTokens > 1)
+        {
+            Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
+            Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
+            Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
+            concentration.dreamTokens--;
+        }
+    }
+
     public void SpawnHealingTroop()
     {
         EnqueueTroop(TroopType.Healing, 10 + cardManager.troopCostModifier);
+    }
+
+    public void SpawnHealingTroopInstant()
+    {
+        if (concentration.dreamTokens > 1)
+        {
+            Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
+            Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
+            Instantiate(rangedHealingTroopPrefab, spawnPosition, Quaternion.identity);
+            concentration.dreamTokens--;
+        }
     }
 }

@@ -11,6 +11,8 @@ TagManager:
   - Building
   - EnemyRanged
   - AllyHealing
+  - AllyTank
+  - MainBrain
   layers:
   - Default
   - TransparentFX

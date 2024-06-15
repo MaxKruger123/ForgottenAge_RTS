@@ -7,8 +7,11 @@ public class Concentration : MonoBehaviour
 {
 
     public TextMeshProUGUI concentrationText;
+    public TextMeshProUGUI dreamTokenText;
     public int concentration;
     public int maxConcentration;
+
+    public int dreamTokens;
 
     private float timeCounter;
 
@@ -22,14 +25,15 @@ public class Concentration : MonoBehaviour
     {
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         income = 2 + tileController.tilesCaptured;
-        maxConcentration = 100;
+        maxConcentration = 300;
     }
 
     void Update()
     {
-        concentrationText.text = "Concentration: " + concentration ;
-        ConcentrationIncome(2 + tileController.tilesCaptured + cardManager.incomeModifier);
-        income = 2 + tileController.tilesCaptured;
+        concentrationText.text =  " " + concentration;
+        dreamTokenText.text = " " + dreamTokens;
+        ConcentrationIncome(2 + cardManager.incomeModifier);
+        
 
         if(concentration > maxConcentration)
         {
@@ -38,7 +42,7 @@ public class Concentration : MonoBehaviour
 
         if (CS == true)
         {
-            maxConcentration = 200;
+            maxConcentration = 500;
         }
     }
 

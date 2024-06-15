@@ -151,7 +151,6 @@ MonoBehaviour:
   rangedAttackRange: 7
   projectilePrefab: {fileID: 986697290854198135, guid: 5225898369b354d478a6b2fcf2f8cdfc, type: 3}
   projectileSpeed: 10
-  shootInterval: 1
   healRange: 5
   healAmount: 10
   healingProjectilePrefab: {fileID: 0}
@@ -221,7 +220,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 58733520159805711}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: e523712766274a2408fc840bf07dade4, type: 2}
   m_CullingMode: 0

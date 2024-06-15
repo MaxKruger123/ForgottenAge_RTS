@@ -48,6 +48,10 @@ public class RecruitmentMenu : MonoBehaviour
         buttons[0].onClick.AddListener(() => building.SpawnTroop());
         buttons[1].onClick.RemoveAllListeners();
         buttons[1].onClick.AddListener(() => building.SpawnRangedTroop());
+        buttons[2].onClick.RemoveAllListeners();
+        buttons[2].onClick.AddListener(() => building.SpawnTroopInstant());
+        buttons[3].onClick.RemoveAllListeners();
+        buttons[3].onClick.AddListener(() => building.SpawnRangedTroopInstant());
     }
 }
 

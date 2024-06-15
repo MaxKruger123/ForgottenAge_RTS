@@ -23,7 +23,7 @@ public class PassiveHealing : MonoBehaviour
 
             if (timeCounter >= 1.0f)
             {
-                gameObject.GetComponent<AllyTroopStats>().TakeHeals(1);
+                gameObject.GetComponent<AllyTroopStats>().TakeHeals(0.1f);
                 timeCounter -= 1.0f;
             }
         }

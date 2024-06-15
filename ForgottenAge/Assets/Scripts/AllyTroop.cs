@@ -73,7 +73,7 @@ public class AllyTroop : MonoBehaviour
                         agent.SetDestination(targetEnemy.transform.position);
                     }
                 }
-                else if (gameObject.CompareTag("Player"))
+                else if (gameObject.CompareTag("Player") || gameObject.CompareTag("AllyTank"))
                 {
                     // Attack the enemy when in range
                     AttackEnemy();

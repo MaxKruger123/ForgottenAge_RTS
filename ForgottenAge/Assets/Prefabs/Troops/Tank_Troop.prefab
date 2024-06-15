@@ -277,10 +277,11 @@ GameObject:
   - component: {fileID: 4601016769145175600}
   - component: {fileID: 500839994585263743}
   - component: {fileID: 1637354125258897656}
+  - component: {fileID: 6482065064497446737}
   - component: {fileID: 1985817542827921315}
   m_Layer: 0
   m_Name: Tank_Troop
-  m_TagString: Player
+  m_TagString: AllyTank
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -369,6 +370,7 @@ MonoBehaviour:
   maxHealth: 25
   currentHealth: 0
   healthBar: {fileID: 1113889473333273644}
+  cardManager: {fileID: 0}
 --- !u!50 &8108793100719801818
 Rigidbody2D:
   serializedVersion: 4
@@ -413,7 +415,6 @@ MonoBehaviour:
   rangedAttackRange: 7
   projectilePrefab: {fileID: 0}
   projectileSpeed: 10
-  shootInterval: 1
   healRange: 5
   healAmount: 10
   healingProjectilePrefab: {fileID: 0}
@@ -475,6 +476,18 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 1.93
+--- !u!114 &6482065064497446737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6561206551077574663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ff9a2083377e5414ebeaaf1ff590fc50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!95 &1985817542827921315
 Animator:
   serializedVersion: 5
@@ -483,7 +496,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6561206551077574663}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 8fbfede410d5a8348adf5605f820e36a, type: 2}
   m_CullingMode: 0
