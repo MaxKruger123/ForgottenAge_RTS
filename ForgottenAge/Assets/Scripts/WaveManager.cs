@@ -126,7 +126,7 @@ public class WaveManager : MonoBehaviour
             Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
             Instantiate(enemySpawnEffect, new Vector3(spawnPosition.x, spawnPosition.y, -1), Quaternion.identity);
 
-            yield return new WaitForSeconds(1f); // Adjust this delay as needed
+            yield return new WaitForSeconds(0.1f); // Adjust this delay as needed
         }
 
         // Check if all enemies are dead

@@ -201,7 +201,9 @@ public class Building : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.DefenseTower)
         {
+            Vector3 mouseScreenPosition = Input.mousePosition;
             deconstructMenu.gameObject.SetActive(true);
+            deconstructMenu.transform.position = mouseScreenPosition;
             MemoryTileConstruction.selectedBuilding = this;
         }
         else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.UpgradedBarracks)
@@ -215,12 +217,16 @@ public class Building : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.UpgradedDefenseTower)
         {
+            Vector3 mouseScreenPosition = Input.mousePosition;
             deconstructMenu.gameObject.SetActive(true);
+            deconstructMenu.transform.position = mouseScreenPosition;
             MemoryTileConstruction.selectedBuilding = this;
         }
         else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.AreaDamageTower)
         {
+            Vector3 mouseScreenPosition = Input.mousePosition;
             deconstructMenu.gameObject.SetActive(true);
+            deconstructMenu.transform.position = mouseScreenPosition;
             MemoryTileConstruction.selectedBuilding = this;
         }
 

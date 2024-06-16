@@ -18,21 +18,44 @@ public class CaptureZone : MonoBehaviour
 
     public bool captured = false;
 
-    private MemoryTile memoryTile; // Reference to the memory tile associated with this capture zone
-
-    public MemoryTileConstruction numBuildings;
+    private MemoryTile nearestMemoryTile; // Reference to the nearest memory tile
+    private MemoryTileConstruction numBuildings; // Reference to the MemoryTileConstruction associated with the nearest MemoryTile
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
-        memoryTile = GetComponentInParent<MemoryTile>(); // Assuming the CaptureZone is a child of the MemoryTile
+        FindNearestMemoryTile();
 
-        if (memoryTile == null)
+        if (nearestMemoryTile == null)
         {
-            Debug.LogError("MemoryTile component not found in parent of " + gameObject.name);
+            Debug.LogError("No MemoryTile found in the scene.");
+        }
+        else
+        {
+            numBuildings = nearestMemoryTile.GetComponent<MemoryTileConstruction>();
+            if (numBuildings == null)
+            {
+                Debug.LogError("MemoryTileConstruction component not found in nearest MemoryTile: " + nearestMemoryTile.name);
+            }
         }
 
         spriteRenderer.color = Color.white; // Start as uncaptured
+    }
+
+    private void FindNearestMemoryTile()
+    {
+        MemoryTile[] memoryTiles = FindObjectsOfType<MemoryTile>();
+        float closestDistance = Mathf.Infinity;
+
+        foreach (MemoryTile tile in memoryTiles)
+        {
+            float distance = Vector3.Distance(transform.position, tile.transform.position);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                nearestMemoryTile = tile;
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -46,10 +69,7 @@ public class CaptureZone : MonoBehaviour
             enemyCount++;
         }
 
-        if (playerCount > 0 && enemyCount > 0)
-        {
-            ResetFlashColor();
-        }
+        
     }
 
     private void OnTriggerExit2D(Collider2D other)
@@ -66,6 +86,8 @@ public class CaptureZone : MonoBehaviour
 
     private void Update()
     {
+        if (numBuildings == null) return; // Ensure numBuildings is not null
+
         if (playerCount > 0 && enemyCount == 0 && numBuildings.numBuildings == 0)
         {
             if (capturingSide == null || capturingSide == "Player")
@@ -116,11 +138,7 @@ public class CaptureZone : MonoBehaviour
                 }
             }
         }
-        else if (playerCount > 0 && enemyCount > 0 && numBuildings.numBuildings == 0)
-        {
-            // Zone is contested
-            ResetFlashColor();
-        }
+        
     }
 
     private void Capture(string side)
@@ -154,19 +172,7 @@ public class CaptureZone : MonoBehaviour
         }
     }
 
-    private void ResetFlashColor()
-    {
-        captureProgress = 0;
-
-        if (flashCoroutine != null)
-        {
-            StopCoroutine(flashCoroutine);
-            flashCoroutine = null;
-        }
-
-        spriteRenderer.color = Color.white; // Reset to default color when contested or neutral
-        capturingSide = null;
-    }
+    
 
     private IEnumerator FlashColor(Color flashColor)
     {
@@ -181,11 +187,11 @@ public class CaptureZone : MonoBehaviour
 
     private void DestroyBuildingOnTile()
     {
-        if (memoryTile != null && memoryTile.building != null)
+        if (nearestMemoryTile != null && nearestMemoryTile.building != null)
         {
-            Destroy(memoryTile.building);
-            memoryTile.building = null;
-            Debug.Log("Destroyed building on memory tile: " + memoryTile.name);
+            Destroy(nearestMemoryTile.building);
+            nearestMemoryTile.building = null;
+            Debug.Log("Destroyed building on memory tile: " + nearestMemoryTile.name);
         }
     }
 }
