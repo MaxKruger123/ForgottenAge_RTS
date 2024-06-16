@@ -30,12 +30,16 @@ public class Concentration : MonoBehaviour
 
     void Update()
     {
-        concentrationText.text =  " " + concentration;
+        if (Time.timeScale == 0)
+        {
+            return; // Skip the update logic if the game is paused
+        }
+
+        concentrationText.text = " " + concentration;
         dreamTokenText.text = " " + dreamTokens;
         ConcentrationIncome(2 + cardManager.incomeModifier);
-        
 
-        if(concentration > maxConcentration)
+        if (concentration > maxConcentration)
         {
             concentration = maxConcentration;
         }

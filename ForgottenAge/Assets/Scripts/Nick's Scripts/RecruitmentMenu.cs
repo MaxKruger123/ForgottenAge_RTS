@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
 public class RecruitmentMenu : MonoBehaviour
 {
     public Concentration concentration;
     public List<Button> buttons;
+
+    public List<TextMeshProUGUI> prices;
 
     
     // Start is called before the first frame update
@@ -18,7 +21,10 @@ public class RecruitmentMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(concentration.GetConcentration() < 5)
+
+
+
+        if (concentration.GetConcentration() < int.Parse(prices[0].text.TrimEnd('c')))
         {
             buttons[0].interactable = false;
         }
@@ -27,13 +33,24 @@ public class RecruitmentMenu : MonoBehaviour
             buttons[0].interactable = true;
         }
 
-        if(concentration.GetConcentration() < 10)
+        if(concentration.GetConcentration() < int.Parse(prices[1].text.TrimEnd('c')))
         {
             buttons[1].interactable = false;
         }
         else
         {
             buttons[1].interactable = true;
+        }
+
+        if (concentration.dreamTokens < 1)
+        {
+            buttons[2].interactable = false;
+            buttons[3].interactable = false;
+        }
+        else
+        {
+            buttons[2].interactable = true;
+            buttons[3].interactable = true;
         }
     }
 
@@ -52,6 +69,17 @@ public class RecruitmentMenu : MonoBehaviour
         buttons[2].onClick.AddListener(() => building.SpawnTroopInstant());
         buttons[3].onClick.RemoveAllListeners();
         buttons[3].onClick.AddListener(() => building.SpawnRangedTroopInstant());
+    }
+
+    public void SetPrices(int meleePrice, int rangedPrice)
+    {
+        
+        // Melee Ally price
+        prices[0].text = meleePrice + "c";
+
+        // Ranged Ally price
+        prices[1].text = rangedPrice + "c";
+
     }
 }
 
