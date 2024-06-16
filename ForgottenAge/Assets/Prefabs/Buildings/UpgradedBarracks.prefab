@@ -481,8 +481,8 @@ MonoBehaviour:
   concentration: {fileID: 0}
   spawnRadius: 5
   spawnEffect: {fileID: 3259086518229417968, guid: 0ee12f2ba532a654a83dd4e462c7e7d2, type: 3}
-  queueText: {fileID: 0}
-  queueImage: {fileID: 0}
+  queueText: {fileID: 9028669020285205055}
+  queueImage: {fileID: 378713895080141995}
   cardManager: {fileID: 0}
 --- !u!61 &2355374107090665178
 BoxCollider2D:

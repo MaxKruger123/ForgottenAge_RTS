@@ -3094,7 +3094,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20c
+  m_text: 200c
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3844,8 +3844,8 @@ MonoBehaviour:
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
-  upgradedTowerPrice: 200
-  areaTowerPrice: 300
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &548436703
 CircleCollider2D:
@@ -6488,8 +6488,8 @@ MonoBehaviour:
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
-  upgradedTowerPrice: 200
-  areaTowerPrice: 300
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &808046421
 CircleCollider2D:
@@ -7177,7 +7177,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20c
+  m_text: 150c
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -7534,8 +7534,8 @@ MonoBehaviour:
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
-  upgradedTowerPrice: 200
-  areaTowerPrice: 300
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &894166584
 CircleCollider2D:
@@ -8657,7 +8657,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20c
+  m_text: 250c
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -8921,8 +8921,8 @@ MonoBehaviour:
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
-  upgradedTowerPrice: 200
-  areaTowerPrice: 300
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1012926655
 CircleCollider2D:
@@ -9440,8 +9440,8 @@ MonoBehaviour:
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
-  upgradedTowerPrice: 200
-  areaTowerPrice: 300
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1019785406
 CircleCollider2D:
@@ -10372,7 +10372,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 20c
+  m_text: 40c
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -13059,7 +13059,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutscenes:
   - {fileID: 32900000, guid: 6f9dd98aa86f951419741f12d0eeda3a, type: 3}
-  - {fileID: 32900000, guid: 94efb53224811e749a9854e6c65a954f, type: 3}
+  - {fileID: 32900000, guid: 5a61b947b9b90fd4f95c42bd61349f05, type: 3}
   - {fileID: 32900000, guid: 0d60642a2de117548b36a930fd828a07, type: 3}
   cutsceneCanvas: {fileID: 816548775}
   cutsceneRawImage: {fileID: 90334953}
@@ -14281,8 +14281,8 @@ MonoBehaviour:
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
-  upgradedTowerPrice: 200
-  areaTowerPrice: 300
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1685625838
 CircleCollider2D:
@@ -137054,8 +137054,8 @@ MonoBehaviour:
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
-  upgradedTowerPrice: 200
-  areaTowerPrice: 300
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!114 &1786741185
 MonoBehaviour:
@@ -137706,8 +137706,8 @@ MonoBehaviour:
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
-  upgradedTowerPrice: 200
-  areaTowerPrice: 300
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1849003606
 CircleCollider2D:
@@ -139494,7 +139494,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 50c
+  m_text: 100c
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -139635,8 +139635,8 @@ MonoBehaviour:
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
-  upgradedTowerPrice: 200
-  areaTowerPrice: 300
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &2033309786
 CircleCollider2D:
@@ -140518,8 +140518,8 @@ MonoBehaviour:
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
-  upgradedTowerPrice: 200
-  areaTowerPrice: 300
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &2132242232
 CircleCollider2D:
