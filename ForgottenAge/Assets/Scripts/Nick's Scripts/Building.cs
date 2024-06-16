@@ -43,7 +43,11 @@ public class Building : MonoBehaviour
 
 
     public CardManager cardManager;
-    
+
+    public int meleeTroopPrice;
+    public int rangedTroopPrice;
+    public int tankTroopPrice;
+    public int healerTroopPrice;
 
     private enum TroopType
     {
@@ -81,6 +85,17 @@ public class Building : MonoBehaviour
             float buildTime = GetBuildTime(troopQueue.Peek());
             queueImage.fillAmount += Time.deltaTime / buildTime;
         }
+
+        // PRICE UPDATES
+        // updates prices melee and ranged prices
+        meleeTroopPrice = 5 + cardManager.troopCostModifier;
+        rangedTroopPrice = 10 + cardManager.troopCostModifier;
+        recruitmentMenu.GetComponent<RecruitmentMenu>().SetPrices(meleeTroopPrice, rangedTroopPrice);
+
+        // updates prices tank and healer prices
+        tankTroopPrice = 25 + cardManager.troopCostModifier;
+        healerTroopPrice = 10 + cardManager.troopCostModifier;
+        recruitmentMenuTwo.GetComponent<RecruitmentMenuTwo>().SetPrices(tankTroopPrice, healerTroopPrice);
     }
 
     // Coroutine for shooting at regular intervals
@@ -236,7 +251,7 @@ public class Building : MonoBehaviour
 
     public void SpawnTroop()
     {
-        EnqueueTroop(TroopType.Ally, 5 + cardManager.troopCostModifier);
+        EnqueueTroop(TroopType.Ally, meleeTroopPrice);
     }
 
     public void SpawnTroopInstant()
@@ -254,7 +269,7 @@ public class Building : MonoBehaviour
 
     public void SpawnTankTroop()
     {
-        EnqueueTroop(TroopType.Tank, 25 + cardManager.troopCostModifier);
+        EnqueueTroop(TroopType.Tank, tankTroopPrice);
     }
 
     public void SpawnTankTroopInstant()
@@ -270,7 +285,7 @@ public class Building : MonoBehaviour
 
     public void SpawnRangedTroop()
     {
-        EnqueueTroop(TroopType.Ranged, 10 + cardManager.troopCostModifier);
+        EnqueueTroop(TroopType.Ranged, rangedTroopPrice);
     }
 
     public void SpawnRangedTroopInstant()
@@ -286,7 +301,7 @@ public class Building : MonoBehaviour
 
     public void SpawnHealingTroop()
     {
-        EnqueueTroop(TroopType.Healing, 10 + cardManager.troopCostModifier);
+        EnqueueTroop(TroopType.Healing, healerTroopPrice);
     }
 
     public void SpawnHealingTroopInstant()

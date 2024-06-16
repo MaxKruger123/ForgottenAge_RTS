@@ -12,7 +12,13 @@ public class MemoryTileConstruction : MonoBehaviour
     public GameObject concentrationStorage;
     public int numBuildings;
     public CaptureZone captureZone;
-    
+
+    public int barracksPrice= 20;
+    public int towerPrice= 40;
+    public int upgradedBarracksPrice= 100;
+    public int conStoragePrice=200;
+
+
 
 
     public static MemoryTileConstruction selectedTile; // Track the selected tile for construction
@@ -21,6 +27,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     void Start()
     {
+        constructionMenu.GetComponent<ConstructionMenu>().SetPrices(barracksPrice, towerPrice, upgradedBarracksPrice, conStoragePrice);
         constructionMenu.SetActive(false); // Ensure the construction menu is initially inactive
         concentration = GameObject.Find("UICanvas").GetComponent<Concentration>();
     }
@@ -48,10 +55,10 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructBuilding()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 20)
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= barracksPrice)
         {
             GameObject currentBuilding = Instantiate(buildingPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
-            concentration.SubtractConcentration(20);
+            concentration.SubtractConcentration(barracksPrice);
             selectedTile.numBuildings++;
             currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
             constructionMenu.SetActive(false);
@@ -67,10 +74,10 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructConcentrationStorage()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 20)
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= conStoragePrice)
         {
             GameObject currentBuilding = Instantiate(concentrationStorage, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
-            concentration.SubtractConcentration(20);
+            concentration.SubtractConcentration(conStoragePrice);
             selectedTile.numBuildings++;
             currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
             constructionMenu.SetActive(false);
@@ -87,10 +94,10 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructDefenseTower()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 40)
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= towerPrice)
         {
             GameObject currentBuilding = Instantiate(defenseTowerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
-            concentration.SubtractConcentration(20);
+            concentration.SubtractConcentration(towerPrice);
             selectedTile.numBuildings++;
             currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
             constructionMenu.SetActive(false);
@@ -106,10 +113,10 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructUpgradedBarracks()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 100)
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= upgradedBarracksPrice)
         {
             GameObject currentBuilding = Instantiate(upgradedBarracksPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
-            concentration.SubtractConcentration(50);
+            concentration.SubtractConcentration(upgradedBarracksPrice);
             selectedTile.numBuildings++;
             currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
             constructionMenu.SetActive(false);

@@ -1486,7 +1486,7 @@ GameObject:
   - component: {fileID: 450202476}
   - component: {fileID: 450202475}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: ConStoragePriceText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3117,7 +3117,7 @@ GameObject:
   - component: {fileID: 624230182}
   - component: {fileID: 624230181}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: BarracksPriceText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3776,6 +3776,9 @@ MonoBehaviour:
   - {fileID: 177856076}
   - {fileID: 168796047}
   - {fileID: 1564398174}
+  prices:
+  - {fileID: 1849131243}
+  - {fileID: 1271942476}
 --- !u!1 &808046418
 GameObject:
   m_ObjectHideFlags: 0
@@ -3834,6 +3837,10 @@ MonoBehaviour:
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
   numBuildings: 0
   captureZone: {fileID: 808046425}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
 --- !u!58 &808046421
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4029,7 +4036,7 @@ GameObject:
   - component: {fileID: 840956851}
   - component: {fileID: 840956850}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: RangedPriceText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4354,6 +4361,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   concentration: {fileID: 392824352}
   deconstructButton: {fileID: 1584082278}
+  prices:
+  - {fileID: 624230181}
+  - {fileID: 1171702524}
+  - {fileID: 2032512282}
+  - {fileID: 450202475}
+  buttons:
+  - {fileID: 1136769125}
+  - {fileID: 1013335858}
+  - {fileID: 940579510}
+  - {fileID: 1610114159}
 --- !u!1 &894166581
 GameObject:
   m_ObjectHideFlags: 0
@@ -4412,6 +4429,10 @@ MonoBehaviour:
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
   numBuildings: 0
   captureZone: {fileID: 894166588}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
 --- !u!58 &894166584
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5579,6 +5600,10 @@ MonoBehaviour:
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
   numBuildings: 0
   captureZone: {fileID: 1012926659}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
 --- !u!58 &1012926655
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6089,6 +6114,10 @@ MonoBehaviour:
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
   numBuildings: 0
   captureZone: {fileID: 1019785410}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
 --- !u!58 &1019785406
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6616,7 +6645,7 @@ GameObject:
   - component: {fileID: 1171702525}
   - component: {fileID: 1171702524}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: DefensePriceText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6829,7 +6858,7 @@ GameObject:
   - component: {fileID: 1212886692}
   - component: {fileID: 1212886691}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: AllyPriceText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7199,7 +7228,7 @@ GameObject:
   - component: {fileID: 1271942477}
   - component: {fileID: 1271942476}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: HealerPriceText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8561,6 +8590,10 @@ MonoBehaviour:
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
   numBuildings: 0
   captureZone: {fileID: 1685625842}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
 --- !u!58 &1685625838
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -131041,6 +131074,10 @@ MonoBehaviour:
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
   numBuildings: 0
   captureZone: {fileID: 1786741178}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
 --- !u!114 &1786741185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131309,6 +131346,10 @@ MonoBehaviour:
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
   numBuildings: 0
   captureZone: {fileID: 1849003610}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
 --- !u!58 &1849003606
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -131504,7 +131545,7 @@ GameObject:
   - component: {fileID: 1849131244}
   - component: {fileID: 1849131243}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: TankPriceText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -131718,6 +131759,9 @@ MonoBehaviour:
   - {fileID: 986076276}
   - {fileID: 992138899}
   - {fileID: 1985094909}
+  prices:
+  - {fileID: 1212886691}
+  - {fileID: 840956850}
 --- !u!114 &1885551050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -132447,7 +132491,7 @@ GameObject:
   - component: {fileID: 2032512283}
   - component: {fileID: 2032512282}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: UpgradedBarracksPriceText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -132627,6 +132671,10 @@ MonoBehaviour:
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
   numBuildings: 0
   captureZone: {fileID: 2033309790}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
 --- !u!58 &2033309786
 CircleCollider2D:
   m_ObjectHideFlags: 0

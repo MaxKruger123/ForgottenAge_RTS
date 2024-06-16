@@ -157,7 +157,6 @@ public class CardManager : MonoBehaviour
 
 
 
-        memoryTiles[0]
 
         // Log the destruction for debugging purposes
         Debug.Log("Destroyed buildings on two random memory tiles: " + memoryTiles[0].name + " and " + memoryTiles[1].name);
