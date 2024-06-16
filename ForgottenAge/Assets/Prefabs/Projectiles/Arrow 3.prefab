@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 6271998047802841056}
   - component: {fileID: 5645686656867315415}
   - component: {fileID: 1658721209507077696}
+  - component: {fileID: 6475190512937846897}
   m_Layer: 0
   m_Name: Arrow 3
   m_TagString: Untagged
@@ -285,3 +286,16 @@ TrailRenderer:
   m_Autodestruct: 0
   m_Emitting: 1
   m_ApplyActiveColorSpace: 1
+--- !u!114 &6475190512937846897
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 986697290854198135}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1d45da2b2284a34bae1d4587870906b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  particle: {fileID: 3259086518229417968, guid: 72c9eab07104b244d847d9fd2db5157f, type: 3}

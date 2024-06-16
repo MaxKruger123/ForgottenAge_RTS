@@ -116,7 +116,7 @@ public class CaptureZone : MonoBehaviour
                 }
             }
         }
-        else if (playerCount > 0 && enemyCount > 0)
+        else if (playerCount > 0 && enemyCount > 0 && numBuildings.numBuildings == 0)
         {
             // Zone is contested
             ResetFlashColor();
