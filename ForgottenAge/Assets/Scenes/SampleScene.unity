@@ -10026,7 +10026,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cutscenes:
   - {fileID: 32900000, guid: 6f9dd98aa86f951419741f12d0eeda3a, type: 3}
-  - {fileID: 32900000, guid: 94efb53224811e749a9854e6c65a954f, type: 3}
+  - {fileID: 32900000, guid: 5a61b947b9b90fd4f95c42bd61349f05, type: 3}
   - {fileID: 32900000, guid: 0d60642a2de117548b36a930fd828a07, type: 3}
   cutsceneCanvas: {fileID: 816548775}
   cutsceneRawImage: {fileID: 90334953}
@@ -10037,7 +10037,7 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 33fad331b078fb843a96f1b4e713d5ba, type: 3}
   backgroundImage: {fileID: 2082902091}
   blackScreen: {fileID: 90334953}
-  delayBeforeVideo: 2
+  delayBeforeVideo: 2.5
 --- !u!4 &1600120179
 Transform:
   m_ObjectHideFlags: 0
@@ -10597,7 +10597,7 @@ MonoBehaviour:
   cardScreen: {fileID: 551477856}
   wavesUntilCardEvent: 2
   enemySpawnEffect: {fileID: 3259086518229417968, guid: 6728eb66ff0838141b30759b5fb72ac1, type: 3}
-  cutsceneWaves: 010000000a00000014000000
+  cutsceneWaves: 010000000200000003000000
 --- !u!4 &1641135205
 Transform:
   m_ObjectHideFlags: 0
