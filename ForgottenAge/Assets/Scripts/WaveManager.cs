@@ -138,17 +138,6 @@ public class WaveManager : MonoBehaviour
         // End of wave, start countdown for next wave
         waveInProgress = false;
         CheckForCutsceneOrNextWave();
-
-        // Check if the player should receive a card event
-        if (cardWaveCounter == wavesUntilCardEvent)
-        {
-            cardWaveCounter = 0;
-            cardScreen.ShowIconButton();
-        }
-        else
-        {
-            StartCoroutine(StartWaveTimer());
-        }
     }
 
     // Function to replace ally troops with enemy troops
@@ -200,7 +189,7 @@ public class WaveManager : MonoBehaviour
         else
         {
             // Check if the player should receive a card event
-            if (cardWaveCounter == wavesUntilCardEvent)
+            if (cardWaveCounter == wavesUntilCardEvent) 
             {
                 cardWaveCounter = 0;
                 cardScreen.ShowIconButton();
