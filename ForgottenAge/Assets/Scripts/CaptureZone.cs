@@ -72,7 +72,7 @@ public class CaptureZone : MonoBehaviour
             {
                 if (flashCoroutine == null)
                 {
-                    flashCoroutine = StartCoroutine(FlashColor(Color.blue));
+                    flashCoroutine = StartCoroutine(FlashColor(Color.cyan));
                 }
 
                 captureProgress += Time.deltaTime;
@@ -136,7 +136,7 @@ public class CaptureZone : MonoBehaviour
 
         if (side == "Player")
         {
-            spriteRenderer.color = Color.blue;
+            spriteRenderer.color = Color.cyan;
             if (!captured)
             {
                 tileController.tilesCaptured++;
