@@ -360,6 +360,8 @@ MonoBehaviour:
   maxHealth: 10
   currentHealth: 0
   healthBar: {fileID: 4271834942883653057}
+  cardManager: {fileID: 0}
+  deathEffect: {fileID: 3259086518229417968, guid: 21060b30bdb16284e8394342e29416c3, type: 3}
 --- !u!50 &3791969540599720894
 Rigidbody2D:
   serializedVersion: 4

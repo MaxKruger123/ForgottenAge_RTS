@@ -10,6 +10,7 @@ public class AllyTroopStats : MonoBehaviour
 
     public Image healthBar;
     public CardManager cardManager;
+    public GameObject deathEffect;
 
     public void Start()
     {
@@ -32,6 +33,7 @@ public class AllyTroopStats : MonoBehaviour
     {
         if (currentHealth <= 0)
         {
+            Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
         currentHealth -= damage;

@@ -10,6 +10,8 @@ public class EnemyStats : MonoBehaviour
     public Image healthBar;
     public GameObject damageIcon; // Reference to the damage icon
 
+    public GameObject deathEffect;
+
     public void Start()
     {
         currentHealth = maxHealth;
@@ -36,6 +38,7 @@ public class EnemyStats : MonoBehaviour
     void Die()
     {
         // Handle death (e.g., play animation, remove from scene, etc.)
+        Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity);
         Destroy(gameObject);
     }
 

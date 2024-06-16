@@ -213,6 +213,7 @@ MonoBehaviour:
   centerObject: {fileID: 5594789358823119595}
   healthBar: {fileID: 74327062746107729}
   damageIcon: {fileID: 7707013973064289727}
+  deathEffect: {fileID: 3259086518229417968, guid: 7e40ca4aab79a4643a2ed6566c077c6d, type: 3}
 --- !u!114 &3137157085799722520
 MonoBehaviour:
   m_ObjectHideFlags: 0

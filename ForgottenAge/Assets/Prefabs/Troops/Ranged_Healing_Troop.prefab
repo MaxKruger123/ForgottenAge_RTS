@@ -106,6 +106,8 @@ MonoBehaviour:
   maxHealth: 7
   currentHealth: 0
   healthBar: {fileID: 0}
+  cardManager: {fileID: 0}
+  deathEffect: {fileID: 3259086518229417968, guid: 21060b30bdb16284e8394342e29416c3, type: 3}
 --- !u!50 &1522429754047135005
 Rigidbody2D:
   serializedVersion: 4
@@ -150,7 +152,6 @@ MonoBehaviour:
   rangedAttackRange: 7
   projectilePrefab: {fileID: 0}
   projectileSpeed: 10
-  shootInterval: 1
   healRange: 5
   healAmount: 10
   healingProjectilePrefab: {fileID: 986697290854198135, guid: f9d2089b2414497448924863d0bea565, type: 3}

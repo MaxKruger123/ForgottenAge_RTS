@@ -216,6 +216,7 @@ MonoBehaviour:
   rangedHealingTroopPrefab: {fileID: 0}
   tankTroopPrefab: {fileID: 0}
   recruitmentMenu: {fileID: 0}
+  deconstructMenu: {fileID: 0}
   recruitmentMenuTwo: {fileID: 0}
   menuManager: {fileID: 0}
   memoryTile: {fileID: 0}
@@ -302,6 +303,7 @@ MonoBehaviour:
   maxHealth: 50
   currentHealth: 0
   healthBar: {fileID: 251430806333760471}
+  deathEffect: {fileID: 3259086518229417968, guid: 641697adb4a422a4a97eba3809d18783, type: 3}
 --- !u!1 &4465502072559427876
 GameObject:
   m_ObjectHideFlags: 0

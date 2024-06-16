@@ -299,6 +299,7 @@ MonoBehaviour:
   maxHealth: 200
   currentHealth: 0
   healthBar: {fileID: 4318681640200178333}
+  deathEffect: {fileID: 3259086518229417968, guid: 641697adb4a422a4a97eba3809d18783, type: 3}
 --- !u!1 &8942960725775820518
 GameObject:
   m_ObjectHideFlags: 0

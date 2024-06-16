@@ -10,6 +10,7 @@ public class BuildingStats : MonoBehaviour
     public float currentHealth;
 
     public Image healthBar;
+    public GameObject deathEffect;
 
     public void Start()
     {
@@ -25,6 +26,7 @@ public class BuildingStats : MonoBehaviour
             {
                 numBuildings.numBuildings--;
             }
+            Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
         currentHealth -= damage;
@@ -39,6 +41,7 @@ public class BuildingStats : MonoBehaviour
             {
                 numBuildings.numBuildings--;
             }
+            Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity);
             Destroy(gameObject);
         }
         currentHealth += amount;
