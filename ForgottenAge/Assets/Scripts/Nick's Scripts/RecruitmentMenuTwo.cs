@@ -72,10 +72,10 @@ public class RecruitmentMenuTwo : MonoBehaviour
 
     public void SetPrices(int tankPrice, int healerPrice)
     {
-        // Melee Ally price
+        // tank Ally price
         prices[0].text = tankPrice + "c";
 
-        // Ranged Ally price
+        // healer Ally price
         prices[1].text = healerPrice + "c";
     }
 }

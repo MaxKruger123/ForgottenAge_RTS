@@ -65,7 +65,7 @@ public class ConstructionMenu : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void SetPrices(int barracksPrice, int towerPrice, int upgradedBarracksPrice, int conStoragePrice)
+    public void SetPrices(int barracksPrice, int towerPrice, int upgradedBarracksPrice, int conStoragePrice, int upgradedTowerPrice, int areaTowerPrice)
     {
 
         prices[0].text = barracksPrice + "c";

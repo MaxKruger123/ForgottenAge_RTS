@@ -586,7 +586,7 @@ Transform:
   m_GameObject: {fileID: 74769136}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 47.9, y: -4.5, z: 3.1146147}
+  m_LocalPosition: {x: 47.9, y: -4.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -934,7 +934,7 @@ Transform:
   m_GameObject: {fileID: 124934474}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.17, y: -39.5, z: 3.1146147}
+  m_LocalPosition: {x: -0.17, y: -39.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2711,6 +2711,11 @@ MonoBehaviour:
   troopCostModifier: 0
   passiveHealing: 0
   incomeModifier: 0
+  towerDamage: 1
+  memoryTile1: {fileID: 0}
+  memoryTile2: {fileID: 0}
+  enemyPrefab: {fileID: 0}
+  dreamTokenText: {fileID: 0}
 --- !u!1001 &557928648
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3979,12 +3984,17 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
+  upgradedDefenseTower: {fileID: 0}
+  areaDamageTower: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 808046425}
   barracksPrice: 20
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &808046421
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4674,12 +4684,17 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
+  upgradedDefenseTower: {fileID: 0}
+  areaDamageTower: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 894166588}
   barracksPrice: 20
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &894166584
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5845,12 +5860,17 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
+  upgradedDefenseTower: {fileID: 0}
+  areaDamageTower: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 1012926659}
   barracksPrice: 20
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1012926655
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -6359,12 +6379,17 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
+  upgradedDefenseTower: {fileID: 0}
+  areaDamageTower: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 1019785410}
   barracksPrice: 20
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1019785406
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -8894,12 +8919,17 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
+  upgradedDefenseTower: {fileID: 0}
+  areaDamageTower: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 1685625842}
   barracksPrice: 20
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1685625838
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -131378,12 +131408,17 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
+  upgradedDefenseTower: {fileID: 0}
+  areaDamageTower: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 1786741178}
   barracksPrice: 20
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!114 &1786741185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -131650,12 +131685,17 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
+  upgradedDefenseTower: {fileID: 0}
+  areaDamageTower: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 1849003610}
   barracksPrice: 20
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1849003606
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -132975,12 +133015,17 @@ MonoBehaviour:
   defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
   upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
   concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
+  upgradedDefenseTower: {fileID: 0}
+  areaDamageTower: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 2033309790}
   barracksPrice: 20
   towerPrice: 40
   upgradedBarracksPrice: 100
   conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &2033309786
 CircleCollider2D:
   m_ObjectHideFlags: 0
