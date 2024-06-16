@@ -24,7 +24,7 @@ public class Building : MonoBehaviour
     public float shootTimer = 0f;
     public float detectionRadius = 5f;
 
-    public float damagePerSecond = 0.5f; // Damage per second for AreaDamageTower
+    public float damagePerSecond = 0.2f; // Damage per second for AreaDamageTower
 
     public GameObject allyTroopPrefab;
     public GameObject rangedAllyTroopPrefab;
@@ -122,7 +122,7 @@ public class Building : MonoBehaviour
         while (true)
         {
             DealAreaDamage();
-            yield return new WaitForSeconds(1f); // Apply damage every second
+            yield return new WaitForSeconds(2.5f); // Apply damage every second
         }
     }
 
