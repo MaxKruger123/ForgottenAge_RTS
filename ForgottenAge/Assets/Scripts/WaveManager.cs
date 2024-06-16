@@ -2,6 +2,7 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.Video; 
 
 [System.Serializable]
 public class Wave
@@ -24,24 +25,37 @@ public class WaveManager : MonoBehaviour
     public int wavesUntilCardEvent;
     public GameObject enemySpawnEffect;
 
+    public int[] cutsceneWaves; // Waves at which cutscenes are played
+    private CutsceneManager cutsceneManager; // Reference to the CutsceneManager
+
+    private bool paused = false; // Flag to pause the countdown timer
+
     void Start()
     {
+        cutsceneManager = FindObjectOfType<CutsceneManager>();
         StartCoroutine(StartWaveTimer());
     }
 
     IEnumerator StartWaveTimer()
     {
-        // Start countdown timer before the first wave
         float timer = waveDuration;
         while (timer > 0)
         {
-            timer -= Time.deltaTime;
-            timerText.text = "Next Wave: " + Mathf.Ceil(timer).ToString();
+            if (!paused)
+            {
+                timer -= Time.deltaTime;
+                timerText.text = "Next Wave: " + Mathf.Ceil(timer).ToString();
+            }
             yield return null;
         }
 
         // Start the next wave
         StartNextWave();
+    }
+
+    void StartWaveTimerCoroutine()
+    {
+        StartCoroutine(StartWaveTimer());
     }
 
     void StartNextWave()
@@ -91,6 +105,7 @@ public class WaveManager : MonoBehaviour
 
         // End of wave, start countdown for next wave
         waveInProgress = false;
+        CheckForCutsceneOrNextWave();
 
         // Check if the player should receive a card event
         if (cardWaveCounter == wavesUntilCardEvent)
@@ -118,5 +133,35 @@ public class WaveManager : MonoBehaviour
     public int GetCurrentWave()
     {
         return currentWave;
+    }
+
+    void CheckForCutsceneOrNextWave()
+    {
+        // Check if the current wave is a cutscene wave
+        if (System.Array.Exists(cutsceneWaves, wave => wave == currentWave))
+        {
+            int cutsceneIndex = System.Array.IndexOf(cutsceneWaves, currentWave);
+            Debug.Log("Cutscene wave detected: " + currentWave);
+            Debug.Log("Calling PlayCutscene on CutsceneManager");
+            paused = true; // Pause the countdown timer
+            cutsceneManager.PlayCutscene(cutsceneIndex, () =>
+            {
+                paused = false; // Resume the countdown timer
+                StartWaveTimerCoroutine();
+            });
+        }
+        else
+        {
+            // Check if the player should receive a card event
+            if (cardWaveCounter == wavesUntilCardEvent)
+            {
+                cardWaveCounter = 0;
+                cardScreen.ShowIconButton();
+            }
+            else
+            {
+                StartWaveTimerCoroutine();
+            }
+        }
     }
 }
