@@ -24,7 +24,7 @@ public class CardManager : MonoBehaviour
     public int troopCostModifier = 0;
     public bool passiveHealing = false;
     public int incomeModifier = 0;
-    public float towerDamage = 1.0f;
+    public float towerDamage = 2.0f;
 
     public GameObject memoryTile1;
     public GameObject memoryTile2;

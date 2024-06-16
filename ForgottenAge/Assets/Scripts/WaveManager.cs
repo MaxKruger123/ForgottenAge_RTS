@@ -2,7 +2,6 @@ using UnityEngine;
 using TMPro;
 using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.Video; 
 
 [System.Serializable]
 public class Wave
@@ -29,6 +28,9 @@ public class WaveManager : MonoBehaviour
     private CutsceneManager cutsceneManager; // Reference to the CutsceneManager
 
     private bool paused = false; // Flag to pause the countdown timer
+
+    public float replacementChance = 15f; // Percentage chance for ally troop replacement after wave 10
+    public GameObject enemyTroopPrefab; // Prefab for the enemy troop to replace allies
 
     void Start()
     {
@@ -65,6 +67,36 @@ public class WaveManager : MonoBehaviour
             currentWave++;
             cardWaveCounter++;
             timerText.text = "Wave " + currentWave.ToString();
+
+            if (currentWave >= 10)
+            {
+                ReplaceAllyTroopsWithEnemies();
+            }
+            if (currentWave >= 15)
+            {
+                replacementChance = 15f;
+                ReplaceAllyTroopsWithEnemies();
+            }
+            if (currentWave >= 20)
+            {
+                replacementChance = 20f;
+                ReplaceAllyTroopsWithEnemies();
+            }
+            if (currentWave >= 25)
+            {
+                replacementChance = 30f;
+                ReplaceAllyTroopsWithEnemies();
+            }
+            if (currentWave >= 25)
+            {
+                replacementChance = 50f;
+                ReplaceAllyTroopsWithEnemies();
+            }
+            if (currentWave >= 30)
+            {
+                replacementChance = 80f;
+                ReplaceAllyTroopsWithEnemies();
+            }
 
             StartCoroutine(SpawnEnemies());
         }
@@ -116,6 +148,21 @@ public class WaveManager : MonoBehaviour
         else
         {
             StartCoroutine(StartWaveTimer());
+        }
+    }
+
+    // Function to replace ally troops with enemy troops
+    void ReplaceAllyTroopsWithEnemies()
+    {
+        GameObject[] allyTroops = GameObject.FindGameObjectsWithTag("Player");
+        foreach (GameObject ally in allyTroops)
+        {
+            if (Random.Range(0f, 100f) <= replacementChance)
+            {
+                Vector3 position = ally.transform.position;
+                Destroy(ally);
+                Instantiate(enemyTroopPrefab, position, Quaternion.identity);
+            }
         }
     }
 
