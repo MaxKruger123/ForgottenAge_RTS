@@ -106,17 +106,6 @@ public class WaveManager : MonoBehaviour
         // End of wave, start countdown for next wave
         waveInProgress = false;
         CheckForCutsceneOrNextWave();
-
-        // Check if the player should receive a card event
-        if (cardWaveCounter == wavesUntilCardEvent)
-        {
-            cardWaveCounter = 0;
-            cardScreen.ShowIconButton();
-        }
-        else
-        {
-            StartCoroutine(StartWaveTimer());
-        }
     }
 
     // Public function so that a wave can be started after closing the card screen
@@ -153,7 +142,7 @@ public class WaveManager : MonoBehaviour
         else
         {
             // Check if the player should receive a card event
-            if (cardWaveCounter == wavesUntilCardEvent)
+            if (cardWaveCounter == wavesUntilCardEvent) 
             {
                 cardWaveCounter = 0;
                 cardScreen.ShowIconButton();
