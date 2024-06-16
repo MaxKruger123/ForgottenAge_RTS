@@ -52,6 +52,8 @@ public class RecruitmentMenu : MonoBehaviour
             buttons[2].interactable = true;
             buttons[3].interactable = true;
         }
+
+        buttons[4].interactable = true;
     }
 
     public void HideMenu()

@@ -143,7 +143,12 @@ public class WaveManager : MonoBehaviour
     // Function to replace ally troops with enemy troops
     void ReplaceAllyTroopsWithEnemies()
     {
-        GameObject[] allyTroops = GameObject.FindGameObjectsWithTag("Player");
+        // Find all ally troops
+        List<GameObject> allyTroops = new List<GameObject>();
+        allyTroops.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        allyTroops.AddRange(GameObject.FindGameObjectsWithTag("AllyRanged"));
+        allyTroops.AddRange(GameObject.FindGameObjectsWithTag("AllyTank"));
+
         foreach (GameObject ally in allyTroops)
         {
             if (Random.Range(0f, 100f) <= replacementChance)

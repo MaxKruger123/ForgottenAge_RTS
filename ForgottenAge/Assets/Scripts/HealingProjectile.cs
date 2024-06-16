@@ -11,7 +11,7 @@ public class HealingProjectile : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player") || collision.CompareTag("AllyRanged") || collision.CompareTag("AllyTank"))
+        if (collision.CompareTag("Player") || collision.CompareTag("AllyRanged") || collision.CompareTag("AllyTank") || collision.CompareTag("AllyHealing"))
         {
             AllyTroopStats allyTroopStats = collision.GetComponent<AllyTroopStats>();
             if (allyTroopStats != null)

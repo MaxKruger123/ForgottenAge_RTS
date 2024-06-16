@@ -13,7 +13,8 @@ public class Building : MonoBehaviour
         UpgradedBarracks,
         ConcentrationStorage,
         UpgradedDefenseTower,
-        AreaDamageTower
+        AreaDamageTower,
+        
     }
 
     public BuildingType buildingType = BuildingType.Default;
@@ -23,7 +24,7 @@ public class Building : MonoBehaviour
     public float shootTimer = 0f;
     public float detectionRadius = 5f;
 
-    public float damagePerSecond = 2f; // Damage per second for AreaDamageTower
+    public float damagePerSecond = 0.5f; // Damage per second for AreaDamageTower
 
     public GameObject allyTroopPrefab;
     public GameObject rangedAllyTroopPrefab;
@@ -223,6 +224,13 @@ public class Building : MonoBehaviour
             MemoryTileConstruction.selectedBuilding = this;
         }
         else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.AreaDamageTower)
+        {
+            Vector3 mouseScreenPosition = Input.mousePosition;
+            deconstructMenu.gameObject.SetActive(true);
+            deconstructMenu.transform.position = mouseScreenPosition;
+            MemoryTileConstruction.selectedBuilding = this;
+        }
+        else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.ConcentrationStorage)
         {
             Vector3 mouseScreenPosition = Input.mousePosition;
             deconstructMenu.gameObject.SetActive(true);

@@ -13068,6 +13068,7 @@ MonoBehaviour:
   backgroundImages:
   - {fileID: 21300000, guid: 42da0c3174c0c3a45905024158a51f50, type: 3}
   - {fileID: 21300000, guid: 33fad331b078fb843a96f1b4e713d5ba, type: 3}
+  - {fileID: 21300000, guid: 94921b5ff7fd3b9448b21c4ddd4ca7aa, type: 3}
   backgroundImage: {fileID: 2082902091}
   blackScreen: {fileID: 90334953}
   delayBeforeVideo: 2
@@ -138267,6 +138268,7 @@ MonoBehaviour:
   - {fileID: 986076276}
   - {fileID: 992138899}
   - {fileID: 1985094909}
+  - {fileID: 1584082278}
   prices:
   - {fileID: 1212886691}
   - {fileID: 840956850}
