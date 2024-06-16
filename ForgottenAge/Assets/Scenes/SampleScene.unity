@@ -525,6 +525,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 22529605}
   m_CullTransparentMesh: 1
+--- !u!1 &36677286
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 36677287}
+  - component: {fileID: 36677289}
+  - component: {fileID: 36677288}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &36677287
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36677286}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1013335857}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 186.6, y: 0}
+  m_SizeDelta: {x: 87.71, y: 64.1936}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &36677288
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36677286}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: f963c72bb0a1e0a44b33e9b0ee81f613, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &36677289
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 36677286}
+  m_CullTransparentMesh: 1
 --- !u!1 &74769136
 GameObject:
   m_ObjectHideFlags: 0
@@ -2273,6 +2348,13 @@ MonoBehaviour:
   areaDamageTower: {fileID: 3994371643690341818, guid: dfcf8628e07cf3846a83030d4c6485ba, type: 3}
   numBuildings: 0
   captureZone: {fileID: 548436707}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &548436703
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4481,6 +4563,13 @@ MonoBehaviour:
   areaDamageTower: {fileID: 0}
   numBuildings: 0
   captureZone: {fileID: 808046425}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &808046421
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5123,7 +5212,7 @@ GameObject:
   - component: {fileID: 875558742}
   - component: {fileID: 875558741}
   m_Layer: 5
-  m_Name: ConStoragePriceText (TMP)
+  m_Name: UpgradedTowerPriceText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5377,11 +5466,15 @@ MonoBehaviour:
   - {fileID: 1171702524}
   - {fileID: 2032512282}
   - {fileID: 450202475}
+  - {fileID: 875558741}
+  - {fileID: 986382365}
   buttons:
   - {fileID: 1136769125}
   - {fileID: 1013335858}
   - {fileID: 940579510}
   - {fileID: 1610114159}
+  - {fileID: 815806920}
+  - {fileID: 2068696641}
 --- !u!1 &894166581
 GameObject:
   m_ObjectHideFlags: 0
@@ -5442,6 +5535,13 @@ MonoBehaviour:
   areaDamageTower: {fileID: 3994371643690341818, guid: dfcf8628e07cf3846a83030d4c6485ba, type: 3}
   numBuildings: 0
   captureZone: {fileID: 894166588}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &894166584
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -5777,7 +5877,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &930106931
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6518,7 +6618,7 @@ GameObject:
   - component: {fileID: 986382366}
   - component: {fileID: 986382365}
   m_Layer: 5
-  m_Name: ConStoragePriceText (TMP)
+  m_Name: AreaTowerPriceText (TMP)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6823,6 +6923,13 @@ MonoBehaviour:
   areaDamageTower: {fileID: 3994371643690341818, guid: dfcf8628e07cf3846a83030d4c6485ba, type: 3}
   numBuildings: 0
   captureZone: {fileID: 1012926659}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1012926655
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -7039,6 +7146,7 @@ RectTransform:
   m_Children:
   - {fileID: 586907348}
   - {fileID: 1171702523}
+  - {fileID: 36677287}
   m_Father: {fileID: 890316407}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -7335,6 +7443,13 @@ MonoBehaviour:
   areaDamageTower: {fileID: 3994371643690341818, guid: dfcf8628e07cf3846a83030d4c6485ba, type: 3}
   numBuildings: 0
   captureZone: {fileID: 1019785410}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1019785406
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -9048,7 +9163,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1317782131}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 392824354}
+        m_TargetAssemblyTypeName: YouLose, Assembly-CSharp
+        m_MethodName: RestartScene
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1317782131
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10665,6 +10792,13 @@ MonoBehaviour:
   areaDamageTower: {fileID: 3994371643690341818, guid: dfcf8628e07cf3846a83030d4c6485ba, type: 3}
   numBuildings: 0
   captureZone: {fileID: 1685625842}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1685625838
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -133283,6 +133417,13 @@ MonoBehaviour:
   areaDamageTower: {fileID: 3994371643690341818, guid: dfcf8628e07cf3846a83030d4c6485ba, type: 3}
   numBuildings: 0
   captureZone: {fileID: 1786741178}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!114 &1786741185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133553,6 +133694,13 @@ MonoBehaviour:
   areaDamageTower: {fileID: 3994371643690341818, guid: dfcf8628e07cf3846a83030d4c6485ba, type: 3}
   numBuildings: 0
   captureZone: {fileID: 1849003610}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &1849003606
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -134876,6 +135024,13 @@ MonoBehaviour:
   areaDamageTower: {fileID: 3994371643690341818, guid: dfcf8628e07cf3846a83030d4c6485ba, type: 3}
   numBuildings: 0
   captureZone: {fileID: 2033309790}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &2033309786
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -135536,6 +135691,13 @@ MonoBehaviour:
   areaDamageTower: {fileID: 3994371643690341818, guid: dfcf8628e07cf3846a83030d4c6485ba, type: 3}
   numBuildings: 0
   captureZone: {fileID: 2132242236}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 200
+  areaTowerPrice: 300
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
 --- !u!58 &2132242232
 CircleCollider2D:
   m_ObjectHideFlags: 0

@@ -438,11 +438,13 @@ MonoBehaviour:
   shootInterval: 1
   shootTimer: 0
   detectionRadius: 5
+  damagePerSecond: 2
   allyTroopPrefab: {fileID: 6464976520044434357, guid: 717e7c35b08466842bbd5ab4e5cd15c2, type: 3}
   rangedAllyTroopPrefab: {fileID: 58733520159805711, guid: 098d91fdab547374687494ffa5ab23e1, type: 3}
   rangedHealingTroopPrefab: {fileID: 250734653409300052, guid: 19746bc7554b77141bab1cea2bfba77c, type: 3}
   tankTroopPrefab: {fileID: 6561206551077574663, guid: 66087d2cff289d14da5e212c7eae9709, type: 3}
   recruitmentMenu: {fileID: 0}
+  deconstructMenu: {fileID: 0}
   recruitmentMenuTwo: {fileID: 0}
   menuManager: {fileID: 0}
   memoryTile: {fileID: 0}
@@ -451,6 +453,7 @@ MonoBehaviour:
   spawnEffect: {fileID: 3259086518229417968, guid: 0ee12f2ba532a654a83dd4e462c7e7d2, type: 3}
   queueText: {fileID: 691651858341929271}
   queueImage: {fileID: 4777504617014812396}
+  cardManager: {fileID: 0}
 --- !u!61 &63747561332078797
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -528,6 +531,7 @@ MonoBehaviour:
   maxHealth: 50
   currentHealth: 0
   healthBar: {fileID: 86993055106220263}
+  deathEffect: {fileID: 3259086518229417968, guid: 641697adb4a422a4a97eba3809d18783, type: 3}
 --- !u!1 &7411475772277061192
 GameObject:
   m_ObjectHideFlags: 0

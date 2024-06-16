@@ -58,6 +58,24 @@ public class ConstructionMenu : MonoBehaviour
         {
             buttons[3].interactable = true;
         }
+
+        if (concentration.GetConcentration() < int.Parse(prices[4].text.TrimEnd('c')))
+        {
+            buttons[4].interactable = false;
+        }
+        else
+        {
+            buttons[4].interactable = true;
+        }
+
+        if (concentration.GetConcentration() < int.Parse(prices[5].text.TrimEnd('c')))
+        {
+            buttons[5].interactable = false;
+        }
+        else
+        {
+            buttons[5].interactable = true;
+        }
     }
 
     public void HideMenu()
@@ -75,6 +93,10 @@ public class ConstructionMenu : MonoBehaviour
         prices[2].text = upgradedBarracksPrice + "c";
 
         prices[3].text = conStoragePrice + "c";
+
+        prices[4].text = upgradedTowerPrice + "c";
+
+        prices[5].text = areaTowerPrice + "c";
 
     }
 }
