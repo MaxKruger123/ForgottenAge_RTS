@@ -310,7 +310,7 @@ public class Building : MonoBehaviour
 
     public void SpawnTroopInstant()
     {
-        if (concentration.dreamTokens > 1)
+        if (concentration.dreamTokens > 0)
         {
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
@@ -326,7 +326,7 @@ public class Building : MonoBehaviour
 
     public void SpawnTankTroopInstant()
     {
-        if (concentration.dreamTokens > 1)
+        if (concentration.dreamTokens > 0)
         {
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
@@ -342,7 +342,7 @@ public class Building : MonoBehaviour
 
     public void SpawnRangedTroopInstant()
     {
-        if (concentration.dreamTokens > 1)
+        if (concentration.dreamTokens > 0)
         {
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
@@ -358,7 +358,7 @@ public class Building : MonoBehaviour
 
     public void SpawnHealingTroopInstant()
     {
-        if (concentration.dreamTokens > 1)
+        if (concentration.dreamTokens > 0)
         {
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);

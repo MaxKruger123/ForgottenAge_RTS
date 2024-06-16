@@ -42,10 +42,7 @@ public class AllyTroopStats : MonoBehaviour
 
     public void TakeHeals(float amount)
     {
-        if (currentHealth <= 0)
-        {
-            Destroy(gameObject);
-        }
+        
         currentHealth += amount;
 
         if (currentHealth > maxHealth)

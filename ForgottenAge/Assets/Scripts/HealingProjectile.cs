@@ -18,7 +18,7 @@ public class HealingProjectile : MonoBehaviour
             {
                 allyTroopStats.TakeHeals(1.0f);
 
-                Destroy(gameObject);
+                Destroy(this.gameObject);
             }
         }
     }

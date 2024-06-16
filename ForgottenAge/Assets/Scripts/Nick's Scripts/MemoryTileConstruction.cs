@@ -19,8 +19,8 @@ public class MemoryTileConstruction : MonoBehaviour
     public int towerPrice = 40;
     public int upgradedBarracksPrice = 100;
     public int conStoragePrice = 200;
-    public int upgradedTowerPrice = 200;
-    public int areaTowerPrice = 300;
+    public int upgradedTowerPrice = 150;
+    public int areaTowerPrice = 250;
 
     public GameObject spawnEffect;
 

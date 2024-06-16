@@ -961,7 +961,7 @@ Transform:
   m_GameObject: {fileID: 74769136}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 47.9, y: -4.5, z: 3.1146147}
+  m_LocalPosition: {x: 56.75, y: -4.8, z: 3.1146147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1534,7 +1534,7 @@ Transform:
   m_GameObject: {fileID: 124934474}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.17, y: -39.5, z: 3.1146147}
+  m_LocalPosition: {x: -0.01, y: -43.38, z: 3.1146147}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2068,6 +2068,73 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 717e7c35b08466842bbd5ab4e5cd15c2, type: 3}
+--- !u!1 &197686515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 197686517}
+  - component: {fileID: 197686516}
+  m_Layer: 0
+  m_Name: EnemySpawn3
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!58 &197686516
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197686515}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.99
+--- !u!4 &197686517
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 197686515}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -74.7, y: -5.2, z: 3.1146147}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &205375762
 GameObject:
   m_ObjectHideFlags: 0
@@ -2718,8 +2785,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 25, y: 76}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 8.8881, y: 186}
+  m_SizeDelta: {x: 432.1687, y: 108.0422}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &393910804
 MonoBehaviour:
@@ -2768,14 +2835,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 71
+  m_fontSizeBase: 71
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -3910,7 +3977,6 @@ MonoBehaviour:
   capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  numBuildings: {fileID: 548436702}
 --- !u!212 &548436708
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -4046,466 +4112,42 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 392824351}
     m_Modifications:
-    - target: {fileID: 1065912782491593625, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_SizeDelta.x
-      value: 81.3118
-      objectReference: {fileID: 0}
-    - target: {fileID: 1065912782491593625, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_SizeDelta.y
-      value: 108.1097
-      objectReference: {fileID: 0}
-    - target: {fileID: 1065912782491593625, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_AnchoredPosition.x
-      value: 815.6559
-      objectReference: {fileID: 0}
-    - target: {fileID: 1065912782491593625, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_AnchoredPosition.y
-      value: -39.05487
+    - target: {fileID: 177180128454017929, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: m_StyleSheet
+      value: 
       objectReference: {fileID: 0}
     - target: {fileID: 1168699075492532521, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: m_Name
       value: CardScreen
       objectReference: {fileID: 0}
-    - target: {fileID: 1168699075492532521, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2299033803587892824, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectCardRight
-      objectReference: {fileID: 0}
-    - target: {fileID: 3663300487779609988, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectCardMiddle
-      objectReference: {fileID: 0}
-    - target: {fileID: 5526038652314637178, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_Type
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5526038652314637178, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_Sprite
+    - target: {fileID: 7673610488842143408, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: memoryTile1
       value: 
-      objectReference: {fileID: 21300000, guid: e5460025313c38248b45761df7df108b, type: 3}
-    - target: {fileID: 5908708491752517438, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7601404173151142205, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_Delegates.Array.data[0].callback.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SelectCardLeft
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 548436700}
+    - target: {fileID: 7673610488842143408, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: memoryTile2
+      value: 
+      objectReference: {fileID: 2132242229}
+    - target: {fileID: 7673610488842143408, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: waveManager
+      value: 
+      objectReference: {fileID: 1641135204}
+    - target: {fileID: 7673610488842143408, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: concentration
+      value: 
+      objectReference: {fileID: 392824352}
+    - target: {fileID: 7673610488842143408, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+      propertyPath: dreamTokenText
+      value: 
+      objectReference: {fileID: 1015594521}
     - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: minimap
       value: 
       objectReference: {fileID: 1772688141}
     - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardManager
-      value: 
-      objectReference: {fileID: 551477857}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: waveManager
       value: 
       objectReference: {fileID: 1641135204}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardImages.Array.size
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.size
-      value: 13
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[0].buff
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[1].buff
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[2].buff
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[3].buff
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[4].buff
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[5].buff
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[6].buff
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[7].buff
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[8].buff
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[9].buff
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[0].image
-      value: 
-      objectReference: {fileID: 21300000, guid: d30c426556240b94cb6d1cba7253c474, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[0].title
-      value: Concentration
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[10].buff
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[11].buff
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[12].buff
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[1].image
-      value: 
-      objectReference: {fileID: 21300000, guid: a13a80c4a3164314e85b8b91be3f8be2, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[1].title
-      value: Glass Cannon
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[2].image
-      value: 
-      objectReference: {fileID: 21300000, guid: 62d556c1784447c468862017d9efe9da, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[2].title
-      value: The Dreamer
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[3].image
-      value: 
-      objectReference: {fileID: 21300000, guid: ade10be02660fff44a622f54e8150bed, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[3].title
-      value: Focus
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[4].image
-      value: 
-      objectReference: {fileID: 21300000, guid: 0f430ebb54e069d4f8b6a0f2e4491085, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[4].title
-      value: Dreamer's Resolve
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[5].image
-      value: 
-      objectReference: {fileID: 21300000, guid: 48dedc80a91469242952ae42dc7d1525, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[5].title
-      value: Perilous Insight
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[6].image
-      value: 
-      objectReference: {fileID: 21300000, guid: 423c259416f39334cbc76a87f3be0d8e, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[6].title
-      value: Fortified Respite
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[7].image
-      value: 
-      objectReference: {fileID: 21300000, guid: 13d21419056e6b24396432e860504477, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[7].title
-      value: Cursed Blessing
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[8].image
-      value: 
-      objectReference: {fileID: 21300000, guid: 060c67630482e6a4f958b45f53ff2f2b, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[8].title
-      value: Neuron Activation
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[9].image
-      value: 
-      objectReference: {fileID: 21300000, guid: f13239c507aed744a8c88796a157bdd7, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[9].title
-      value: Shifting Tides
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[10].image
-      value: 
-      objectReference: {fileID: 21300000, guid: 97122edaa021ed04eb2be060500fde92, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[10].title
-      value: Cognitive Fortification
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[11].image
-      value: 
-      objectReference: {fileID: 21300000, guid: b02264135a7dc5942a9f5c2336142aca, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[11].title
-      value: Structural Recall
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[12].image
-      value: 
-      objectReference: {fileID: 21300000, guid: bf958bb15b517ef41a9628da2447ecc2, type: 3}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[12].title
-      value: Synaptic Overload
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[1].debuff
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[2].debuff
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[3].debuff
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[4].debuff
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[5].debuff
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[6].debuff
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[7].debuff
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[8].debuff
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[9].debuff
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[0].buffType
-      value: Concentration Per Second
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[1].buffType
-      value: Ally Melee Damage
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[2].buffType
-      value: Dream Token
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[3].buffType
-      value: Concentration
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[4].buffType
-      value: Dream Token
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[5].buffType
-      value: Concentration Per Second
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[6].buffType
-      value: Passive Tank Healing
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[7].buffType
-      value: Ally Damage
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[8].buffType
-      value: Concentration
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[9].buffType
-      value: Gain Memory Tile
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[0].buffValue
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[10].buffType
-      value: Allies Health
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[11].buffType
-      value: Heal All Buidlings
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[12].buffType
-      value: Defense Tower Damage
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[1].buffValue
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[2].buffValue
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[3].buffValue
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[4].buffValue
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[5].buffValue
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[7].buffValue
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[8].buffValue
-      value: 400
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[9].buffValue
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[10].buffValue
-      value: 20
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[11].buffValue
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[12].buffValue
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[1].debuffType
-      value: Ally Troop Health
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[2].debuffType
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[3].debuffType
-      value: All Troop Cost
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[4].debuffType
-      value: Destroy Random Building
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[5].debuffType
-      value: Enemy damage multiply
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[6].debuffType
-      value: Ally Ranged Reload
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[7].debuffType
-      value: Memory Tile Are Lost
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[8].debuffType
-      value: Skip Wave
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[9].debuffType
-      value: Chance Allies Become Enemies
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[10].debuffType
-      value: Chance Allies Become Enemies
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[11].debuffType
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[1].debuffValue
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[3].debuffValue
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[4].debuffValue
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[5].debuffValue
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[6].debuffValue
-      value: -1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[7].debuffValue
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[8].debuffValue
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[0].descriptionText
-      value: Gain extra concentration per second
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[1].descriptionText
-      value: Your troops do more damage but are weaker
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[2].descriptionText
-      value: Gain one dream token
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[3].descriptionText
-      value: Gain one dream token
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[4].descriptionText
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[10].descriptionText
-      value: '%'
-      objectReference: {fileID: 0}
-    - target: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: cardDataList.Array.data[11].descriptionText
-      value: 
-      objectReference: {fileID: 0}
     - target: {fileID: 9006143345174173478, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4586,31 +4228,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 9192639599998314936, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 6373637997003943795, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-    - {fileID: 5517083376004182559, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1168699075492532521, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 551477857}
-    - targetCorrespondingSourceObject: {fileID: 5908708491752517438, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1402077208}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
 --- !u!224 &551477852 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 9006143345174173478, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-  m_PrefabInstance: {fileID: 551477851}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &551477853 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1168699075492532521, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
   m_PrefabInstance: {fileID: 551477851}
   m_PrefabAsset: {fileID: 0}
 --- !u!114 &551477856 stripped
@@ -4618,42 +4243,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8732983786595768270, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
   m_PrefabInstance: {fileID: 551477851}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551477853}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 242f58c9d637a4544a5572aa541c14fb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &551477857
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 551477853}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 566a08fcd26ee854c8218e8212f64762, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cardScreen: {fileID: 551477856}
-  concentration: {fileID: 392824352}
-  waveManager: {fileID: 1641135204}
-  allyMeleeTroops: []
-  currentAllyMeleeTroops: []
-  allyMeleeDamage: 1
-  allyRangedDamage: 1
-  allyShootInterval: 1.5
-  enemyMeleeDamage: 1
-  allyMeleeMaxHealth: 10
-  troopCostModifier: 0
-  passiveHealing: 0
-  incomeModifier: 0
-  towerDamage: 1
-  memoryTile1: {fileID: 548436700}
-  memoryTile2: {fileID: 2132242229}
-  enemyPrefab: {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
-  dreamTokenText: {fileID: 1015594521}
 --- !u!1001 &557928648
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7026,7 +6621,6 @@ MonoBehaviour:
   capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  numBuildings: {fileID: 808046420}
 --- !u!212 &808046426
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8073,7 +7667,6 @@ MonoBehaviour:
   capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  numBuildings: {fileID: 894166583}
 --- !u!212 &894166589
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -8313,15 +7906,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 33fad331b078fb843a96f1b4e713d5ba, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -9461,7 +9054,6 @@ MonoBehaviour:
   capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  numBuildings: {fileID: 1012926654}
 --- !u!212 &1012926660
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -9981,7 +9573,6 @@ MonoBehaviour:
   capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  numBuildings: {fileID: 1019785405}
 --- !u!212 &1019785411
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -12043,8 +11634,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 8.8881, y: 20.6185}
-  m_SizeDelta: {x: 201.7762, y: 66.7631}
+  m_AnchoredPosition: {x: -12, y: 33}
+  m_SizeDelta: {x: 353.4348, y: 104.2096}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1317782130
 MonoBehaviour:
@@ -12122,8 +11713,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 6e749ab467366374ca0f0d386f43cfda, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -12672,32 +12263,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1390223393}
   m_CullTransparentMesh: 1
---- !u!1 &1402077203 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5908708491752517438, guid: 7a1dfaba343eea64f9b98cb55ed964f2, type: 3}
-  m_PrefabInstance: {fileID: 551477851}
-  m_PrefabAsset: {fileID: 0}
---- !u!95 &1402077208
-Animator:
-  serializedVersion: 5
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1402077203}
-  m_Enabled: 1
-  m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 9e018557a0c8f2644bacab843a775468, type: 2}
-  m_CullingMode: 0
-  m_UpdateMode: 0
-  m_ApplyRootMotion: 0
-  m_LinearVelocityBlending: 0
-  m_StabilizeFeet: 0
-  m_WarningMessage: 
-  m_HasTransformHierarchy: 1
-  m_AllowConstantClipSamplingOptimization: 1
-  m_KeepAnimatorStateOnDisable: 0
-  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &1451687488
 GameObject:
   m_ObjectHideFlags: 0
@@ -14033,6 +13598,8 @@ MonoBehaviour:
   spawnPoints:
   - {fileID: 74769138}
   - {fileID: 124934476}
+  - {fileID: 197686517}
+  - {fileID: 2123909786}
   waves:
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
@@ -14058,89 +13625,237 @@ MonoBehaviour:
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
-    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 30
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    enemiesToSpawn: 35
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 40
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 45
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 50
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 55
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 60
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 65
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 70
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 75
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 80
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 85
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 90
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 95
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 100
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 110
   - enemyPrefabs:
     - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 25
+    enemiesToSpawn: 120
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 130
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 140
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 150
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 160
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 170
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 180
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 190
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 200
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 220
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 240
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 260
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 280
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 300
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 300
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 320
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 340
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 360
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 380
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 400
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 450
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 500
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 550
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 600
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 600
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 600
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 600
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 600
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 600
+  - enemyPrefabs:
+    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+    enemiesToSpawn: 600
   currentWave: 0
   cardWaveCounter: 0
   cardScreen: {fileID: 551477856}
-  wavesUntilCardEvent: 1
+  wavesUntilCardEvent: 3
   enemySpawnEffect: {fileID: 3259086518229417968, guid: 6728eb66ff0838141b30759b5fb72ac1, type: 3}
-  cutsceneWaves: 010000000a00000014000000
+  cutsceneWaves: 050000000a00000014000000
   replacementChance: 15
   enemyTroopPrefab: {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
 --- !u!4 &1641135205
@@ -14699,7 +14414,6 @@ MonoBehaviour:
   capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  numBuildings: {fileID: 1685625837}
 --- !u!212 &1685625843
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -14968,8 +14682,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4294967295
+  m_fontColor: {r: 1, g: 1, b: 1, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -137146,7 +136860,6 @@ MonoBehaviour:
   capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  numBuildings: {fileID: 1786741184}
 --- !u!212 &1786741179
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -138126,7 +137839,6 @@ MonoBehaviour:
   capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  numBuildings: {fileID: 1849003605}
 --- !u!212 &1849003611
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -140056,7 +139768,6 @@ MonoBehaviour:
   capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  numBuildings: {fileID: 2033309785}
 --- !u!212 &2033309791
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -140676,6 +140387,73 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2114562904}
   m_CullTransparentMesh: 1
+--- !u!1 &2123909784
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2123909786}
+  - component: {fileID: 2123909785}
+  m_Layer: 0
+  m_Name: EnemySpawn4
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!58 &2123909785
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123909784}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 2.99
+--- !u!4 &2123909786
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2123909784}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.1, y: 27.6, z: 3.1146147}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2132242229
 GameObject:
   m_ObjectHideFlags: 0
@@ -140873,7 +140651,6 @@ MonoBehaviour:
   capturingSide: 
   tileController: {fileID: 1214543806}
   captured: 0
-  numBuildings: {fileID: 2132242231}
 --- !u!212 &2132242237
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -140941,6 +140718,8 @@ SceneRoots:
   - {fileID: 392824351}
   - {fileID: 74769138}
   - {fileID: 124934476}
+  - {fileID: 197686517}
+  - {fileID: 2123909786}
   - {fileID: 1279206087}
   - {fileID: 1248482107}
   - {fileID: 187749509}

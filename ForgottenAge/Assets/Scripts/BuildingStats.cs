@@ -16,6 +16,7 @@ public class BuildingStats : MonoBehaviour
     {
         currentHealth = maxHealth;
         FindNearestMemoryTile();
+        healthBar.fillAmount = currentHealth / maxHealth;
     }
 
     public void TakeDamage(float damage)
