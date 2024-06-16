@@ -8,6 +8,7 @@ public class EnemyStats : MonoBehaviour
     public GameObject centerObject; // Reference to the center object of the enemy
 
     public Image healthBar;
+    public GameObject damageIcon; // Reference to the damage icon
 
     public void Start()
     {
@@ -17,6 +18,7 @@ public class EnemyStats : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
+        Debug.Log("Taken" + damage + " damage");
 
         healthBar.fillAmount = currentHealth / maxHealth;
 
@@ -35,6 +37,14 @@ public class EnemyStats : MonoBehaviour
     {
         // Handle death (e.g., play animation, remove from scene, etc.)
         Destroy(gameObject);
+    }
+
+    public void SetDamageIconActive(bool isActive)
+    {
+        if (damageIcon != null)
+        {
+            damageIcon.SetActive(isActive);
+        }
     }
 
     // Method to get the center position of the enemy

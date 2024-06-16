@@ -117,9 +117,9 @@ MonoBehaviour:
     image: {fileID: 21300000, guid: 060c67630482e6a4f958b45f53ff2f2b, type: 3}
     descriptionText: 
   - title: Shifting Tides
-    buffType: Gain Memory Tile
+    buffType: Gain Memory Tiles
     buffValue: 2
-    debuffType: Chance Allies Become Enemies
+    debuffType: Chance Allies Become Enemies Immediately
     debuffValue: 0
     image: {fileID: 21300000, guid: f13239c507aed744a8c88796a157bdd7, type: 3}
     descriptionText: 
@@ -176,6 +176,11 @@ MonoBehaviour:
   troopCostModifier: 0
   passiveHealing: 0
   incomeModifier: 0
+  towerDamage: 1
+  memoryTile1: {fileID: 0}
+  memoryTile2: {fileID: 0}
+  enemyPrefab: {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+  dreamTokenText: {fileID: 0}
 --- !u!1 &5517083376004182559
 GameObject:
   m_ObjectHideFlags: 0

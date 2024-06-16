@@ -10,6 +10,8 @@ public class MemoryTileConstruction : MonoBehaviour
     public GameObject defenseTowerPrefab;
     public GameObject upgradedBarracksPrefab;
     public GameObject concentrationStorage;
+    public GameObject upgradedDefenseTower;
+    public GameObject areaDamageTower;
     public int numBuildings;
     public CaptureZone captureZone;
     
@@ -48,7 +50,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructBuilding()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 20)
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 20 && captureZone.capturingSide == "Player")
         {
             GameObject currentBuilding = Instantiate(buildingPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(20);
@@ -67,7 +69,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructConcentrationStorage()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 20)
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 20 && captureZone.capturingSide == "Player")
         {
             GameObject currentBuilding = Instantiate(concentrationStorage, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(20);
@@ -87,7 +89,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructDefenseTower()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 40)
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 40 && captureZone.capturingSide == "Player")
         {
             GameObject currentBuilding = Instantiate(defenseTowerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(20);
@@ -106,10 +108,48 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructUpgradedBarracks()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 100)
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 100 && captureZone.capturingSide == "Player")
         {
             GameObject currentBuilding = Instantiate(upgradedBarracksPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(50);
+            selectedTile.numBuildings++;
+            currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
+            constructionMenu.SetActive(false);
+            selectedTile = null; // Clear the selected tile
+        }
+        else
+        {
+            Debug.Log("No tile selected or tile already has a building.");
+        }
+
+
+    }
+
+    public void ConstructUpgradedDefenseTower()
+    {
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 20 && captureZone.capturingSide == "Player")
+        {
+            GameObject currentBuilding = Instantiate(upgradedDefenseTower, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
+            concentration.SubtractConcentration(20);
+            selectedTile.numBuildings++;
+            currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
+            constructionMenu.SetActive(false);
+            selectedTile = null; // Clear the selected tile
+        }
+        else
+        {
+            Debug.Log("No tile selected or tile already has a building.");
+        }
+
+
+    }
+
+    public void ConstructAreaDamageTower()
+    {
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= 20 && captureZone.capturingSide == "Player")
+        {
+            GameObject currentBuilding = Instantiate(areaDamageTower, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
+            concentration.SubtractConcentration(20);
             selectedTile.numBuildings++;
             currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
             constructionMenu.SetActive(false);

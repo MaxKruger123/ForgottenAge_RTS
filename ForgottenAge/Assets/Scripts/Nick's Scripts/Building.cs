@@ -11,21 +11,26 @@ public class Building : MonoBehaviour
         Default,
         DefenseTower,
         UpgradedBarracks,
-        ConcentrationStorage
+        ConcentrationStorage,
+        UpgradedDefenseTower,
+        AreaDamageTower // New building type
     }
 
     public BuildingType buildingType = BuildingType.Default;
-    public GameObject projectilePrefab; // Projectile prefab to be shot by the defense tower
+    public GameObject projectilePrefab;
     public float projectileSpeed = 10f;
     public float shootInterval = 1f;
-    public float shootTimer = 0f; // Made public for debugging purposes
-    public float detectionRadius = 5f; // Radius for detecting enemies
+    public float shootTimer = 0f;
+    public float detectionRadius = 5f;
+
+    public float damagePerSecond = 2f; // Damage per second for AreaDamageTower
 
     public GameObject allyTroopPrefab;
     public GameObject rangedAllyTroopPrefab;
     public GameObject rangedHealingTroopPrefab;
     public GameObject tankTroopPrefab;
     public GameObject recruitmentMenu;
+    public GameObject deconstructMenu;
     public GameObject recruitmentMenuTwo;
     public MenuManager menuManager;
 
@@ -34,6 +39,7 @@ public class Building : MonoBehaviour
     public float spawnRadius = 4f;
 
     private Coroutine shootingCoroutine;
+    private Coroutine areaDamageCoroutine;
     private Queue<TroopType> troopQueue = new Queue<TroopType>();
     private Coroutine spawnTroopCoroutine;
 
@@ -41,9 +47,9 @@ public class Building : MonoBehaviour
     public TextMeshProUGUI queueText;
     public Image queueImage;
 
-
     public CardManager cardManager;
-    
+
+   
 
     private enum TroopType
     {
@@ -51,7 +57,6 @@ public class Building : MonoBehaviour
         Ranged,
         Healing,
         Tank
-        
     }
 
     void Start()
@@ -59,22 +64,28 @@ public class Building : MonoBehaviour
         concentration = FindAnyObjectByType<Concentration>();
         menuManager = concentration.gameObject.GetComponent<MenuManager>();
         recruitmentMenu = menuManager.GetMenuObject("RecruitmentMenu");
+        deconstructMenu = menuManager.GetMenuObject("DeconstructMenu");
         recruitmentMenuTwo = menuManager.GetMenuObject("RecruitmentMenuTwo");
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
 
-        // Start shooting coroutine for defense towers
         if (buildingType == BuildingType.DefenseTower)
         {
             shootingCoroutine = StartCoroutine(ShootRoutine());
+        }
+        else if (buildingType == BuildingType.UpgradedDefenseTower)
+        {
+            shootingCoroutine = StartCoroutine(BurstShootRoutine());
+        }
+        else if (buildingType == BuildingType.AreaDamageTower)
+        {
+            areaDamageCoroutine = StartCoroutine(AreaDamageRoutine());
         }
     }
 
     void Update()
     {
-        // Increment the shoot timer
         shootTimer += Time.deltaTime;
 
-        // Update queue UI
         queueText.text = troopQueue.Count.ToString();
         if (spawnTroopCoroutine != null)
         {
@@ -83,28 +94,73 @@ public class Building : MonoBehaviour
         }
     }
 
-    // Coroutine for shooting at regular intervals
     private IEnumerator ShootRoutine()
     {
         while (true)
         {
-            // Shoot at the nearest enemy
             ShootAtNearestEnemy();
-
-            // Wait for the shoot interval
             yield return new WaitForSeconds(shootInterval);
         }
     }
 
-    // Method to shoot at the nearest enemy
+    private IEnumerator BurstShootRoutine()
+    {
+        while (true)
+        {
+            for (int i = 0; i < 3; i++)
+            {
+                ShootAtNearestEnemy();
+                yield return new WaitForSeconds(0.1f);
+            }
+            yield return new WaitForSeconds(1f);
+        }
+    }
+
+    private IEnumerator AreaDamageRoutine()
+    {
+        while (true)
+        {
+            DealAreaDamage();
+            yield return new WaitForSeconds(1f); // Apply damage every second
+        }
+    }
+
+    private void DealAreaDamage()
+    {
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, LayerMask.GetMask("Enemy"));
+
+        // Keep track of enemies currently being affected
+        HashSet<EnemyStats> affectedEnemies = new HashSet<EnemyStats>();
+
+        foreach (Collider2D collider in colliders)
+        {
+            EnemyStats enemyStats = collider.GetComponent<EnemyStats>();
+            if (enemyStats != null)
+            {
+                // Apply damage
+                enemyStats.TakeDamage(damagePerSecond);
+                // Activate the damage icon
+                enemyStats.SetDamageIconActive(true);
+                affectedEnemies.Add(enemyStats);
+            }
+        }
+
+        // Deactivate the damage icon for enemies that are no longer affected
+        foreach (EnemyStats enemy in FindObjectsOfType<EnemyStats>())
+        {
+            if (!affectedEnemies.Contains(enemy))
+            {
+                enemy.SetDamageIconActive(false);
+            }
+        }
+    }
+
     private void ShootAtNearestEnemy()
     {
-        // Find all enemies within detection radius
         Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, LayerMask.GetMask("Enemy"));
 
         if (colliders.Length > 0)
         {
-            // Find the nearest enemy
             float minDistance = Mathf.Infinity;
             Transform nearestEnemy = null;
             foreach (Collider2D collider in colliders)
@@ -117,7 +173,6 @@ public class Building : MonoBehaviour
                 }
             }
 
-            // Shoot at the nearest enemy
             if (nearestEnemy != null)
             {
                 ShootProjectile(nearestEnemy.position);
@@ -125,13 +180,11 @@ public class Building : MonoBehaviour
         }
     }
 
-    // Method to shoot a projectile
     private void ShootProjectile(Vector3 targetPosition)
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
         projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
-
         shootTimer = 0f;
     }
 
@@ -139,7 +192,6 @@ public class Building : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.Default)
         {
-            // Set the selected building to this building
             MemoryTileConstruction.selectedBuilding = this;
 
             Vector3 mouseScreenPosition = Input.mousePosition;
@@ -149,11 +201,11 @@ public class Building : MonoBehaviour
         }
         else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.DefenseTower)
         {
-
+            deconstructMenu.gameObject.SetActive(true);
+            MemoryTileConstruction.selectedBuilding = this;
         }
         else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.UpgradedBarracks)
         {
-            // Set the selected building to this building
             MemoryTileConstruction.selectedBuilding = this;
 
             Vector3 mouseScreenPosition = Input.mousePosition;
@@ -161,6 +213,17 @@ public class Building : MonoBehaviour
             recruitmentMenuTwo.transform.position = mouseScreenPosition;
             recruitmentMenuTwo.GetComponent<RecruitmentMenuTwo>().SetButton(gameObject.GetComponent<Building>());
         }
+        else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.UpgradedDefenseTower)
+        {
+            deconstructMenu.gameObject.SetActive(true);
+            MemoryTileConstruction.selectedBuilding = this;
+        }
+        else if (Input.GetMouseButtonDown(1) && buildingType == BuildingType.AreaDamageTower)
+        {
+            deconstructMenu.gameObject.SetActive(true);
+            MemoryTileConstruction.selectedBuilding = this;
+        }
+
     }
 
     private void EnqueueTroop(TroopType troopType, int concentrationCost)
@@ -200,7 +263,7 @@ public class Building : MonoBehaviour
         {
             TroopType troopType = troopQueue.Peek();
             float buildTime = GetBuildTime(troopType);
-            queueImage.fillAmount = 0; // Reset the progress bar
+            queueImage.fillAmount = 0;
 
             for (float timer = 0; timer < buildTime; timer += Time.deltaTime)
             {
@@ -241,15 +304,13 @@ public class Building : MonoBehaviour
 
     public void SpawnTroopInstant()
     {
-
-        if (concentration.dreamTokens > 1)
+        if (concentration.dreamTokens > 0)
         {
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
             Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
             concentration.dreamTokens--;
         }
-        
     }
 
     public void SpawnTankTroop()
@@ -259,12 +320,12 @@ public class Building : MonoBehaviour
 
     public void SpawnTankTroopInstant()
     {
-        if (concentration.dreamTokens > 1)
+        if (concentration.dreamTokens > 0)
         {
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
             Instantiate(tankTroopPrefab, spawnPosition, Quaternion.identity);
-            concentration.dreamTokens --;
+            concentration.dreamTokens--;
         }
     }
 
@@ -275,7 +336,7 @@ public class Building : MonoBehaviour
 
     public void SpawnRangedTroopInstant()
     {
-        if (concentration.dreamTokens > 1)
+        if (concentration.dreamTokens > 0)
         {
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
@@ -291,7 +352,7 @@ public class Building : MonoBehaviour
 
     public void SpawnHealingTroopInstant()
     {
-        if (concentration.dreamTokens > 1)
+        if (concentration.dreamTokens > 0)
         {
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
