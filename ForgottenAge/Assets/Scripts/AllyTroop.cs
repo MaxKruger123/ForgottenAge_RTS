@@ -16,7 +16,8 @@ public class AllyTroop : MonoBehaviour
     public GameObject healingProjectilePrefab; // Projectile prefab for healing
     public float healInterval = 2f; // Interval between heals
 
-    private EnemyTroop targetEnemy; // Reference to the nearest enemy
+    public EnemyTroop targetEnemy; // Reference to the nearest enemy
+    public GameObject targetEnemyy;
     private GameObject targetMemoryTile; // Reference to the nearest MemoryTile
     private AllyTroop targetAlly; // Reference to the nearest ally to heal
     private bool isAttacking = false; // Flag to indicate if the ally is attacking
@@ -169,6 +170,7 @@ public class AllyTroop : MonoBehaviour
         }
 
         targetEnemy = nearestEnemy;
+        targetEnemyy = nearestEnemy.gameObject;
     }
 
     void FindNearestUncapturedTile()

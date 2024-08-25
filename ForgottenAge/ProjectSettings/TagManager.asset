@@ -13,6 +13,8 @@ TagManager:
   - AllyHealing
   - AllyTank
   - MainBrain
+  - Enemy_Tank
+  - Axon
   layers:
   - Default
   - TransparentFX
