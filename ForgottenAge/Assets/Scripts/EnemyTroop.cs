@@ -30,7 +30,9 @@ public class EnemyTroop : MonoBehaviour
     GameObject nearestTank;
     public bool tankUnderAttack = false;
 
-    
+    private AllyTroop attacker;
+
+
 
     void Start()
     {
@@ -81,6 +83,10 @@ public class EnemyTroop : MonoBehaviour
                    
                 }
             }
+            else
+            {
+                FindAndMoveToNearestAxon();
+            }
         }
 
         if (gameObject.CompareTag("Enemy_Tank"))
@@ -91,7 +97,14 @@ public class EnemyTroop : MonoBehaviour
         if (gameObject.CompareTag("EnemyRanged"))
         {
             FindNearestTank();
-            if (targetTank != null)
+
+            if (IsTargeted())
+            {
+                Debug.Log("Targeted");
+                FleeAndShoot();
+            }
+
+            else if (targetTank != null)
             {
                 FollowTank();
                 
@@ -104,22 +117,36 @@ public class EnemyTroop : MonoBehaviour
                     
                 }
             }
-            else
+            else 
             {
                 FindNearestNormalEnemy();
-                if (targetBuilding != null)
+                if (targetBuilding != null && shootingCoroutine == null)
                 {
+                    
                     FindAndAttackTargetAttackingNormalEnemy();
                 }
                 else
                 {
                     FindNearestAlly();
-                    if (targetAlly != null)
+                    if (targetAlly != null && shootingCoroutine == null)
                     {
+                        Debug.Log("Wtf is going on");
                         shootingCoroutine = StartCoroutine(ShootAlly());
                     }
                 }
             }
+            
+            if (!IsTargeted() && targetTank == null && targetAlly == null && targetBuilding == null)
+            {
+                FindAndMoveToNearestAxon();
+            }
+                
+            
+        }
+
+        if (gameObject.CompareTag("Kamikaze"))
+        {
+            FindAndMoveToNearestAxon();
         }
     }
 
@@ -148,7 +175,7 @@ public class EnemyTroop : MonoBehaviour
             // Add your melee attack logic here, for example:
              AllyTroopStats targetAllyStats = targetAlly.GetComponent<AllyTroopStats>();
             targetAllyStats.TakeDamage(1.0f);
-            Debug.Log("Deal 1 Damage");
+            
             
             
         }
@@ -234,7 +261,7 @@ public class EnemyTroop : MonoBehaviour
         }
         else
         {
-            Debug.Log("No tanks within protect range.");
+            
         }
     }
 
@@ -285,7 +312,7 @@ public class EnemyTroop : MonoBehaviour
 
         foreach (AllyTroop ally in allyTroop)
         {
-            if (ally.targetEnemy == targetBuilding)
+            if (ally.targetEnemyy == targetBuilding)
             {
                 targetAlly = ally;
                 shootingCoroutine = StartCoroutine(ShootAlly());
@@ -336,12 +363,59 @@ public class EnemyTroop : MonoBehaviour
             {
                 minDistance = distance;
                 nearestAxon = axon;
-            }
+
+                if (distance < 2f)
+                {
+                    Destroy(gameObject, 1.0f);
+                    //Explode
+                }
+            } 
         }
 
         if (nearestAxon != null)
         {
             agent.SetDestination(nearestAxon.transform.position);
         }
+
+       
     }
+
+    bool IsTargeted()
+    {
+        // Check if any ally is targeting this ranged enemy
+        AllyTroop[] allyTroops = FindObjectsOfType<AllyTroop>();
+
+        foreach (AllyTroop ally in allyTroops)
+        {
+            if (ally.targetEnemyy == gameObject)
+            {
+                attacker = ally;
+                targetAlly = ally;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void FleeAndShoot()
+    {
+        if (attacker != null)
+        {
+            // Calculate the direction to move away from the attacker
+            Vector3 fleeDirection = (transform.position - attacker.transform.position).normalized;
+            Vector3 fleePosition = transform.position + fleeDirection * 5f; // Adjust the distance as needed
+
+            // Move the ranged enemy away from the attacker
+            agent.SetDestination(fleePosition);
+
+            // Shoot at the attacker while fleeing
+            if (!isAttacking && shootingCoroutine == null)
+            {
+                shootingCoroutine = StartCoroutine(ShootAlly());
+                Debug.Log("Flee and Shoot");
+            }
+        }
+    }
+
+    
 }

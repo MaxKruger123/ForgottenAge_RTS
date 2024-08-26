@@ -27,6 +27,8 @@ public class AllyTroop : MonoBehaviour
 
     private CardManager cardManager;
 
+    private Coroutine meleeCoroutine;
+
     void Start()
     {
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
@@ -58,105 +60,17 @@ public class AllyTroop : MonoBehaviour
 
     void Update()
     {
-        if (!isAttacking)
+        if (gameObject.CompareTag("Player"))
         {
-            FindNearestEnemy(); // Find the nearest enemy troop
-
-            if (targetEnemy != null)
-            {
-                float distanceToEnemy = Vector3.Distance(transform.position, targetEnemy.transform.position);
-
-                // Move towards the enemy, but maintain minimum distance
-                if (distanceToEnemy > minDistanceToEnemy)
-                {
-                    if (agent != null && agent.isOnNavMesh)
-                    {
-                        agent.SetDestination(targetEnemy.transform.position);
-                    }
-                }
-                else if (gameObject.CompareTag("Player") || gameObject.CompareTag("AllyTank"))
-                {
-                    // Attack the enemy when in range
-                    AttackEnemy();
-                }
-                else if (gameObject.CompareTag("AllyRanged"))
-                {
-                    // Stop moving and shoot the enemy
-                    agent.ResetPath();
-                    if (shootingCoroutine == null)
-                    {
-                        // Check if enemy is within ranged attack range
-                        if (distanceToEnemy < rangedAttackRange)
-                        {
-                            shootingCoroutine = StartCoroutine(ShootEnemy());
-                        }
-                    }
-                }
-            }
-            else
-            {
-                // Look for the nearest uncaptured tile
-                FindNearestUncapturedTile();
-
-                if (targetMemoryTile != null)
-                {
-                    if (agent != null && agent.isOnNavMesh)
-                    {
-                        agent.SetDestination(targetMemoryTile.transform.position);
-                    }
-                }
-                else
-                {
-                    FindNearestMemoryTile(); // Find the nearest MemoryTile if no uncaptured tile is found
-
-                    if (targetMemoryTile != null)
-                    {
-                        if (agent != null && agent.isOnNavMesh)
-                        {
-                            agent.SetDestination(targetMemoryTile.transform.position);
-                        }
-                    }
-                }
-            }
-
-            if (gameObject.CompareTag("AllyHealing"))
-            {
-                if (targetAlly == null || targetAlly.GetComponent<AllyTroopStats>().currentHealth >= targetAlly.GetComponent<AllyTroopStats>().maxHealth)
-                {
-                    FindNearestAllyToHeal(); // Find the nearest ally to heal with lowest health
-                }
-
-                if (targetAlly != null)
-                {
-                    float distanceToAlly = Vector3.Distance(transform.position, targetAlly.transform.position);
-
-                    // Move towards the ally, but maintain heal range
-                    if (distanceToAlly > healRange)
-                    {
-                        if (agent != null && agent.isOnNavMesh)
-                        {
-                            agent.SetDestination(targetAlly.transform.position);
-                        }
-                    }
-                    else
-                    {
-                        // Heal the ally when in range
-                        agent.ResetPath();
-                        if (healingCoroutine == null)
-                        {
-                            healingCoroutine = StartCoroutine(ShootHealingProjectile());
-                        }
-                    }
-                }
-            }
+            BasicMeleeBehavior();
         }
     }
 
     void FindNearestEnemy()
     {
         EnemyTroop[] enemyTroops = FindObjectsOfType<EnemyTroop>();
-
-        float minDistance = Mathf.Infinity;
+        float searchRange = 10f; // Define the range within which to search for enemies
+        float minDistance = searchRange;
         EnemyTroop nearestEnemy = null;
 
         foreach (EnemyTroop enemy in enemyTroops)
@@ -170,8 +84,49 @@ public class AllyTroop : MonoBehaviour
         }
 
         targetEnemy = nearestEnemy;
-        targetEnemyy = nearestEnemy.gameObject;
+        if (nearestEnemy != null)
+        {
+            targetEnemyy = nearestEnemy.gameObject;
+        }
+        else
+        {
+            targetEnemyy = null; // No enemy found within range
+        }
     }
+
+    void FindAndMoveToNearestAxon()
+    {
+        GameObject[] axons = GameObject.FindGameObjectsWithTag("Axon");
+
+        if (axons.Length == 0)
+        {
+            Debug.Log("No Axons found on the map.");
+            return;
+        }
+
+        GameObject nearestAxon = null;
+        float minDistance = Mathf.Infinity;
+
+        foreach (GameObject axon in axons)
+        {
+            float distance = Vector3.Distance(transform.position, axon.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestAxon = axon;
+
+                
+            }
+        }
+
+        if (nearestAxon != null)
+        {
+            agent.SetDestination(nearestAxon.transform.position);
+        }
+
+
+    }
+
 
     void FindNearestUncapturedTile()
     {
@@ -303,6 +258,54 @@ public class AllyTroop : MonoBehaviour
         if (healingCoroutine != null)
         {
             StopCoroutine(healingCoroutine);
+        }
+    }
+
+    void BasicMeleeBehavior()
+    {
+        FindNearestEnemy();
+        if (targetEnemy != null)
+        {
+            MoveAndAttackEnemy();
+        }
+        else
+        {
+            FindAndMoveToNearestAxon();
+        }
+    }
+
+    void MoveAndAttackEnemy()
+    {
+        if (targetEnemy != null)
+        {
+            agent.SetDestination(targetEnemy.transform.position);
+
+            if (Vector3.Distance(transform.position, targetEnemy.transform.position) <= attackRange)
+            {
+                // Perform melee attack
+                if (meleeCoroutine == null)
+                {
+                    meleeCoroutine = StartCoroutine(PerformMeleeAttack());
+                }
+                
+            }
+        }
+    }
+
+    IEnumerator PerformMeleeAttack()
+    {
+        if (targetEnemy != null)
+        {
+            // Here, reduce the health of the target enemy
+            EnemyStats enemyStats = targetEnemy.GetComponent<EnemyStats>();
+            if (enemyStats != null)
+            {
+                enemyStats.TakeDamage(1.0f); // Assume `allyStats.attackDamage` holds the damage value
+            }
+            yield return new WaitForSeconds(2.0f);
+            meleeCoroutine = null;
+            // Optionally, play an attack animation or sound effect here
+
         }
     }
 
