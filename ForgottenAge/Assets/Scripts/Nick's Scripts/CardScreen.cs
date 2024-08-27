@@ -19,6 +19,9 @@ public class CardScreen : MonoBehaviour
     public GameObject eventButton;
 
     public CardManager cardManager;
+
+    public ShopButton shopButton;
+    public GameObject shopButtonPanel;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,6 +40,9 @@ public class CardScreen : MonoBehaviour
         //minimap.SetActive(false);
         DrawFromDeck();
         HideIconButton();
+        shopButton.CloseMenu();
+        shopButton.gameObject.SetActive(false);
+        shopButtonPanel.SetActive(false);
     }
 
     public void CloseScreen()
@@ -45,6 +51,8 @@ public class CardScreen : MonoBehaviour
         //minimap.SetActive(true);
         HideIconButton();
         waveManager.StartWave();
+        shopButton.gameObject.SetActive(true);
+        shopButtonPanel.SetActive(true);
     }
 
     public void ShowIconButton()

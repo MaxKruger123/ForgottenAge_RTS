@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     public Animator shopButtonPanelAnimation;
+    public Animator shopPanelAnimation;
     public GameObject shopPanel;
     public Sprite closeImage;
 
@@ -63,16 +64,30 @@ public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (!menuIsOpen)
         {
-            shopPanel.SetActive(true);
-            menuIsOpen = true;
             
+            menuIsOpen = true;
+            shopPanelAnimation.SetBool("PlayAnimation", true);
+            shopPanelAnimation.SetBool("ReverseAnimation", false);
         }
         else
         {
-            shopPanel.SetActive(false);
+            
             menuIsOpen = false;
             gameObject.GetComponent<Image>().sprite = shopImage;
+            shopPanelAnimation.SetBool("PlayAnimation", false);
+            shopPanelAnimation.SetBool("ReverseAnimation", true);
         }
             
+    }
+
+    public void CloseMenu()
+    {
+        menuIsOpen = false;
+        gameObject.GetComponent<Image>().sprite = shopImage;
+        shopPanelAnimation.SetBool("PlayAnimation", false);
+        shopPanelAnimation.SetBool("ReverseAnimation", true);
+        transform.GetChild(0).gameObject.SetActive(false);
+        shopButtonPanelAnimation.SetBool("ReverseAnimation", true);
+        shopButtonPanelAnimation.SetBool("PlayAnimation", false);
     }
 }
