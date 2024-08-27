@@ -13,6 +13,9 @@ TagManager:
   - AllyHealing
   - AllyTank
   - MainBrain
+  - Enemy_Tank
+  - Axon
+  - Kamikaze
   layers:
   - Default
   - TransparentFX
@@ -20,13 +23,13 @@ TagManager:
   - Enemy
   - Water
   - UI
-  - Environment
+  - Kamikaze
   - Minimap
   - 
+  - Troop
+  - Background
   - 
-  - 
-  - 
-  - 
+  - Environment
   - 
   - 
   - 

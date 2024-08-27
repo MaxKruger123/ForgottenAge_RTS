@@ -157,6 +157,8 @@ MonoBehaviour:
   healAmount: 10
   healingProjectilePrefab: {fileID: 0}
   healInterval: 2
+  targetEnemy: {fileID: 0}
+  targetEnemyy: {fileID: 0}
 --- !u!195 &-4291230968391600590
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -498,7 +500,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5032964758659892695}
   - component: {fileID: 1051193721179818635}
-  m_Layer: 7
+  m_Layer: 8
   m_Name: MinimapIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
