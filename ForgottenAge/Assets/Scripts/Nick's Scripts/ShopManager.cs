@@ -46,9 +46,9 @@ public class ShopManager : MonoBehaviour
                 spawnedAreaOfEffect.GetComponent<Renderer>().enabled = true;
 
                 Vector3 mousePosition = Input.mousePosition;
-                mousePosition.z = 10f; 
+                mousePosition.z = 19.04f; 
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-
+                
                 spawnedAreaOfEffect.transform.position = worldPosition;
 
                 if (Input.GetMouseButtonDown(0))// apply effect
@@ -95,7 +95,7 @@ public class ShopManager : MonoBehaviour
             }
         }
 
-
+        
     }
 
    
@@ -116,9 +116,10 @@ public class ShopManager : MonoBehaviour
     {
         // Instantiate the area of effect at the mouse position
         Vector3 mousePosition = Input.mousePosition;
-        mousePosition.z = 10f; // Set the Z distance to the camera (based on your camera setup)
+        mousePosition.z = 19.04f; // Set the Z distance to the camera (based on your camera setup)
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
         spawnedAreaOfEffect = Instantiate(areaOfEffect, worldPosition, Quaternion.identity);
+      
         spawnedAreaOfEffect.GetComponent<AreaOfEffect>().SetEffectType(type);
 
         if(type == "Bomb")
