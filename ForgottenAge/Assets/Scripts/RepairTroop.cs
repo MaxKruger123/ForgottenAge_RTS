@@ -50,7 +50,7 @@ public class RepairTroop : MonoBehaviour
                 if (Vector3.Distance(transform.position, targetAxon.transform.position) <= agent.stoppingDistance)
                 {
 
-                    Debug.Log("STOP");
+                    //Debug.Log("STOP");
                     // Heal the axon if its health is less than max health
                     if (targetAxon.currentHealth < targetAxon.maxHealth)
                     {
