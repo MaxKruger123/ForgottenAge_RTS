@@ -100,7 +100,7 @@ public class AllyTroop : MonoBehaviour
 
         if (axons.Length == 0)
         {
-            Debug.Log("No Axons found on the map.");
+            //Debug.Log("No Axons found on the map.");
             return;
         }
 
