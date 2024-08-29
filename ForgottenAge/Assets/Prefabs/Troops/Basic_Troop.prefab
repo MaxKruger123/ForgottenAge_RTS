@@ -271,7 +271,7 @@ GameObject:
   - component: {fileID: 4279758737788072993}
   m_Layer: 0
   m_Name: Basic_Troop
-  m_TagString: Player
+  m_TagString: RepairTroop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -410,6 +410,8 @@ MonoBehaviour:
   healAmount: 10
   healingProjectilePrefab: {fileID: 0}
   healInterval: 2
+  targetEnemy: {fileID: 0}
+  targetEnemyy: {fileID: 0}
 --- !u!195 &-502297358609278984
 NavMeshAgent:
   m_ObjectHideFlags: 0

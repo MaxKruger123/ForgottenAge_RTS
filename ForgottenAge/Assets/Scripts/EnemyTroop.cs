@@ -7,38 +7,48 @@ public class EnemyTroop : MonoBehaviour
     public float attackRange = 2f; // Range for attacking
     public float minDistanceToAlly = 1.5f; // Minimum distance to ally to avoid touching
     public float rangedAttackRange = 5f; // Range for ranged attacking
+    public float protectRange = 100f; // Range to find and protect the nearest Tank
     public GameObject projectilePrefab; // Projectile prefab to be shot by the ranged enemy
     public float projectileSpeed = 10f; // Speed of the projectile
     public float shootInterval = 1f; // Interval between shots
+    public float retreatHealthThreshold = 20f; // Health threshold to trigger retreat
+    public float retreatTime = 7f; // Time to retreat before returning
 
-    private AllyTroopStats targetAlly; // Reference to the nearest ally
+    public AllyTroop targetAlly; // Reference to the nearest ally
     private GameObject targetMemoryTile; // Reference to the nearest MemoryTile
     public GameObject targetBuilding; // Reference to the nearest building
     private bool isAttacking = false; // Flag to indicate if the enemy is attacking
     private NavMeshAgent agent; // Reference to the NavMeshAgent
     private Coroutine shootingCoroutine; // Coroutine for shooting
+    private Coroutine meleeCoroutine;
 
     private EnemyStats enemyStats; // Reference to the enemy's stats
-   
-
     private CardManager cardManager;
+    private GameObject targetAxon;
+    public GameObject targetTank; // Reference to the nearest Tank to protect
+    private Coroutine retreatCoroutine;
+    GameObject nearestTank;
+    public bool tankUnderAttack = false;
+
+    private AllyTroop attacker;
+
+    private Coroutine damageCoroutine;
+
+
 
     void Start()
     {
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
-        // Get the NavMeshAgent component
         agent = GetComponent<NavMeshAgent>();
 
         if (agent != null)
         {
-            // Ensure the NavMeshAgent operates on the X-Y plane for 2D
             agent.updateUpAxis = false;
             agent.updateRotation = false;
 
-            // Check if the agent is on the NavMesh
             if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
             {
-                agent.Warp(hit.position); // Place the agent on the NavMesh
+                agent.Warp(hit.position);
             }
             else
             {
@@ -50,7 +60,6 @@ public class EnemyTroop : MonoBehaviour
             Debug.LogError("NavMeshAgent component not found on " + gameObject.name);
         }
 
-        // Get the EnemyStats component
         enemyStats = GetComponent<EnemyStats>();
         if (enemyStats == null)
         {
@@ -60,223 +69,382 @@ public class EnemyTroop : MonoBehaviour
 
     void Update()
     {
-        if (enemyStats.currentHealth < enemyStats.maxHealth)
-        {
-            FindNearestAlly(); // Prioritize attacking allies if damaged
-        }
-        else
-        {
-            FindNearestBuilding(); // Prioritize attacking buildings if not damaged
-        }
 
-        if (!isAttacking)
+        if (gameObject.CompareTag("Enemy"))
         {
+            FindNearestAlly();
             if (targetAlly != null)
             {
-                float distanceToAlly = Vector3.Distance(transform.position, targetAlly.transform.position);
-
-                // Move towards the ally, but maintain minimum distance
-                if (distanceToAlly > minDistanceToAlly)
+                MoveTowardsAlly();
+                if (IsInMeleeRange())
                 {
-                    if (agent != null && agent.isOnNavMesh)
+                    if (meleeCoroutine == null)
                     {
-                        agent.SetDestination(targetAlly.transform.position);
+                        meleeCoroutine = StartCoroutine(MeleeAttack());
                     }
-                }
-                else if (gameObject.CompareTag("Enemy"))
-                {
-                    // Attack the ally when in range
-                    AttackAlly();
-                }
-                else if (gameObject.CompareTag("EnemyRanged"))
-                {
-                    // Stop moving and shoot the ally
-                    agent.ResetPath();
-                    if (shootingCoroutine == null)
-                    {
-                        shootingCoroutine = StartCoroutine(ShootAlly());
-                    }
-                }
-            }
-            else if (targetBuilding != null)
-            {
-                float distanceToBuilding = Vector3.Distance(transform.position, targetBuilding.transform.position);
-
-                if (gameObject.CompareTag("Enemy") && distanceToBuilding > attackRange || gameObject.CompareTag("EnemyRanged") && distanceToBuilding > rangedAttackRange)
-                {
-                    if (agent != null && agent.isOnNavMesh)
-                    {
-                        agent.SetDestination(targetBuilding.transform.position);
-                    }
-                }
-                else if (gameObject.CompareTag("Enemy") && distanceToBuilding <= attackRange)
-                {
-                    // Attack the building when in range
-                    AttackBuilding();
-                }
-                else if (gameObject.CompareTag("EnemyRanged") && distanceToBuilding <= rangedAttackRange)
-                {
-                    // Stop moving and shoot the building
-                    agent.ResetPath();
-                    if (shootingCoroutine == null)
-                    {
-                        shootingCoroutine = StartCoroutine(ShootBuilding());
-                    }
+                   
                 }
             }
             else
             {
-                if (targetAlly == null)
-                {
-                    FindNearestBuilding();
-                }
-                FindNearestMemoryTile(); // Find the nearest MemoryTile if no building or ally is found
+                FindAndMoveToNearestAxon();
+            }
+        }
 
-                if (targetMemoryTile != null)
+        if (gameObject.CompareTag("Enemy_Tank"))
+        {
+           FindAndMoveToNearestAxon();
+        }
+
+        if (gameObject.CompareTag("EnemyRanged"))
+        {
+            FindNearestTank();
+
+            if (IsTargeted())
+            {
+                Debug.Log("Targeted");
+                FleeAndShoot();
+            }
+
+            else if (targetTank != null)
+            {
+                FollowTank();
+                
+                if (IsTankUnderAttack())
                 {
-                    if (agent != null && agent.isOnNavMesh)
+                    if (shootingCoroutine == null)
                     {
-                        agent.SetDestination(targetMemoryTile.transform.position);
+                        FindAndAttackTargetAttackingTank();
+                    }
+                    
+                }
+            }
+            else 
+            {
+                FindNearestNormalEnemy();
+                if (targetBuilding != null && shootingCoroutine == null)
+                {
+                    
+                    FindAndAttackTargetAttackingNormalEnemy();
+                }
+                else
+                {
+                    FindNearestAlly();
+                    if (targetAlly != null && shootingCoroutine == null)
+                    {
+                        Debug.Log("Wtf is going on");
+                        shootingCoroutine = StartCoroutine(ShootAlly());
                     }
                 }
             }
+            
+            if (!IsTargeted() && targetTank == null && targetAlly == null && targetBuilding == null)
+            {
+                FindAndMoveToNearestAxon();
+            }
+                
+            
         }
+
+        if (gameObject.CompareTag("Kamikaze"))
+        {
+            FindAndMoveToNearestAxon();
+        }
+    }
+
+    void MoveTowardsAlly()
+    {
+        if (targetAlly != null)
+        {
+            agent.SetDestination(targetAlly.transform.position);
+        }
+    }
+
+    bool IsInMeleeRange()
+    {
+        if (targetAlly != null)
+        {
+            float distance = Vector3.Distance(transform.position, targetAlly.transform.position);
+            return distance <= attackRange;
+        }
+        return false;
+    }
+
+    IEnumerator MeleeAttack()
+    {
+        if (targetAlly != null)
+        {
+            // Add your melee attack logic here, for example:
+             AllyTroopStats targetAllyStats = targetAlly.GetComponent<AllyTroopStats>();
+            targetAllyStats.TakeDamage(1.0f);
+            
+            
+            
+        }
+        yield return new WaitForSeconds(2.0f);
+        meleeCoroutine = null;
+    }
+
+    void FollowTank()
+    {
+        if (targetTank != null)
+        {
+            agent.SetDestination(targetTank.transform.position);
+        }
+    }
+
+    bool IsTankUnderAttack()
+    {
+        
+        AllyTroop[] allyTroops = FindObjectsOfType<AllyTroop>();
+        
+
+        foreach (AllyTroop ally in allyTroops)
+        {
+            if (ally.targetEnemyy == targetTank)
+            {
+                
+                return true;
+            }
+            
+        }
+        return false;
     }
 
     void FindNearestAlly()
     {
-        AllyTroopStats[] allyTroops = FindObjectsOfType<AllyTroopStats>();
+        AllyTroop[] allyTroop = FindObjectsOfType<AllyTroop>();
 
         float minDistance = Mathf.Infinity;
-        AllyTroopStats nearestAlly = null;
+        AllyTroop nearestAlly = null;
 
-        foreach (AllyTroopStats ally in allyTroops)
+        foreach (AllyTroop ally in allyTroop)
         {
-            if (ally.gameObject.CompareTag("Player") || ally.gameObject.CompareTag("AllyRanged") || ally.gameObject.CompareTag("AllyHealing") || ally.gameObject.CompareTag("AllyTank"))
+            float distance = Vector3.Distance(transform.position, ally.transform.position);
+            if (distance < minDistance)
             {
-                float distance = Vector3.Distance(transform.position, ally.transform.position);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearestAlly = ally;
-                }
+                minDistance = distance;
+                nearestAlly = ally;
             }
         }
 
         targetAlly = nearestAlly;
     }
 
-    void FindNearestMemoryTile()
+
+    void FindNearestTank()
     {
-        GameObject[] memoryTiles = GameObject.FindGameObjectsWithTag("MemoryTile");
+       
+        GameObject[] tanks = GameObject.FindGameObjectsWithTag("Enemy_Tank");
 
-        float minDistance = Mathf.Infinity;
-        GameObject nearestTile = null;
+       
 
-        foreach (GameObject tile in memoryTiles)
+        float minDistance = protectRange;
+        
+
+        foreach (GameObject tank in tanks)
         {
-            float distance = Vector3.Distance(transform.position, tile.transform.position);
+            float distance = Vector3.Distance(transform.position, tank.transform.position);
+            
+
             if (distance < minDistance)
             {
                 minDistance = distance;
-                nearestTile = tile;
+                nearestTank = tank;
+                
             }
         }
 
-        targetMemoryTile = nearestTile;
+        targetTank = nearestTank;
+        if (targetTank != null)
+        {
+            
+            agent.SetDestination(targetTank.transform.position);
+        }
+        else
+        {
+            
+        }
     }
 
-    void FindNearestBuilding()
+
+    void FindAndAttackTargetAttackingTank()
     {
-        GameObject[] buildings = GameObject.FindGameObjectsWithTag("Building");
+        
+        AllyTroop[] allyTroop = FindObjectsOfType<AllyTroop>();
 
-        float minDistance = Mathf.Infinity;
-        GameObject nearestBuilding = null;
-
-        foreach (GameObject building in buildings)
+        foreach (AllyTroop ally in allyTroop)
         {
-            float distance = Vector3.Distance(transform.position, building.transform.position);
+            if (ally.targetEnemyy == targetTank)
+            {
+                targetAlly = ally;
+                shootingCoroutine = StartCoroutine(ShootAlly());
+                return;
+            }
+        }
+    }
+
+    void FindNearestNormalEnemy()
+    {
+        GameObject[] normalEnemies = GameObject.FindGameObjectsWithTag("Enemy");
+
+        float minDistance = protectRange;
+        GameObject nearestNormalEnemy = null;
+
+        foreach (GameObject enemy in normalEnemies)
+        {
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
             if (distance < minDistance)
             {
                 minDistance = distance;
-                nearestBuilding = building;
+                nearestNormalEnemy = enemy;
             }
         }
 
-        targetBuilding = nearestBuilding;
-    }
-
-    void AttackAlly()
-    {
-        // Perform attack on the ally
-        targetAlly.TakeDamage(cardManager.enemyMeleeDamage);
-
-        // Set flag to indicate attacking
-        isAttacking = true;
-
-        // Wait for a short duration before resetting the attack flag
-        StartCoroutine(ResetAttackFlag());
-    }
-
-    void AttackBuilding()
-    {
-        // Perform attack on the building
+        targetBuilding = nearestNormalEnemy;
         if (targetBuilding != null)
         {
-            // Assuming the building has a Health component
-            BuildingStats buildingHealth = targetBuilding.GetComponent<BuildingStats>();
-            if (buildingHealth != null)
-            {
-                buildingHealth.TakeDamage(cardManager.enemyMeleeDamage);
-            }
-
-            // Set flag to indicate attacking
-            isAttacking = true;
-
-            // Wait for a short duration before resetting the attack flag
-            StartCoroutine(ResetAttackFlag());
+            agent.SetDestination(targetBuilding.transform.position);
         }
     }
 
-    IEnumerator ResetAttackFlag()
+    void FindAndAttackTargetAttackingNormalEnemy()
     {
-        yield return new WaitForSeconds(2.0f); // Adjust the duration as needed
-        isAttacking = false;
+        AllyTroop[] allyTroop = FindObjectsOfType<AllyTroop>();
+
+        foreach (AllyTroop ally in allyTroop)
+        {
+            if (ally.targetEnemyy == targetBuilding)
+            {
+                targetAlly = ally;
+                shootingCoroutine = StartCoroutine(ShootAlly());
+                return;
+            }
+        }
     }
 
     IEnumerator ShootAlly()
     {
-        while (targetAlly != null)
+        if (targetAlly != null)
         {
             Vector3 direction = (targetAlly.transform.position - transform.position).normalized;
             GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
             projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
 
-            yield return new WaitForSeconds(shootInterval);
+            
         }
-
+        yield return new WaitForSeconds(2.0f);
         shootingCoroutine = null;
     }
 
-    IEnumerator ShootBuilding()
+    
+
+    IEnumerator ResetAttackFlag()
     {
-        while (targetBuilding != null)
-        {
-            Vector3 direction = (targetBuilding.transform.position - transform.position).normalized;
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
-
-            yield return new WaitForSeconds(shootInterval);
-        }
-
-        shootingCoroutine = null;
+        yield return new WaitForSeconds(2.0f);
+        isAttacking = false;
     }
 
-    private void OnDestroy()
+
+    void FindAndMoveToNearestAxon()
     {
-        if (shootingCoroutine != null)
+        GameObject[] axons = GameObject.FindGameObjectsWithTag("Axon");
+
+        if (axons.Length == 0)
         {
-            StopCoroutine(shootingCoroutine);
+            Debug.Log("No Axons found on the map.");
+            return;
+        }
+
+        GameObject nearestAxon = null;
+        float minDistance = Mathf.Infinity;
+
+        foreach (GameObject axon in axons)
+        {
+            float distance = Vector3.Distance(transform.position, axon.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestAxon = axon;
+
+                if (distance < 2f && gameObject.CompareTag("Kamikaze"))
+                {
+                    Destroy(gameObject, 1.0f);
+                    // Explode
+                }
+            }
+        }
+
+        if (nearestAxon != null)
+        {
+            agent.SetDestination(nearestAxon.transform.position);
+
+            // Check if the tank is within melee range of the axon
+            if (gameObject.CompareTag("Enemy_Tank") && Vector3.Distance(transform.position, nearestAxon.transform.position) <= 2f)
+            {
+                if (damageCoroutine == null)
+                {
+                    damageCoroutine = StartCoroutine(DealDamageToAxon(nearestAxon));
+                }
+            }
+            else
+            {
+                // Stop the coroutine if the tank is no longer within melee range
+                if (damageCoroutine != null)
+                {
+                    StopCoroutine(damageCoroutine);
+                    damageCoroutine = null;
+                }
+            }
         }
     }
+
+    private IEnumerator DealDamageToAxon(GameObject axon)
+    {
+        Axon axonScript = axon.GetComponent<Axon>();
+        while (axonScript != null)
+        {
+            axonScript.TakeDamage(5f); // Deal 5 damage every 2 seconds
+            yield return new WaitForSeconds(2.0f);
+        }
+    }
+
+    bool IsTargeted()
+    {
+        // Check if any ally is targeting this ranged enemy
+        AllyTroop[] allyTroops = FindObjectsOfType<AllyTroop>();
+
+        foreach (AllyTroop ally in allyTroops)
+        {
+            if (ally.targetEnemyy == gameObject)
+            {
+                attacker = ally;
+                targetAlly = ally;
+                return true;
+            }
+        }
+        return false;
+    }
+
+    void FleeAndShoot()
+    {
+        if (attacker != null)
+        {
+            // Calculate the direction to move away from the attacker
+            Vector3 fleeDirection = (transform.position - attacker.transform.position).normalized;
+            Vector3 fleePosition = transform.position + fleeDirection * 5f; // Adjust the distance as needed
+
+            // Move the ranged enemy away from the attacker
+            agent.SetDestination(fleePosition);
+
+            // Shoot at the attacker while fleeing
+            if (!isAttacking && shootingCoroutine == null)
+            {
+                shootingCoroutine = StartCoroutine(ShootAlly());
+                Debug.Log("Flee and Shoot");
+            }
+        }
+    }
+
+    
 }

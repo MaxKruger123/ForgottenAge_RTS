@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 6271998047802841056}
   - component: {fileID: 5645686656867315415}
   - component: {fileID: 1658721209507077696}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -206,7 +206,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 3
   m_Time: 0.8
-  m_PreviewTimeScale: 1
+  m_PreviewTimeScale: 0
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 0.40941256
