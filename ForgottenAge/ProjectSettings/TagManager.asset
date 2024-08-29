@@ -16,6 +16,7 @@ TagManager:
   - Enemy_Tank
   - Axon
   - Kamikaze
+  - RepairTroop
   layers:
   - Default
   - TransparentFX

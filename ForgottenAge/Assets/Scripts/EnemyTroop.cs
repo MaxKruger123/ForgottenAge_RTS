@@ -32,6 +32,8 @@ public class EnemyTroop : MonoBehaviour
 
     private AllyTroop attacker;
 
+    private Coroutine damageCoroutine;
+
 
 
     void Start()
@@ -343,6 +345,7 @@ public class EnemyTroop : MonoBehaviour
         isAttacking = false;
     }
 
+
     void FindAndMoveToNearestAxon()
     {
         GameObject[] axons = GameObject.FindGameObjectsWithTag("Axon");
@@ -364,20 +367,46 @@ public class EnemyTroop : MonoBehaviour
                 minDistance = distance;
                 nearestAxon = axon;
 
-                if (distance < 2f)
+                if (distance < 2f && gameObject.CompareTag("Kamikaze"))
                 {
                     Destroy(gameObject, 1.0f);
-                    //Explode
+                    // Explode
                 }
-            } 
+            }
         }
 
         if (nearestAxon != null)
         {
             agent.SetDestination(nearestAxon.transform.position);
-        }
 
-       
+            // Check if the tank is within melee range of the axon
+            if (gameObject.CompareTag("Enemy_Tank") && Vector3.Distance(transform.position, nearestAxon.transform.position) <= 2f)
+            {
+                if (damageCoroutine == null)
+                {
+                    damageCoroutine = StartCoroutine(DealDamageToAxon(nearestAxon));
+                }
+            }
+            else
+            {
+                // Stop the coroutine if the tank is no longer within melee range
+                if (damageCoroutine != null)
+                {
+                    StopCoroutine(damageCoroutine);
+                    damageCoroutine = null;
+                }
+            }
+        }
+    }
+
+    private IEnumerator DealDamageToAxon(GameObject axon)
+    {
+        Axon axonScript = axon.GetComponent<Axon>();
+        while (axonScript != null)
+        {
+            axonScript.TakeDamage(5f); // Deal 5 damage every 2 seconds
+            yield return new WaitForSeconds(2.0f);
+        }
     }
 
     bool IsTargeted()

@@ -39,7 +39,8 @@ public class CaptureZone : MonoBehaviour
             }
         }
 
-        spriteRenderer.color = Color.white; // Start as uncaptured
+        spriteRenderer.color = Color.blue; // Start as uncaptured
+        captured = true;
     }
 
     private void FindNearestMemoryTile()
@@ -58,119 +59,17 @@ public class CaptureZone : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("AllyRanged") || other.CompareTag("AllyTank"))
-        {
-            playerCount++;
-        }
-        else if (other.CompareTag("Enemy") || other.CompareTag("EnemyRanged"))
-        {
-            enemyCount++;
-        }
+    
 
-        
-    }
-
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player") || other.CompareTag("AllyRanged"))
-        {
-            playerCount--;
-        }
-        else if (other.CompareTag("Enemy") || other.CompareTag("EnemyRanged"))
-        {
-            enemyCount--;
-        }
-    }
+    
 
     private void Update()
     {
-        if (numBuildings == null) return; // Ensure numBuildings is not null
-
-        if (playerCount > 0 && enemyCount == 0 && numBuildings.numBuildings == 0)
-        {
-            if (capturingSide == null || capturingSide == "Player")
-            {
-                if (flashCoroutine == null)
-                {
-                    flashCoroutine = StartCoroutine(FlashColor(Color.cyan));
-                }
-
-                captureProgress += Time.deltaTime;
-                if (captureProgress >= captureTime)
-                {
-                    Capture("Player");
-                }
-            }
-            else
-            {
-                captureProgress -= Time.deltaTime;
-                if (captureProgress <= 0)
-                {
-                    capturingSide = "Player";
-                    captureProgress = 0;
-                }
-            }
-        }
-        else if (enemyCount > 0 && playerCount == 0 && numBuildings.numBuildings == 0)
-        {
-            if (capturingSide == null || capturingSide == "Enemy")
-            {
-                if (flashCoroutine == null)
-                {
-                    flashCoroutine = StartCoroutine(FlashColor(Color.red));
-                }
-
-                captureProgress += Time.deltaTime;
-                if (captureProgress >= captureTime)
-                {
-                    Capture("Enemy");
-                }
-            }
-            else
-            {
-                captureProgress -= Time.deltaTime;
-                if (captureProgress <= 0)
-                {
-                    capturingSide = "Enemy";
-                    captureProgress = 0;
-                }
-            }
-        }
+       
         
     }
 
-    private void Capture(string side)
-    {
-        captureProgress = captureTime; // Ensure capture progress is complete
-        capturingSide = side;
-
-        if (flashCoroutine != null)
-        {
-            StopCoroutine(flashCoroutine);
-            flashCoroutine = null;
-        }
-
-        if (side == "Player")
-        {
-            spriteRenderer.color = Color.cyan;
-            if (!captured)
-            {
-                tileController.tilesCaptured++;
-            }
-            captured = true;
-        }
-        else if (side == "Enemy")
-        {
-            spriteRenderer.color = Color.red;
-            if (captured)
-            {
-                tileController.tilesCaptured--;
-            }
-            captured = true;
-        }
-    }
+    
 
     
 
