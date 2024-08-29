@@ -32,23 +32,23 @@ public class AreaOfEffect : MonoBehaviour
         {
             if(effectType == "Heal Troops")
             {
-                if (collider.CompareTag("Player") || collider.CompareTag("AllyHealing") || collider.CompareTag("AllyRanged") || collider.CompareTag("AllyTank"))
+                if (collider.CompareTag("RepairTroop") || collider.CompareTag("Player") || collider.CompareTag("AllyHealing") || collider.CompareTag("AllyRanged") || collider.CompareTag("AllyTank"))
                 {
                     collider.gameObject.GetComponent<AllyTroopStats>().TakeHeals(100);
-                    //Debug.Log("Effect Applied to:" + collider.name);
+                    Debug.Log("Effect Applied to:" + collider.name);
                 }
             }
             else if (effectType == "Bomb")
             {
-                if (collider.CompareTag("Enemy") || collider.CompareTag("EnemyRanged"))
+                if (collider.CompareTag("Enemy") || collider.CompareTag("EnemyRanged") || collider.CompareTag("Kamikaze") || collider.CompareTag("Enemy_Tank"))
                 {
                     collider.gameObject.GetComponent<EnemyStats>().TakeDamage(8);
-                    //Debug.Log("Effect Applied to:" + collider.name);
+                    Debug.Log("Effect Applied to:" + collider.name);
                 }
                 else if (collider.CompareTag("Player") || collider.CompareTag("AllyHealing") || collider.CompareTag("AllyRanged") || collider.CompareTag("AllyTank"))
                 {
                     collider.gameObject.GetComponent<AllyTroopStats>().TakeDamage(8);
-                    //Debug.Log("Effect Applied to:" + collider.name);
+                    Debug.Log("Effect Applied to:" + collider.name);
                 }
             }
 
