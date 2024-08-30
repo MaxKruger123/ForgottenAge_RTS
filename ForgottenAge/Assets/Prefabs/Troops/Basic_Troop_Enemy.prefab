@@ -346,7 +346,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -438,10 +438,16 @@ MonoBehaviour:
   attackRange: 2
   minDistanceToAlly: 2
   rangedAttackRange: 5
+  protectRange: 100
   projectilePrefab: {fileID: 0}
   projectileSpeed: 10
   shootInterval: 1
+  retreatHealthThreshold: 20
+  retreatTime: 7
+  targetAlly: {fileID: 0}
   targetBuilding: {fileID: 0}
+  targetTank: {fileID: 0}
+  tankUnderAttack: 0
 --- !u!195 &-4334775169006875974
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -647,7 +653,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
