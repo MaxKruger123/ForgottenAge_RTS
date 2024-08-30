@@ -18,10 +18,7 @@ public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         shopImage = gameObject.GetComponent<Image>().sprite;
         
-        if (shopButtonPanelAnimation == null)
-        {
-            Debug.LogError("Panel Animator not assigned.");
-        }
+        
     }
 
     // Update is called once per frame
