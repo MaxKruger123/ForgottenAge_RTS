@@ -438,10 +438,17 @@ MonoBehaviour:
   attackRange: 2
   minDistanceToAlly: 2
   rangedAttackRange: 5
+  protectRange: 100
   projectilePrefab: {fileID: 0}
   projectileSpeed: 10
   shootInterval: 1
+  retreatHealthThreshold: 20
+  retreatTime: 7
+  targetAlly: {fileID: 0}
+  targettroop: {fileID: 0}
   targetBuilding: {fileID: 0}
+  targetTank: {fileID: 0}
+  tankUnderAttack: 0
 --- !u!195 &-4334775169006875974
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -460,7 +467,7 @@ NavMeshAgent:
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
-  m_Height: 1
+  m_Height: 0.00001
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4

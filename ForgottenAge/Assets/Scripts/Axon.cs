@@ -30,7 +30,13 @@ public class Axon : MonoBehaviour
         {
             currentHealth = 0f;
             ChangeColorToGray();
+            gameObject.tag = "DeadAxon";
         }
+        else if (currentHealth > 0f)
+        {
+            gameObject.tag = "Axon";
+        }
+
     }
 
     // Function to heal the Axon

@@ -357,7 +357,7 @@ MonoBehaviour:
   currentHealth: 10
   healthBar: {fileID: 4916138948946850677}
   cardManager: {fileID: 0}
-  deathEffect: {fileID: 0}
+  deathEffect: {fileID: 3259086518229417968, guid: 7e40ca4aab79a4643a2ed6566c077c6d, type: 3}
 --- !u!114 &5408112232127408691
 MonoBehaviour:
   m_ObjectHideFlags: 0
