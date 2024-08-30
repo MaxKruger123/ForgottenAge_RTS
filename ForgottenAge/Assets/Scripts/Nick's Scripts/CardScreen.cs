@@ -40,9 +40,9 @@ public class CardScreen : MonoBehaviour
         //minimap.SetActive(false);
         DrawFromDeck();
         HideIconButton();
-        shopButton.CloseMenu();
-        shopButton.gameObject.SetActive(false);
-        shopButtonPanel.SetActive(false);
+        //shopButton.CloseMenu();
+        //shopButton.gameObject.SetActive(false);
+        //shopButtonPanel.SetActive(false);
     }
 
     public void CloseScreen()

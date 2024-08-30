@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.AI;
 using UnityEngine.EventSystems;
 using TMPro;
 
 public class ShopManager : MonoBehaviour
 {
     public GameObject areaOfEffect;
+    public GameObject bombPrefab;
+    public GameObject freezePrefab;
     private GameObject spawnedAreaOfEffect;
 
     public List<Button> shopButtons;
@@ -19,6 +22,10 @@ public class ShopManager : MonoBehaviour
     // UI References
     public UIDetector shopPanel;
     public UIDetector shopButtonPanel;
+
+    // Animators
+    public Animator bombAnimator;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -44,17 +51,32 @@ public class ShopManager : MonoBehaviour
             {
                 // If mouse is not over the UI panel, show the area of effect
                 spawnedAreaOfEffect.GetComponent<Renderer>().enabled = true;
-
+                // Updates the circles location
                 Vector3 mousePosition = Input.mousePosition;
                 mousePosition.z = 19.04f; 
                 Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-                
                 spawnedAreaOfEffect.transform.position = worldPosition;
 
                 if (Input.GetMouseButtonDown(0))// apply effect
                 {
-                    spawnedAreaOfEffect.GetComponent<AreaOfEffect>().ApplyEffect();
-                    Destroy(spawnedAreaOfEffect);
+                    //spawnedAreaOfEffect.GetComponent<AreaOfEffect>().ApplyEffect();
+                    string areaOfEffectType = spawnedAreaOfEffect.GetComponent<AreaOfEffect>().GetEffectType();
+
+
+                    if (areaOfEffectType == "Heal Troops")
+                    {
+                        spawnedAreaOfEffect.GetComponent<AreaOfEffect>().SetEffectActive(true);
+                    }
+                    else if(areaOfEffectType == "Bomb")
+                    {
+                        bombAnimator.SetBool("BlowUp", true);
+                    }
+                    else if (areaOfEffectType == "Freeze")
+                    {
+                        spawnedAreaOfEffect.GetComponent<AreaOfEffect>().Freeze();
+                    }
+                    
+                    Destroy(spawnedAreaOfEffect,5); // DESTROY IN 5 SECONDS
                     spawnedAreaOfEffect = null; // Reset to prevent further interaction
 
                     // makes buttons interactable again
@@ -69,7 +91,7 @@ public class ShopManager : MonoBehaviour
                     spawnedAreaOfEffect = null; // Reset to prevent further interaction
                     Debug.Log("Cancelled");
                     // refund money
-                    concentration.AddConcentration(cost);
+                    concentration.AddDreamTokens(cost);
                     // makes buttons interactable again
                     foreach (Button button in shopButtons)
                     {
@@ -83,7 +105,7 @@ public class ShopManager : MonoBehaviour
             foreach (Button button in shopButtons)
             {
                 // MAKE SO THAT IF YOU DONT HAVE ENOUGH MONEY YOU CANT BUY
-                if(concentration.concentration < 5)
+                if(concentration.GetDreamTokens() < int.Parse(button.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text))
                 {
                     button.interactable = false;
                 }
@@ -102,29 +124,65 @@ public class ShopManager : MonoBehaviour
     public void PurchaseItem()// price cost and switching between different aoes
     {
         string selectedItem = EventSystem.current.currentSelectedGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
-        int itemPrice = 5;
+        int itemPrice = int.Parse(EventSystem.current.currentSelectedGameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text);
         if (concentration.concentration >= itemPrice)
         {
-            SpawnAreaOfEffet(selectedItem);
+            SpawnAreaOfEffect(selectedItem);
             cost = itemPrice;
-            concentration.SubtractConcentration(cost);
+            concentration.SubtractDreamTokens(cost);
         }
         
     }
 
-    public void SpawnAreaOfEffet(string type)
+    public void SpawnAreaOfEffect(string type)
     {
         // Instantiate the area of effect at the mouse position
         Vector3 mousePosition = Input.mousePosition;
         mousePosition.z = 19.04f; // Set the Z distance to the camera (based on your camera setup)
         Vector3 worldPosition = Camera.main.ScreenToWorldPoint(mousePosition);
-        spawnedAreaOfEffect = Instantiate(areaOfEffect, worldPosition, Quaternion.identity);
-      
-        spawnedAreaOfEffect.GetComponent<AreaOfEffect>().SetEffectType(type);
-
-        if(type == "Bomb")
+        
+        if(type == "Heal Troops")
         {
-            spawnedAreaOfEffect.GetComponent<SpriteRenderer>().color = new Color(1, 0, 0, 0.66f); 
+            spawnedAreaOfEffect = Instantiate(areaOfEffect, worldPosition, Quaternion.identity);
+            spawnedAreaOfEffect.GetComponent<AreaOfEffect>().SetEffectType(type);
+        }
+        else if(type == "Bomb")
+        {
+            spawnedAreaOfEffect = Instantiate(bombPrefab, worldPosition, Quaternion.identity);
+            spawnedAreaOfEffect.GetComponent<AreaOfEffect>().SetEffectType(type);
+            bombAnimator = spawnedAreaOfEffect.transform.GetChild(0).GetComponent<Animator>();
+        }else if (type == "Freeze")
+        {
+            spawnedAreaOfEffect = Instantiate(freezePrefab, worldPosition, Quaternion.identity);
+            spawnedAreaOfEffect.GetComponent<AreaOfEffect>().SetEffectType(type);
+        }
+    }
+
+
+    public IEnumerator FreezeCountDown(Collider2D[] colliders)
+    {
+        
+        yield return new WaitForSecondsRealtime(4.5f);
+        foreach (Collider2D collider in colliders)
+        {
+            if(collider != null)
+            {
+                if (collider.CompareTag("Enemy") || collider.CompareTag("EnemyRanged") || collider.CompareTag("Kamikaze") || collider.CompareTag("Enemy_Tank"))
+                {
+                    collider.gameObject.GetComponent<EnemyTroop>().enabled = true;
+                    collider.gameObject.GetComponent<NavMeshAgent>().speed = 2;
+                    //collider.attachedRigidbody.velocity = new Vector2(0,0);
+                    Debug.Log("COUNT DOWN TIMER Effect Applied to:" + collider.name);
+                }
+                else if (collider.CompareTag("RepairTroop") || collider.CompareTag("AllyHealing") || collider.CompareTag("AllyRanged") || collider.CompareTag("AllyTank"))
+                {
+                    collider.gameObject.GetComponent<AllyTroop>().enabled = true;
+                    collider.gameObject.GetComponent<NavMeshAgent>().speed = 2;
+                    //collider.attachedRigidbody.velocity = new Vector2(0,0);
+                    Debug.Log("COUNT DOWN TIMER Effect Applied to:" + collider.name);
+                }
+            }
+            
         }
     }
 
