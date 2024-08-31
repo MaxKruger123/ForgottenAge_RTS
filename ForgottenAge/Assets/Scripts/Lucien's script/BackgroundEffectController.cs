@@ -36,7 +36,6 @@ public class BackgroundEffectController : MonoBehaviour
     public float maxGlitchPositionOffset = 0.1f;
 
     private float elapsedTime = 0f;
-    private Material backgroundMaterial;
     private ParticleSystem.MainModule particleMain;
     private ParticleSystem.EmissionModule particleEmission;
     private ParticleSystem.ColorOverLifetimeModule particleColorOverLifetime;
@@ -54,9 +53,9 @@ public class BackgroundEffectController : MonoBehaviour
         }
         else
         {
-            backgroundMaterial = backgroundSprite.material;
             originalPosition = backgroundSprite.transform.position;
             originalRotation = backgroundSprite.transform.rotation;
+            backgroundSprite.color = startColor; // Set initial color
         }
         if (voidParticles == null)
         {
@@ -115,9 +114,9 @@ public class BackgroundEffectController : MonoBehaviour
         Color newBackgroundColor = CalculateBackgroundColor(curvedT);
 
         // Update background color
-        if (backgroundMaterial != null)
+        if (backgroundSprite != null)
         {
-            backgroundMaterial.SetColor("_Color", newBackgroundColor);
+            backgroundSprite.color = newBackgroundColor;
         }
 
         // Calculate particle colors (lighter version of background color)
