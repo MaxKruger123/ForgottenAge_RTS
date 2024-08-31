@@ -88,13 +88,10 @@ public class AreaOfEffect : MonoBehaviour
         
     }
 
-
     public void SetEffectActive(bool b)
     {
         isActive = b;
     }
-
-  
 
 
     public void Bomb()

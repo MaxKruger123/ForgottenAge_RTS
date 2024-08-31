@@ -3277,7 +3277,7 @@ MonoBehaviour:
   dreamTokenText: {fileID: 1015594521}
   concentration: 0
   maxConcentration: 0
-  dreamTokens: 0
+  dreamTokens: 100
   tileController: {fileID: 1214543806}
   income: 0
   CS: 0
@@ -143390,6 +143390,10 @@ PrefabInstance:
       propertyPath: areaOfEffect
       value: 
       objectReference: {fileID: 6944802741149734902, guid: 3eda97112f27d8641835e64c25c41ba0, type: 3}
+    - target: {fileID: 1947340013333048053, guid: 7274320c6d01bc148ab5b5eba613156f, type: 3}
+      propertyPath: freezePrefab
+      value: 
+      objectReference: {fileID: 7593726966570454408, guid: 5d71c5a5ab6c43146a78ac95d3b6ba4c, type: 3}
     - target: {fileID: 1947340013333048053, guid: 7274320c6d01bc148ab5b5eba613156f, type: 3}
       propertyPath: concentration
       value: 
