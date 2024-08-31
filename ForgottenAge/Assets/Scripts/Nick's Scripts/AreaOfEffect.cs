@@ -100,19 +100,26 @@ public class AreaOfEffect : MonoBehaviour
     public void Bomb()
     {
         Vector2 pos = new Vector2(transform.position.x, transform.position.y);
-
         Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, 5);
+        transform.GetChild(0).GetComponent<ParticleSystem>().Play();
         foreach (Collider2D collider in colliders)
         {
             if (collider.CompareTag("Enemy") || collider.CompareTag("EnemyRanged") || collider.CompareTag("Kamikaze") || collider.CompareTag("Enemy_Tank"))
             {
-                collider.gameObject.GetComponent<EnemyStats>().TakeDamage(8);
-                Debug.Log("Effect Applied to:" + collider.name);
+
+                float distance = Vector2.Distance(transform.position, collider.transform.position); 
+
+                
+                collider.gameObject.GetComponent<EnemyStats>().TakeDamage(50*Mathf.Pow(0.5f, distance));// Formula: Damage = MaxDamage X 0.5^distance
+                Debug.Log((50 * Mathf.Pow(0.5f, distance)) + " Damaged Applied to:" + collider.name);
+
             }
             else if (collider.CompareTag("RepairTroop") || collider.CompareTag("AllyHealing") || collider.CompareTag("AllyRanged") || collider.CompareTag("AllyTank"))
             {
-                collider.gameObject.GetComponent<AllyTroopStats>().TakeDamage(8);
-                Debug.Log("Effect Applied to:" + collider.name);
+                float distance = Vector2.Distance(transform.position, collider.transform.position);
+
+                collider.gameObject.GetComponent<AllyTroopStats>().TakeDamage(50 * Mathf.Pow(0.5f, distance));// Formula: Damage = MaxDamage X 0.5^distance
+                Debug.Log((50 * Mathf.Pow(0.5f, distance)) + " Damaged Applied to:" + collider.name);
             }
         }
     }
@@ -129,14 +136,12 @@ public class AreaOfEffect : MonoBehaviour
             {
                 collider.gameObject.GetComponent<EnemyTroop>().enabled = false;
                 collider.gameObject.GetComponent<NavMeshAgent>().speed = 0;
-                //collider.attachedRigidbody.velocity = new Vector2(0,0);
                 Debug.Log("Effect Applied to:" + collider.name);
             }
             else if (collider.CompareTag("RepairTroop") || collider.CompareTag("AllyHealing") || collider.CompareTag("AllyRanged") || collider.CompareTag("AllyTank"))
             {
                 collider.gameObject.GetComponent<AllyTroop>().enabled = false;
                 collider.gameObject.GetComponent<NavMeshAgent>().speed = 0;
-                //collider.attachedRigidbody.velocity = new Vector2(0,0);
                 Debug.Log("Effect Applied to:" + collider.name);
             }
         }

@@ -26,6 +26,8 @@ public class ShopManager : MonoBehaviour
     // Animators
     public Animator bombAnimator;
 
+    
+
     // Start is called before the first frame update
     void Start()
     {
@@ -66,14 +68,23 @@ public class ShopManager : MonoBehaviour
                     if (areaOfEffectType == "Heal Troops")
                     {
                         spawnedAreaOfEffect.GetComponent<AreaOfEffect>().SetEffectActive(true);
+                        
+                        GameObject particleEffect = spawnedAreaOfEffect.transform.GetChild(0).gameObject;
+                        particleEffect.GetComponent<ParticleSystem>().Play();
+                        particleEffect.transform.SetParent(null);
+                        particleEffect.transform.localScale = new Vector2(1,1);
+                        Destroy(particleEffect, 10);
                     }
                     else if(areaOfEffectType == "Bomb")
                     {
                         bombAnimator.SetBool("BlowUp", true);
+                        
+                        
                     }
                     else if (areaOfEffectType == "Freeze")
                     {
                         spawnedAreaOfEffect.GetComponent<AreaOfEffect>().Freeze();
+                        spawnedAreaOfEffect.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
                     }
                     
                     Destroy(spawnedAreaOfEffect,5); // DESTROY IN 5 SECONDS
@@ -150,7 +161,7 @@ public class ShopManager : MonoBehaviour
         {
             spawnedAreaOfEffect = Instantiate(bombPrefab, worldPosition, Quaternion.identity);
             spawnedAreaOfEffect.GetComponent<AreaOfEffect>().SetEffectType(type);
-            bombAnimator = spawnedAreaOfEffect.transform.GetChild(0).GetComponent<Animator>();
+            bombAnimator = spawnedAreaOfEffect.transform.GetChild(1).GetComponent<Animator>();
         }else if (type == "Freeze")
         {
             spawnedAreaOfEffect = Instantiate(freezePrefab, worldPosition, Quaternion.identity);
