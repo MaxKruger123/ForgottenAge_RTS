@@ -23,6 +23,7 @@ public class ConstructionMenu : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        
         if (concentration.GetConcentration() < int.Parse(prices[0].text.TrimEnd('c')))
         {
             buttons[0].interactable = false;

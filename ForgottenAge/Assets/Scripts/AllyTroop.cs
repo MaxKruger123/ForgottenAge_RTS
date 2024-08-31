@@ -41,6 +41,11 @@ public class AllyTroop : MonoBehaviour
 
     public float retreatCheckInterval = 0.5f;
 
+    private GameObject healingCircle;
+    private HealingCircle healingCircleScript;
+
+    public AllyTroop nearestAllyToHeal;
+
     void Start()
     {
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
@@ -70,6 +75,11 @@ public class AllyTroop : MonoBehaviour
         }
 
         stats = gameObject.GetComponent<AllyTroopStats>();
+        healingCircle = GameObject.Find("HealingCircle");
+
+        healingCircleScript = healingCircle.GetComponent<HealingCircle>();
+        
+       
     }
 
     void Update()
@@ -84,8 +94,71 @@ public class AllyTroop : MonoBehaviour
         }
         else if (gameObject.CompareTag("AllyTank"))
         {
-            FindAndMoveToNearestAxon();
+            BasicMeleeBehavior();
+        }else if (gameObject.CompareTag("AllyHealing"))
+        {
+            if (healingCoroutine == null)
+            {
+                healingCoroutine = StartCoroutine(HealNearestAlly());
+            }
         }
+    }
+
+    private IEnumerator HealNearestAlly()
+    {
+        while (true)
+        {
+            nearestAllyToHeal = FindNearestAllyWithMissingHealth();
+
+            if (nearestAllyToHeal != null)
+            {
+                agent.SetDestination(nearestAllyToHeal.transform.position);
+
+                // Wait until the ally is within heal range
+                while (nearestAllyToHeal != null && Vector3.Distance(transform.position, nearestAllyToHeal.transform.position) > healRange)
+                {
+                    yield return null;
+                }
+
+                // Heal the ally until fully healed or the ally is out of range
+                while (nearestAllyToHeal != null && nearestAllyToHeal.stats.currentHealth < nearestAllyToHeal.stats.maxHealth)
+                {
+                    nearestAllyToHeal.stats.currentHealth += healAmount;
+                    nearestAllyToHeal.stats.currentHealth = Mathf.Min(nearestAllyToHeal.stats.currentHealth, nearestAllyToHeal.stats.maxHealth);
+
+                    yield return new WaitForSeconds(healInterval);
+                }
+            }
+
+            // Wait a bit before finding another ally to heal
+            yield return new WaitForSeconds(0.5f);
+        }
+    }
+
+    AllyTroop FindNearestAllyWithMissingHealth()
+    {
+        AllyTroop[] allyTroops = FindObjectsOfType<AllyTroop>();
+        Debug.Log(allyTroops[0]);
+        float minDistance = Mathf.Infinity;
+        AllyTroop nearestAlly = null;
+
+        foreach (AllyTroop ally in allyTroops)
+        {
+            if (ally.CompareTag("AllyHealing") || ally.CompareTag("Player") || ally.CompareTag("AllyTank") || ally.CompareTag("AllyRanged"))
+            {
+                if (ally.stats.currentHealth < ally.stats.maxHealth) // Check if the ally needs healing
+                {
+                    float distance = Vector3.Distance(transform.position, ally.transform.position);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        nearestAlly = ally;
+                    }
+                }
+            }
+        }
+
+        return nearestAlly;
     }
 
     void RangedBehavior()
@@ -393,7 +466,7 @@ public class AllyTroop : MonoBehaviour
 
         foreach (AllyTroop ally in allyTroops)
         {
-            if (ally.CompareTag("Ally") || ally.CompareTag("Player"))
+            if (ally.CompareTag("AllyHealing") || ally.CompareTag("Player") || ally.CompareTag("Ally_Tank") || ally.CompareTag("AllyRanged"))
             {
                 float distance = Vector3.Distance(transform.position, ally.transform.position);
                 if (distance < minDistance)
@@ -405,6 +478,7 @@ public class AllyTroop : MonoBehaviour
         }
 
         targetAlly = nearestAlly;
+        agent.SetDestination(targetAlly.transform.position);
     }
 
     void BasicMeleeBehavior()
@@ -428,6 +502,10 @@ public class AllyTroop : MonoBehaviour
                 agent.SetDestination(targetEnemy.transform.position);
             }
         }
+        else
+        {
+            FindAndMoveToNearestAxon();
+        }
     }
 
     IEnumerator MeleeAttack()
@@ -436,7 +514,7 @@ public class AllyTroop : MonoBehaviour
         {
             // Perform melee attack on the targetEnemy
             EnemyStats enemyStats = targetEnemy.GetComponent<EnemyStats>();
-            enemyStats.TakeDamage(10); // Adjust damage as needed
+            enemyStats.TakeDamage(1); // Adjust damage as needed
 
             yield return new WaitForSeconds(1.0f); // Adjust this interval for the attack rate
         }
@@ -465,4 +543,6 @@ public class AllyTroop : MonoBehaviour
             }
         }
     }
+
+    
 }
