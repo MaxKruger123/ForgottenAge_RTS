@@ -77,9 +77,15 @@ public class RepairTroop : MonoBehaviour
 
     void FindNearestAxon()
     {
+        // Find all axons with both tags
         GameObject[] axons = GameObject.FindGameObjectsWithTag("Axon");
+        GameObject[] deadAxons = GameObject.FindGameObjectsWithTag("DeadAxon");
 
-        if (axons.Length == 0)
+        // Combine the arrays
+        List<GameObject> allAxons = new List<GameObject>(axons);
+        allAxons.AddRange(deadAxons);
+
+        if (allAxons.Count == 0)
         {
             targetAxon = null;
             return;
@@ -88,7 +94,7 @@ public class RepairTroop : MonoBehaviour
         float minDistance = Mathf.Infinity;
         Axon nearestAxon = null;
 
-        foreach (GameObject axon in axons)
+        foreach (GameObject axon in allAxons)
         {
             float distance = Vector3.Distance(transform.position, axon.transform.position);
             if (distance < minDistance)

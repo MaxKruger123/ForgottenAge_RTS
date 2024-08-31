@@ -15,12 +15,14 @@ public class MemoryTileConstruction : MonoBehaviour
     public int numBuildings;
     public CaptureZone captureZone;
 
-    public int barracksPrice = 20;
-    public int towerPrice = 40;
-    public int upgradedBarracksPrice = 100;
-    public int conStoragePrice = 200;
-    public int upgradedTowerPrice = 150;
-    public int areaTowerPrice = 250;
+    public int barracksPrice;
+    public int towerPrice;
+    public int upgradedBarracksPrice;
+    public int conStoragePrice;
+    public int upgradedTowerPrice;
+    public int areaTowerPrice;
+
+    private bool priceFlag;
 
     public GameObject spawnEffect;
 
@@ -30,10 +32,32 @@ public class MemoryTileConstruction : MonoBehaviour
 
     void Start()
     {
-        constructionMenu.GetComponent<ConstructionMenu>().SetPrices(barracksPrice, towerPrice, upgradedBarracksPrice, conStoragePrice, upgradedTowerPrice, areaTowerPrice);
+        
         constructionMenu.SetActive(false); // Ensure the construction menu is initially inactive
         concentration = GameObject.Find("UICanvas").GetComponent<Concentration>();
+        areaTowerPrice = 250;
+        upgradedTowerPrice = 150;
+        conStoragePrice = 200;
+        upgradedBarracksPrice = 100;
+        towerPrice = 40;
+        barracksPrice = 20;
+        
+        constructionMenu.GetComponent<ConstructionMenu>().SetPrices(barracksPrice, towerPrice, upgradedBarracksPrice, conStoragePrice, upgradedTowerPrice, areaTowerPrice);
     }
+
+     void Update()
+     {
+        if (captureZone.priceIncrease == true && !priceFlag)
+        {
+            
+            priceFlag = true;
+        }
+        
+        if (captureZone.cantBuild == false)
+        {
+            captureZone.ChangeColorToBlue();
+        }
+     }
 
     private void OnMouseOver()
     {
@@ -58,9 +82,10 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructBuilding()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= barracksPrice && captureZone.capturingSide == "Player")
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= barracksPrice && captureZone.cantBuild == false)
         {
             GameObject currentBuilding = Instantiate(buildingPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
+            
             concentration.SubtractConcentration(barracksPrice);
             selectedTile.numBuildings++;
             currentBuilding.GetComponent<Building>().memoryTile = selectedTile; // Assign the memory tile to the building
@@ -78,7 +103,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructConcentrationStorage()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= conStoragePrice && captureZone.capturingSide == "Player")
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= conStoragePrice && captureZone.cantBuild == false)
         {
             GameObject currentBuilding = Instantiate(concentrationStorage, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(conStoragePrice);
@@ -99,7 +124,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructDefenseTower()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= towerPrice && captureZone.capturingSide == "Player")
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= towerPrice && captureZone.cantBuild == false)
         {
             GameObject currentBuilding = Instantiate(defenseTowerPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(towerPrice);
@@ -119,7 +144,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructUpgradedBarracks()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= upgradedBarracksPrice && captureZone.capturingSide == "Player")
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= upgradedBarracksPrice && captureZone.cantBuild == false)
         {
             GameObject currentBuilding = Instantiate(upgradedBarracksPrefab, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(upgradedBarracksPrice);
@@ -139,8 +164,9 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructUpgradedDefenseTower()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= upgradedTowerPrice && captureZone.capturingSide == "Player")
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= upgradedTowerPrice && captureZone.cantBuild == false)
         {
+            
             GameObject currentBuilding = Instantiate(upgradedDefenseTower, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(upgradedTowerPrice);
             selectedTile.numBuildings++;
@@ -159,7 +185,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public void ConstructAreaDamageTower()
     {
-        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= areaTowerPrice && captureZone.capturingSide == "Player")
+        if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= areaTowerPrice && captureZone.cantBuild == false)
         {
             GameObject currentBuilding = Instantiate(areaDamageTower, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(areaTowerPrice);
@@ -191,4 +217,6 @@ public class MemoryTileConstruction : MonoBehaviour
             Debug.Log("No building selected.");
         }
     }
+
+  
 }

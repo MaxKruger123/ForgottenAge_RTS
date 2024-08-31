@@ -4,7 +4,8 @@ using UnityEngine.AI;
 
 public class EnemyTroop : MonoBehaviour
 {
-    public float attackRange = 2f; // Range for attacking
+    public float attackRange = 2f;
+    public float attackRangeTwo = 10f;// Range for attacking
     public float minDistanceToAlly = 1.5f; // Minimum distance to ally to avoid touching
     public float rangedAttackRange = 5f; // Range for ranged attacking
     public float protectRange = 100f; // Range to find and protect the nearest Tank
@@ -16,6 +17,7 @@ public class EnemyTroop : MonoBehaviour
 
     public AllyTroop targetAlly; // Reference to the nearest ally
     public RepairTroop targettroop;
+    
     private GameObject targetMemoryTile; // Reference to the nearest MemoryTile
     public GameObject targetBuilding; // Reference to the nearest building
     private bool isAttacking = false; // Flag to indicate if the enemy is attacking
@@ -36,6 +38,8 @@ public class EnemyTroop : MonoBehaviour
     private Coroutine damageCoroutine;
 
     private int tankRange = 15;
+
+    public AllyTroop threateningTroop;
 
 
 
@@ -68,6 +72,8 @@ public class EnemyTroop : MonoBehaviour
         {
             Debug.LogError("EnemyStats component not found on " + gameObject.name);
         }
+
+        meleeCoroutine = null;
     }
 
     void Update()
@@ -124,12 +130,27 @@ public class EnemyTroop : MonoBehaviour
             // First, look for the nearest repair troop
             FindNearestRepairTroop();
 
-            // If a repair troop is found within range, move towards it and attack
-            if (targettroop != null)
+            // Check for nearby ally troops that have this tank as their target
+            FindAllyTroopTargetingTank();
+
+            // If a threatening ally troop is found, focus on attacking it
+            if (threateningTroop != null)
             {
-                
-                
-                if (IsInMeleeRangee()) // Already existing method to check if within melee range
+                targetAlly = threateningTroop;
+                MoveTowardsAlly();
+                if (IsInMeleeRange()) // Already existing method to check if within melee range
+                {
+                    
+                    if (meleeCoroutine == null)
+                    {
+                        Debug.Log("Attack");
+                        meleeCoroutine = StartCoroutine(MeleeAttack()); // Already existing melee attack coroutine
+                    }
+                }
+            }
+            else if (targettroop != null) // If a repair troop is found within range, move towards it and attack
+            {
+                if (IsInMeleeRangee())
                 {
                     if (meleeCoroutine == null)
                     {
@@ -142,10 +163,8 @@ public class EnemyTroop : MonoBehaviour
             {
                 if (targettroop == null)
                 {
-                    
                     FindAndMoveToNearestAxon();
                 }
-                
             }
         }
 
@@ -205,6 +224,19 @@ public class EnemyTroop : MonoBehaviour
         }
     }
 
+    void FindAllyTroopTargetingTank()
+    {
+        AllyTroop[] nearbyTroops = FindObjectsOfType<AllyTroop>();
+        foreach (AllyTroop troop in nearbyTroops)
+        {
+            if (troop.targetEnemyy == this.gameObject)
+            {
+                threateningTroop = troop;
+            }
+        }
+        
+    }
+
     void FindNearestRepairTroop()
     {
         // Define the maximum search distance
@@ -256,7 +288,7 @@ public class EnemyTroop : MonoBehaviour
             return distance <= attackRange;
         } else if (targettroop != null)
         {
-            Debug.Log("fam");
+            
             float distance = Vector3.Distance(transform.position, targetAlly.transform.position);
             return distance <= attackRange;
         }else 
@@ -265,16 +297,22 @@ public class EnemyTroop : MonoBehaviour
 
     bool IsInMeleeRangee()
     {
-        
+
 
         if (targettroop != null)
         {
-            
+
             float distance = Vector3.Distance(transform.position, targettroop.transform.position);
             return distance <= attackRange;
         }
-        else
-            return false;
+        else if (targetAlly != null)
+        {
+            
+            float distance = Vector3.Distance(transform.position, targettroop.transform.position);
+            return distance <= attackRangeTwo;
+        }
+        else return false;
+            
     }
 
     IEnumerator MeleeAttack()
@@ -288,7 +326,7 @@ public class EnemyTroop : MonoBehaviour
             
             
         }
-        yield return new WaitForSeconds(2.0f);
+        yield return new WaitForSeconds(1.0f);
         meleeCoroutine = null;
     }
 

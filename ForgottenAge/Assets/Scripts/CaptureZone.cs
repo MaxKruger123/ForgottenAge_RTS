@@ -1,5 +1,6 @@
 using UnityEngine;
 using System.Collections;
+using System.Linq;
 
 public class CaptureZone : MonoBehaviour
 {
@@ -17,14 +18,18 @@ public class CaptureZone : MonoBehaviour
     public TileController tileController;
 
     public bool captured = false;
+    public bool priceIncrease;
+    public bool cantBuild;
 
     private MemoryTile nearestMemoryTile; // Reference to the nearest memory tile
     private MemoryTileConstruction numBuildings; // Reference to the MemoryTileConstruction associated with the nearest MemoryTile
+    public Axon[] nearestAxons = new Axon[2];
 
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
         FindNearestMemoryTile();
+        FindNearestAxons();
 
         if (nearestMemoryTile == null)
         {
@@ -39,8 +44,36 @@ public class CaptureZone : MonoBehaviour
             }
         }
 
-        spriteRenderer.color = Color.blue; // Start as uncaptured
+        spriteRenderer.color = Color.blue; // Start as captured
         captured = true;
+    }
+
+    private void Update()
+    {
+        if (nearestAxons[0].dead == true && nearestAxons[1].dead == false)
+        {
+            priceIncrease = true;
+            cantBuild = false;
+        }
+        else
+
+        if (nearestAxons[0].dead == false && nearestAxons[1].dead == true)
+        {
+            priceIncrease = true;
+            cantBuild = false;
+        }
+        else if (nearestAxons[0].dead == true && nearestAxons[1].dead == true)
+        {
+            priceIncrease = false;
+            cantBuild = true;
+            spriteRenderer.color = Color.gray;
+        } else if (nearestAxons[0].dead == false && nearestAxons[1].dead == false)
+        {
+            cantBuild = false;
+            priceIncrease = false;
+        }
+
+        
     }
 
     private void FindNearestMemoryTile()
@@ -59,19 +92,50 @@ public class CaptureZone : MonoBehaviour
         }
     }
 
-    
-
-    
-
-    private void Update()
+    public Axon[] FindNearestAxons()
     {
-       
+        
+
+        // Find all objects with the "Axon" tag
+        GameObject[] allAxons = GameObject.FindGameObjectsWithTag("Axon");
+
+        if (allAxons.Length < 2)
+        {
+            Debug.LogWarning("Less than two axons found in the scene.");
+            return null;
+        }
+
+        // Sort the axons by distance to this game object
+        var sortedAxons = allAxons
+            .OrderBy(axon => Vector3.Distance(transform.position, axon.transform.position))
+            .Take(2)
+            .ToArray();
+
+        // Get the Axon script from each nearest axon
+        nearestAxons[0] = sortedAxons[0].GetComponent<Axon>();
+        nearestAxons[1] = sortedAxons[1].GetComponent<Axon>();
+
+        
+
+
+
+        return nearestAxons;
+    }
+
+
+
+
+    public void ChangeColorToBlue()
+    {
+        
+            spriteRenderer.color = Color.blue;
         
     }
 
-    
 
-    
+
+
+
 
     private IEnumerator FlashColor(Color flashColor)
     {

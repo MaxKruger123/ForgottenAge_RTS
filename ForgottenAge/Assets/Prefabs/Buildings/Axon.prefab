@@ -54,6 +54,7 @@ MonoBehaviour:
   - {fileID: 5586422811814112774}
   - {fileID: 6088918444433888921}
   - {fileID: 6889474127590192775}
+  dead: 0
 --- !u!114 &8994606177830681541
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -67,9 +68,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   repairTroopPrefab: {fileID: 8759948143378602571, guid: d1fd705bd2b713f4c89a3748c5c02f80, type: 3}
-  spawnInterval: 2
+  initialSpawnInterval: 30
+  respawnDelay: 30
   maxRepairTroops: 2
   spawnRadius: 2
+  activeRepairTroops: []
 --- !u!1 &6463278862094890105
 GameObject:
   m_ObjectHideFlags: 0
@@ -96,7 +99,7 @@ Transform:
   m_GameObject: {fileID: 6463278862094890105}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -0.061730962}
+  m_LocalPosition: {x: 0.69, y: 0.36, z: -0.061730962}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -256,13 +259,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7377978360123387226}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.8816457, w: 0.471912}
-  m_LocalPosition: {x: 1.39, y: 2.32, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: 0.1342883, w: 0.99094236}
+  m_LocalPosition: {x: -2.7, y: -0.71, z: 0}
   m_LocalScale: {x: 5.3478136, y: 0.40672505, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2790709050126360267}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -123.683}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 15.435}
 --- !u!212 &6889474127590192775
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -340,13 +343,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7378027066248937516}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0.64236224, w: 0.76640123}
-  m_LocalPosition: {x: 0.46, y: -2.4, z: 0}
-  m_LocalScale: {x: 4.7490487, y: 0.40672505, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.14183149, w: 0.9898908}
+  m_LocalPosition: {x: 2.89, y: -0.82, z: 0}
+  m_LocalScale: {x: 5.7050524, y: 0.40672505, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2790709050126360267}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -79.936}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -16.308}
 --- !u!212 &6088918444433888921
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -511,7 +514,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0.022, y: 0.267}
+  m_AnchoredPosition: {x: 0.72, y: 0.71}
   m_SizeDelta: {x: 1920, y: 1080}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &7807664870847112959

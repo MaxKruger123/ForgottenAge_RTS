@@ -11,6 +11,7 @@ public class Axon : MonoBehaviour
     public Image healthBar;
 
     public SpriteRenderer[] spriteRenderers; // Array to hold the sprite renderers of the three objects
+    public bool dead = false;
 
     void Start()
     {
@@ -20,6 +21,12 @@ public class Axon : MonoBehaviour
     void Update()
     {
         healthBar.fillAmount = currentHealth / maxHealth;
+        if (currentHealth == maxHealth)
+        {
+            dead = false;
+            ChangeColorToBlue();
+        }
+
     }
 
     // Function to take damage
@@ -31,6 +38,7 @@ public class Axon : MonoBehaviour
             currentHealth = 0f;
             ChangeColorToGray();
             gameObject.tag = "DeadAxon";
+            dead = true;
         }
         else if (currentHealth > 0f)
         {
@@ -46,6 +54,8 @@ public class Axon : MonoBehaviour
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth; // Ensure health does not exceed the maximum
+            dead = false;
+            ChangeColorToBlue();
         }
     }
 
@@ -57,4 +67,12 @@ public class Axon : MonoBehaviour
             spriteRenderer.color = Color.gray;
         }
     }
+    void ChangeColorToBlue()
+    {
+        foreach (var spriteRenderer in spriteRenderers)
+        {
+            spriteRenderer.color = Color.blue;
+        }
+    }
+
 }
