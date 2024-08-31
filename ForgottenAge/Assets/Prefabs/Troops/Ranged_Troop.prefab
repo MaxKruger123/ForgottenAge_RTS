@@ -159,6 +159,12 @@ MonoBehaviour:
   healInterval: 2
   targetEnemy: {fileID: 0}
   targetEnemyy: {fileID: 0}
+  targetTank: {fileID: 0}
+  detectionRange: 10
+  retreatHealthThreshold: 5
+  isRetreating: 0
+  retreatDuration: 3
+  retreatCheckInterval: 0.5
 --- !u!195 &-4291230968391600590
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -169,13 +175,13 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.5
-  m_Speed: 2
+  m_Speed: 1.5
   m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 7
+  m_StoppingDistance: 3
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1
   m_BaseOffset: 0.5

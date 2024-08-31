@@ -81,5 +81,25 @@ public class Concentration : MonoBehaviour
         }
     }
 
+    public int GetDreamTokens()
+    {
+        return dreamTokens;
+    }
+
+    public void SetDreamTokens(int num)
+    {
+        dreamTokens = num;
+    }
+
+    public void AddDreamTokens(int num)
+    {
+        dreamTokens += num;
+    }
+
+    public void SubtractDreamTokens(int num)
+    {
+        dreamTokens -= num;
+    }
+
 
 }

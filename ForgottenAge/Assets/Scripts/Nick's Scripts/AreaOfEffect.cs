@@ -1,16 +1,19 @@
 using UnityEngine;
+using UnityEngine.AI;
 
 public class AreaOfEffect : MonoBehaviour
 {
     
-    private CircleCollider2D circleCollider;
-
-    
     private string effectType;
     // Start is called before the first frame update
+   
+    private bool isActive=false;
+
+    private ShopManager shopManager;
+
     void Start()
     {
-        circleCollider = GetComponent<CircleCollider2D>();
+        shopManager = GameObject.Find("ShopMenu").GetComponent<ShopManager>();
         
         transform.position = new Vector3(transform.position.x, transform.position.y, 0);
     }
@@ -34,8 +37,8 @@ public class AreaOfEffect : MonoBehaviour
             {
                 if (collider.CompareTag("RepairTroop") || collider.CompareTag("Player") || collider.CompareTag("AllyHealing") || collider.CompareTag("AllyRanged") || collider.CompareTag("AllyTank"))
                 {
-                    collider.gameObject.GetComponent<AllyTroopStats>().TakeHeals(100);
-                    Debug.Log("Effect Applied to:" + collider.name);
+                    //collider.gameObject.GetComponent<AllyTroopStats>().TakeHeals(100);
+                    //Debug.Log("Effect Applied to:" + collider.name);
                 }
             }
             else if (effectType == "Bomb")
@@ -45,7 +48,7 @@ public class AreaOfEffect : MonoBehaviour
                     collider.gameObject.GetComponent<EnemyStats>().TakeDamage(8);
                     Debug.Log("Effect Applied to:" + collider.name);
                 }
-                else if (collider.CompareTag("Player") || collider.CompareTag("AllyHealing") || collider.CompareTag("AllyRanged") || collider.CompareTag("AllyTank"))
+                else if (collider.CompareTag("RepairTroop") || collider.CompareTag("AllyHealing") || collider.CompareTag("AllyRanged") || collider.CompareTag("AllyTank"))
                 {
                     collider.gameObject.GetComponent<AllyTroopStats>().TakeDamage(8);
                     Debug.Log("Effect Applied to:" + collider.name);
@@ -62,8 +65,80 @@ public class AreaOfEffect : MonoBehaviour
     {
         effectType = type;
     }
+    public string GetEffectType()
+    {
+        return effectType;
+    }
 
-   
 
-    
+    public void OnTriggerStay2D(Collider2D collision) // HEALING
+    {
+
+        if (isActive)
+        {
+            if (effectType == "Heal Troops")
+            {
+                if (collision.CompareTag("RepairTroop") || collision.CompareTag("Player") || collision.CompareTag("AllyHealing") || collision.CompareTag("AllyRanged") || collision.CompareTag("AllyTank"))
+                {
+                    collision.attachedRigidbody.sleepMode = RigidbodySleepMode2D.NeverSleep;
+                    collision.gameObject.GetComponent<AllyTroopStats>().TakeHeals(0.05f);
+                }
+            }
+        }
+        
+    }
+
+
+    public void SetEffectActive(bool b)
+    {
+        isActive = b;
+    }
+
+  
+
+
+    public void Bomb()
+    {
+        Vector2 pos = new Vector2(transform.position.x, transform.position.y);
+
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, 5);
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Enemy") || collider.CompareTag("EnemyRanged") || collider.CompareTag("Kamikaze") || collider.CompareTag("Enemy_Tank"))
+            {
+                collider.gameObject.GetComponent<EnemyStats>().TakeDamage(8);
+                Debug.Log("Effect Applied to:" + collider.name);
+            }
+            else if (collider.CompareTag("RepairTroop") || collider.CompareTag("AllyHealing") || collider.CompareTag("AllyRanged") || collider.CompareTag("AllyTank"))
+            {
+                collider.gameObject.GetComponent<AllyTroopStats>().TakeDamage(8);
+                Debug.Log("Effect Applied to:" + collider.name);
+            }
+        }
+    }
+
+
+    public void Freeze()
+    {
+        Vector2 pos = new Vector2(transform.position.x, transform.position.y);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(pos, 5);
+        StartCoroutine(shopManager.FreezeCountDown(colliders));
+        foreach (Collider2D collider in colliders)
+        {
+            if (collider.CompareTag("Enemy") || collider.CompareTag("EnemyRanged") || collider.CompareTag("Kamikaze") || collider.CompareTag("Enemy_Tank"))
+            {
+                collider.gameObject.GetComponent<EnemyTroop>().enabled = false;
+                collider.gameObject.GetComponent<NavMeshAgent>().speed = 0;
+                //collider.attachedRigidbody.velocity = new Vector2(0,0);
+                Debug.Log("Effect Applied to:" + collider.name);
+            }
+            else if (collider.CompareTag("RepairTroop") || collider.CompareTag("AllyHealing") || collider.CompareTag("AllyRanged") || collider.CompareTag("AllyTank"))
+            {
+                collider.gameObject.GetComponent<AllyTroop>().enabled = false;
+                collider.gameObject.GetComponent<NavMeshAgent>().speed = 0;
+                //collider.attachedRigidbody.velocity = new Vector2(0,0);
+                Debug.Log("Effect Applied to:" + collider.name);
+            }
+        }
+    }
 }

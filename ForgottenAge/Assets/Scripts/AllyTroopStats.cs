@@ -27,6 +27,7 @@ public class AllyTroopStats : MonoBehaviour
     {
 
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
+        healthBar.fillAmount = currentHealth / maxHealth;
     }
 
     public void TakeDamage(float damage)

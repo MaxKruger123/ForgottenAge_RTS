@@ -17,6 +17,7 @@ TagManager:
   - Axon
   - Kamikaze
   - RepairTroop
+  - DeadAxon
   layers:
   - Default
   - TransparentFX
