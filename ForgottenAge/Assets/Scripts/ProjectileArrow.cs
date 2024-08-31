@@ -14,7 +14,7 @@ public class ProjectileArrow : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Enemy") || collision.CompareTag("EnemyRanged") || collision.CompareTag("Kamikaze"))
+        if (collision.CompareTag("Enemy") || collision.CompareTag("EnemyRanged") || collision.CompareTag("Kamikaze") || collision.CompareTag("Enemy_Tank"))
         {
             EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
             if (enemyStats != null)

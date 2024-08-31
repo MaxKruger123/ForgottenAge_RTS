@@ -20,7 +20,7 @@ public class EnemyStats : MonoBehaviour
     public void TakeDamage(float damage)
     {
         currentHealth -= damage;
-        Debug.Log("Taken" + damage + " damage");
+        
 
         healthBar.fillAmount = currentHealth / maxHealth;
 

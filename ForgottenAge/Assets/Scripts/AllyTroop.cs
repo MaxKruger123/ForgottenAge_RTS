@@ -1,41 +1,39 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 using UnityEngine.AI;
-using UnityEngine.UIElements;
 
 public class AllyTroop : MonoBehaviour
 {
-    public float attackRange = 2f; // Range for attacking
-    public float minDistanceToEnemy = 1.5f; // Minimum distance to enemy to avoid touching
-    public float rangedAttackRange = 7f; // Range for ranged attacking
-    public GameObject projectilePrefab; // Projectile prefab to be shot by the ranged ally
-    public float projectileSpeed = 10f; // Speed of the projectile
+    public float attackRange = 2f;
+    public float minDistanceToEnemy = 1.5f;
+    public float rangedAttackRange = 7f;
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 10f;
 
-    public float healRange = 5f; // Range for healing
-    public float healAmount = 10f; // Amount of health to restore
-    public GameObject healingProjectilePrefab; // Projectile prefab for healing
-    public float healInterval = 2f; // Interval between heals
+    public float healRange = 5f;
+    public float healAmount = 10f;
+    public GameObject healingProjectilePrefab;
+    public float healInterval = 2f;
 
-    public EnemyTroop targetEnemy; // Reference to the nearest enemy
+    public EnemyTroop targetEnemy;
     public GameObject targetEnemyy;
-    private GameObject targetMemoryTile; // Reference to the nearest MemoryTile
-    private AllyTroop targetAlly; // Reference to the nearest ally to heal
-    private bool isAttacking = false; // Flag to indicate if the ally is attacking
-    private NavMeshAgent agent; // Reference to the NavMeshAgent
-    public Coroutine shootingCoroutine; // Coroutine for shooting
-    private Coroutine healingCoroutine; // Coroutine for healing
+    private GameObject targetMemoryTile;
+    private AllyTroop targetAlly;
+    private bool isAttacking = false;
+    private NavMeshAgent agent;
+    public Coroutine shootingCoroutine;
+    private Coroutine healingCoroutine;
 
     private CardManager cardManager;
 
     private Coroutine meleeCoroutine;
 
-    public AllyTroop targetTank; // Reference to the nearest AllyTank
-    public float detectionRange = 10f; // Range to detect AllyTank
-    public float retreatHealthThreshold = 9f; // Health threshold for retreating
-    public bool isRetreating = false; // Flag to check if retreating
-    public float retreatDuration = 3f; // Duration to retreat
+    public AllyTroop targetTank;
+    public float detectionRange = 10f;
+    public float retreatHealthThreshold = 9f;
+    public bool isRetreating = false;
+    public float retreatDuration = 3f;
     private Coroutine retreatCoroutine;
     private AllyTroopStats stats;
 
@@ -46,23 +44,31 @@ public class AllyTroop : MonoBehaviour
 
     public AllyTroop nearestAllyToHeal;
 
+    private Coroutine updateCacheRoutine;
+
+    // Optimization variables
+    private float updateInterval = 0.2f;
+    private float lastUpdateTime;
+    private float cacheUpdateInterval = 1f;
+    private float lastCacheUpdateTime;
+
+    private List<EnemyTroop> cachedEnemies = new List<EnemyTroop>();
+    private List<AllyTroop> cachedAllies = new List<AllyTroop>();
+    private List<GameObject> cachedAxons = new List<GameObject>();
+
     void Start()
     {
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
-
-        // Get the NavMeshAgent component
         agent = GetComponent<NavMeshAgent>();
 
         if (agent != null)
         {
-            // Ensure the NavMeshAgent operates on the X-Y plane for 2D
             agent.updateUpAxis = false;
             agent.updateRotation = false;
 
-            // Check if the agent is on the NavMesh
             if (NavMesh.SamplePosition(transform.position, out NavMeshHit hit, 1.0f, NavMesh.AllAreas))
             {
-                agent.Warp(hit.position); // Place the agent on the NavMesh
+                agent.Warp(hit.position);
             }
             else
             {
@@ -76,32 +82,53 @@ public class AllyTroop : MonoBehaviour
 
         stats = gameObject.GetComponent<AllyTroopStats>();
         healingCircle = GameObject.Find("HealingCircle");
+        //healingCircleScript = healingCircle.GetComponent<HealingCircle>();
 
-        healingCircleScript = healingCircle.GetComponent<HealingCircle>();
-        
-       
+        lastUpdateTime = Time.time;
+        lastCacheUpdateTime = Time.time;
+        StartCoroutine(UpdateCacheRoutine());
+
     }
 
     void Update()
     {
+        if (Time.time - lastUpdateTime < updateInterval) return;
+
+        lastUpdateTime = Time.time;
+
         if (gameObject.CompareTag("AllyRanged"))
         {
             RangedBehavior();
         }
-        else if (gameObject.CompareTag("Player"))
+        else if (gameObject.CompareTag("Player") || gameObject.CompareTag("AllyTank"))
         {
             BasicMeleeBehavior();
         }
-        else if (gameObject.CompareTag("AllyTank"))
-        {
-            BasicMeleeBehavior();
-        }else if (gameObject.CompareTag("AllyHealing"))
+        else if (gameObject.CompareTag("AllyHealing"))
         {
             if (healingCoroutine == null)
             {
                 healingCoroutine = StartCoroutine(HealNearestAlly());
             }
         }
+    }
+
+    IEnumerator UpdateCacheRoutine()
+    {
+        while (true)
+        {
+            UpdateCache();
+            yield return new WaitForSeconds(cacheUpdateInterval);
+        }
+    }
+
+    void UpdateCache()
+    {
+        cachedEnemies.Clear();
+        cachedEnemies.AddRange(FindObjectsOfType<EnemyTroop>());
+
+        cachedAllies.Clear();
+        cachedAllies.AddRange(FindObjectsOfType<AllyTroop>());
     }
 
     private IEnumerator HealNearestAlly()
@@ -114,13 +141,11 @@ public class AllyTroop : MonoBehaviour
             {
                 agent.SetDestination(nearestAllyToHeal.transform.position);
 
-                // Wait until the ally is within heal range
                 while (nearestAllyToHeal != null && Vector3.Distance(transform.position, nearestAllyToHeal.transform.position) > healRange)
                 {
                     yield return null;
                 }
 
-                // Heal the ally until fully healed or the ally is out of range
                 while (nearestAllyToHeal != null && nearestAllyToHeal.stats.currentHealth < nearestAllyToHeal.stats.maxHealth)
                 {
                     nearestAllyToHeal.stats.currentHealth += healAmount;
@@ -130,23 +155,20 @@ public class AllyTroop : MonoBehaviour
                 }
             }
 
-            // Wait a bit before finding another ally to heal
             yield return new WaitForSeconds(0.5f);
         }
     }
 
     AllyTroop FindNearestAllyWithMissingHealth()
     {
-        AllyTroop[] allyTroops = FindObjectsOfType<AllyTroop>();
-        Debug.Log(allyTroops[0]);
         float minDistance = Mathf.Infinity;
         AllyTroop nearestAlly = null;
 
-        foreach (AllyTroop ally in allyTroops)
+        foreach (AllyTroop ally in cachedAllies)
         {
             if (ally.CompareTag("AllyHealing") || ally.CompareTag("Player") || ally.CompareTag("AllyTank") || ally.CompareTag("AllyRanged"))
             {
-                if (ally.stats.currentHealth < ally.stats.maxHealth) // Check if the ally needs healing
+                if (ally.stats.currentHealth < ally.stats.maxHealth)
                 {
                     float distance = Vector3.Distance(transform.position, ally.transform.position);
                     if (distance < minDistance)
@@ -165,9 +187,9 @@ public class AllyTroop : MonoBehaviour
     {
         if (isRetreating) return;
 
-        StartCoroutine(CheckForRetreat());
+        // Check for retreat only for ranged troops
+        CheckForRetreat();
 
-        // First, try to find the nearest tank and protect it
         FindNearestAllyTank();
         if (targetTank != null)
         {
@@ -175,7 +197,6 @@ public class AllyTroop : MonoBehaviour
         }
         else
         {
-            // If there's no tank nearby, find the nearest enemy and attack
             FindNearestEnemy();
             if (targetEnemy != null)
             {
@@ -183,24 +204,20 @@ public class AllyTroop : MonoBehaviour
             }
             else
             {
-                // If there's no tank or enemy nearby, find and move to the nearest axon
                 FindAndMoveToNearestAxon();
             }
         }
     }
 
-    private IEnumerator RetreatFromEnemy(EnemyTroop enemy)
+    IEnumerator RetreatFromEnemy(EnemyTroop enemy)
     {
-        // Retreat for a fixed duration
         float retreatEndTime = Time.time + retreatDuration;
 
         while (Time.time < retreatEndTime && enemy != null)
         {
-            // Move in the opposite direction of the enemy
             Vector3 retreatDirection = (transform.position - enemy.transform.position).normalized * detectionRange;
             agent.SetDestination(transform.position + retreatDirection);
 
-            // Shoot at the enemy while retreating
             if (shootingCoroutine == null)
             {
                 targetEnemy = enemy;
@@ -210,49 +227,38 @@ public class AllyTroop : MonoBehaviour
             yield return new WaitForSeconds(0.1f);
         }
 
-        // Stop retreating and reset
         isRetreating = false;
         retreatCoroutine = null;
-
-        // Optionally, reset the target enemy after retreating
         targetEnemy = null;
     }
 
-    private IEnumerator CheckForRetreat()
+    void CheckForRetreat()
     {
-        while (true)
+        foreach (EnemyTroop enemy in cachedEnemies)
         {
-            EnemyTroop[] enemyTroops = FindObjectsOfType<EnemyTroop>();
-            foreach (EnemyTroop enemy in enemyTroops)
+            float distance = Vector3.Distance(transform.position, enemy.transform.position);
+            if (distance <= detectionRange && enemy.targetAlly == this)
             {
-                float distance = Vector3.Distance(transform.position, enemy.transform.position);
-                if (distance <= detectionRange && enemy.targetAlly == this)
+                if (!isRetreating)
                 {
-                    // Start retreating if targeted by an enemy
-                    if (!isRetreating)
-                    {
-                        isRetreating = true;
-                        StartCoroutine(RetreatFromEnemy(enemy));
-                    }
+                    isRetreating = true;
+                    StartCoroutine(RetreatFromEnemy(enemy));
+                    return; // Exit the method once we start retreating
                 }
             }
-
-            yield return new WaitForSeconds(retreatCheckInterval);
         }
     }
 
     private IEnumerator RetreatCoroutine()
     {
-        // Find enemies that are targeting this unit
-        EnemyTroop[] enemyTroops = FindObjectsOfType<EnemyTroop>();
         EnemyTroop newTargetEnemy = null;
 
-        foreach (EnemyTroop enemy in enemyTroops)
+        foreach (EnemyTroop enemy in cachedEnemies)
         {
             if (enemy.targetAlly == this)
             {
                 newTargetEnemy = enemy;
-                break; // Prioritize the first enemy found that is targeting this unit
+                break;
             }
         }
 
@@ -261,52 +267,35 @@ public class AllyTroop : MonoBehaviour
             targetEnemy = newTargetEnemy;
         }
 
-        // Retreat while targeting the enemy that’s attacking this unit
         float retreatEndTime = Time.time + retreatDuration;
         while (Time.time < retreatEndTime && stats.currentHealth <= retreatHealthThreshold)
         {
             Vector3 retreatDirection = (transform.position - targetEnemy.transform.position).normalized * detectionRange;
             agent.SetDestination(transform.position + retreatDirection);
 
-            // Shoot at the enemy while retreating
             if (shootingCoroutine == null)
             {
                 shootingCoroutine = StartCoroutine(ShootEnemy());
             }
 
-            // If there is no target enemy, stop retreating
             if (targetEnemy == null)
             {
                 isRetreating = false;
             }
 
-            yield return new WaitForSeconds(1.0f); // Adjust this interval for retreat rate
+            yield return new WaitForSeconds(1.0f);
         }
 
-        // Stop retreating and reset
         isRetreating = false;
         retreatCoroutine = null;
     }
 
-    private void StartRetreating()
-    {
-        if (!isRetreating)
-        {
-            isRetreating = true;
-            if (retreatCoroutine == null)
-            {
-                retreatCoroutine = StartCoroutine(RetreatCoroutine());
-            }
-        }
-    }
-
     void FindNearestAllyTank()
     {
-        AllyTroop[] allyTanks = FindObjectsOfType<AllyTroop>();
         float minDistance = detectionRange;
         AllyTroop nearestTank = null;
 
-        foreach (AllyTroop ally in allyTanks)
+        foreach (AllyTroop ally in cachedAllies)
         {
             if (ally.CompareTag("AllyTank"))
             {
@@ -326,12 +315,10 @@ public class AllyTroop : MonoBehaviour
     {
         if (targetTank != null)
         {
-            // Move towards the AllyTank to protect it
             agent.SetDestination(targetTank.transform.position);
 
             if (IsTankUnderAttack())
             {
-                // If the AllyTank is under attack, target the attacker
                 if (shootingCoroutine == null)
                 {
                     shootingCoroutine = StartCoroutine(ShootEnemy());
@@ -342,68 +329,56 @@ public class AllyTroop : MonoBehaviour
 
     bool IsTankUnderAttack()
     {
-        // Check if the targetTank is assigned
         if (targetTank == null)
         {
             return false;
         }
 
-        // Get all enemies in the scene
-        EnemyTroop[] enemyTroops = FindObjectsOfType<EnemyTroop>();
-
-        // Check if any enemy is targeting the tank
-        foreach (EnemyTroop enemy in enemyTroops)
+        foreach (EnemyTroop enemy in cachedEnemies)
         {
             if (enemy.targetAlly == targetTank)
             {
                 targetEnemy = enemy;
-                return true; // The tank is under attack
+                return true;
             }
         }
 
-        return false; // No enemies are targeting the tank
+        return false;
     }
 
     IEnumerator ShootEnemy()
     {
-        while ( targetEnemy != null)
+        while (targetEnemy != null)
         {
-            // Stick to the AllyTank while attacking the enemy
             if (targetTank != null)
             {
                 agent.SetDestination(targetTank.transform.position);
             }
-            
 
-            
-            if (targetEnemy!= null)
+            if (targetEnemy != null)
             {
                 float distanceToEnemy = Vector3.Distance(transform.position, targetEnemy.transform.position);
                 if (distanceToEnemy <= rangedAttackRange)
                 {
-                    Debug.Log("Shoot");
                     Vector3 direction = (targetEnemy.transform.position - transform.position).normalized;
                     GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
                     projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
                 }
             }
 
-            yield return new WaitForSeconds(1.0f); // Adjust this interval for the attack rate
+            yield return new WaitForSeconds(1.0f);
         }
 
-        shootingCoroutine = null; // Reset the coroutine reference when done
+        shootingCoroutine = null;
     }
-
-    
 
     void FindNearestEnemy()
     {
-        EnemyTroop[] enemyTroops = FindObjectsOfType<EnemyTroop>();
-        float searchRange = 10f; // Define the range within which to search for enemies
+        float searchRange = 40f;
         float minDistance = searchRange;
         EnemyTroop nearestEnemy = null;
 
-        foreach (EnemyTroop enemy in enemyTroops)
+        foreach (EnemyTroop enemy in cachedEnemies)
         {
             float distance = Vector3.Distance(transform.position, enemy.transform.position);
             if (distance < minDistance)
@@ -414,14 +389,7 @@ public class AllyTroop : MonoBehaviour
         }
 
         targetEnemy = nearestEnemy;
-        if (nearestEnemy != null)
-        {
-            targetEnemyy = nearestEnemy.gameObject;
-        }
-        else
-        {
-            targetEnemyy = null; // No enemy found within range
-        }
+        targetEnemyy = nearestEnemy?.gameObject;
     }
 
     void FindAndMoveToNearestAxon()
@@ -450,43 +418,14 @@ public class AllyTroop : MonoBehaviour
         {
             agent.SetDestination(nearestAxon.transform.position);
         }
-        else
-        {
-            Debug.Log("doodoo water");
-        }
-    }
-
-    
-
-    void FindNearestAllyToHeal()
-    {
-        AllyTroop[] allyTroops = FindObjectsOfType<AllyTroop>();
-        float minDistance = healRange;
-        AllyTroop nearestAlly = null;
-
-        foreach (AllyTroop ally in allyTroops)
-        {
-            if (ally.CompareTag("AllyHealing") || ally.CompareTag("Player") || ally.CompareTag("Ally_Tank") || ally.CompareTag("AllyRanged"))
-            {
-                float distance = Vector3.Distance(transform.position, ally.transform.position);
-                if (distance < minDistance)
-                {
-                    minDistance = distance;
-                    nearestAlly = ally;
-                }
-            }
-        }
-
-        targetAlly = nearestAlly;
-        agent.SetDestination(targetAlly.transform.position);
     }
 
     void BasicMeleeBehavior()
     {
         FindNearestEnemy();
-        if (targetEnemy != null)
+        if (targetEnemyy != null)
         {
-            agent.SetDestination(targetEnemy.transform.position);
+            agent.SetDestination(targetEnemyy.transform.position);
             float distanceToEnemy = Vector3.Distance(transform.position, targetEnemy.transform.position);
 
             if (distanceToEnemy <= attackRange)
@@ -498,8 +437,7 @@ public class AllyTroop : MonoBehaviour
             }
             else
             {
-                // If too far, continue moving towards the enemy
-                agent.SetDestination(targetEnemy.transform.position);
+                agent.SetDestination(targetEnemyy.transform.position);
             }
         }
         else
@@ -512,27 +450,23 @@ public class AllyTroop : MonoBehaviour
     {
         while (targetEnemy != null && Vector3.Distance(transform.position, targetEnemy.transform.position) <= attackRange)
         {
-            // Perform melee attack on the targetEnemy
             EnemyStats enemyStats = targetEnemy.GetComponent<EnemyStats>();
-            enemyStats.TakeDamage(1); // Adjust damage as needed
+            enemyStats.TakeDamage(1);
 
-            yield return new WaitForSeconds(1.0f); // Adjust this interval for the attack rate
+            yield return new WaitForSeconds(1.0f);
         }
 
-        meleeCoroutine = null; // Reset the coroutine reference when done
+        meleeCoroutine = null;
     }
 
     void FindAndAttack()
     {
-        // Find the nearest enemy
         FindNearestEnemy();
 
         if (targetEnemy != null)
         {
-            // Move towards the enemy
             agent.SetDestination(targetEnemy.transform.position);
 
-            // Check if within attack range and shoot
             float distanceToEnemy = Vector3.Distance(transform.position, targetEnemy.transform.position);
             if (distanceToEnemy <= rangedAttackRange)
             {
@@ -543,6 +477,5 @@ public class AllyTroop : MonoBehaviour
             }
         }
     }
-
-    
 }
+

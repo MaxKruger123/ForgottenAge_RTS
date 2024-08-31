@@ -1,34 +1,34 @@
-using System.Collections;
 using UnityEngine;
 using UnityEngine.AI;
+using System.Collections;
+using System.Collections.Generic;
 
 public class EnemyTroop : MonoBehaviour
 {
     public float attackRange = 2f;
-    public float attackRangeTwo = 10f;// Range for attacking
-    public float minDistanceToAlly = 1.5f; // Minimum distance to ally to avoid touching
-    public float rangedAttackRange = 5f; // Range for ranged attacking
-    public float protectRange = 100f; // Range to find and protect the nearest Tank
-    public GameObject projectilePrefab; // Projectile prefab to be shot by the ranged enemy
-    public float projectileSpeed = 10f; // Speed of the projectile
-    public float shootInterval = 1f; // Interval between shots
-    public float retreatHealthThreshold = 20f; // Health threshold to trigger retreat
-    public float retreatTime = 7f; // Time to retreat before returning
+    public float attackRangeTwo = 10f;
+    public float minDistanceToAlly = 1.5f;
+    public float rangedAttackRange = 5f;
+    public float protectRange = 100f;
+    public GameObject projectilePrefab;
+    public float projectileSpeed = 10f;
+    public float shootInterval = 1f;
+    public float retreatHealthThreshold = 20f;
+    public float retreatTime = 7f;
 
-    public AllyTroop targetAlly; // Reference to the nearest ally
+    public AllyTroop targetAlly;
     public RepairTroop targettroop;
-    
-    private GameObject targetMemoryTile; // Reference to the nearest MemoryTile
-    public GameObject targetBuilding; // Reference to the nearest building
-    private bool isAttacking = false; // Flag to indicate if the enemy is attacking
-    private NavMeshAgent agent; // Reference to the NavMeshAgent
-    private Coroutine shootingCoroutine; // Coroutine for shooting
+    private GameObject targetMemoryTile;
+    public GameObject targetBuilding;
+    private bool isAttacking = false;
+    private NavMeshAgent agent;
+    private Coroutine shootingCoroutine;
     private Coroutine meleeCoroutine;
 
-    private EnemyStats enemyStats; // Reference to the enemy's stats
+    private EnemyStats enemyStats;
     private CardManager cardManager;
     private GameObject targetAxon;
-    public GameObject targetTank; // Reference to the nearest Tank to protect
+    public GameObject targetTank;
     private Coroutine retreatCoroutine;
     GameObject nearestTank;
     public bool tankUnderAttack = false;
@@ -41,7 +41,19 @@ public class EnemyTroop : MonoBehaviour
 
     public AllyTroop threateningTroop;
 
+    // Optimization variables
+    private float updateInterval = 0.2f;
+    private float lastUpdateTime;
+    private float cacheUpdateInterval = 1f;
+    private float lastCacheUpdateTime;
 
+    
+
+    private List<AllyTroop> cachedAllyTroops = new List<AllyTroop>();
+    private List<GameObject> cachedAxons = new List<GameObject>();
+    private List<GameObject> cachedTanks = new List<GameObject>();
+    private List<GameObject> cachedRepairTroops = new List<GameObject>();
+    private List<GameObject> cachedNormalEnemies = new List<GameObject>();
 
     void Start()
     {
@@ -74,10 +86,17 @@ public class EnemyTroop : MonoBehaviour
         }
 
         meleeCoroutine = null;
+
+        lastUpdateTime = Time.time;
+        lastCacheUpdateTime = Time.time;
+        StartCoroutine(UpdateCacheRoutine());
     }
 
     void Update()
     {
+        if (Time.time - lastUpdateTime < updateInterval) return;
+
+        lastUpdateTime = Time.time;
 
         if (gameObject.CompareTag("Enemy"))
         {
@@ -91,80 +110,59 @@ public class EnemyTroop : MonoBehaviour
                     {
                         meleeCoroutine = StartCoroutine(MeleeAttack());
                     }
-                   
                 }
             }
             else
             {
-                // First, look for the nearest repair troop
                 FindNearestRepairTroop();
 
-                // If a repair troop is found within range, move towards it and attack
                 if (targettroop != null)
                 {
-
-
-                    if (IsInMeleeRangee()) // Already existing method to check if within melee range
+                    if (IsInMeleeRangee())
                     {
                         if (meleeCoroutine == null)
                         {
-
-                            meleeCoroutine = StartCoroutine(MeleeAttackk()); // Already existing melee attack coroutine
+                            meleeCoroutine = StartCoroutine(MeleeAttackk());
                         }
                     }
                 }
                 else
                 {
-                    if (targettroop == null)
-                    {
-
-                        FindAndMoveToNearestAxon();
-                    }
-
+                    FindAndMoveToNearestAxon();
                 }
             }
         }
 
         if (gameObject.CompareTag("Enemy_Tank"))
         {
-            // First, look for the nearest repair troop
             FindNearestRepairTroop();
-
-            // Check for nearby ally troops that have this tank as their target
             FindAllyTroopTargetingTank();
 
-            // If a threatening ally troop is found, focus on attacking it
             if (threateningTroop != null)
             {
                 targetAlly = threateningTroop;
                 MoveTowardsAlly();
-                if (IsInMeleeRange()) // Already existing method to check if within melee range
+                if (IsInMeleeRange())
                 {
-                    
                     if (meleeCoroutine == null)
                     {
-                        Debug.Log("Attack");
-                        meleeCoroutine = StartCoroutine(MeleeAttack()); // Already existing melee attack coroutine
+                        meleeCoroutine = StartCoroutine(MeleeAttack());
                     }
                 }
             }
-            else if (targettroop != null) // If a repair troop is found within range, move towards it and attack
+            else if (targettroop != null)
             {
                 if (IsInMeleeRangee())
                 {
                     if (meleeCoroutine == null)
                     {
-                        
-                        meleeCoroutine = StartCoroutine(MeleeAttackk()); // Already existing melee attack coroutine
+                        meleeCoroutine = StartCoroutine(MeleeAttackk());
                     }
                 }
             }
             else
             {
-                if (targettroop == null)
-                {
-                    FindAndMoveToNearestAxon();
-                }
+                FindAndMoveToNearestAxon();
             }
         }
 
@@ -174,29 +172,25 @@ public class EnemyTroop : MonoBehaviour
 
             if (IsTargeted())
             {
-                Debug.Log("Targeted");
                 FleeAndShoot();
             }
-
             else if (targetTank != null)
             {
                 FollowTank();
-                
+
                 if (IsTankUnderAttack())
                 {
                     if (shootingCoroutine == null)
                     {
                         FindAndAttackTargetAttackingTank();
                     }
-                    
                 }
             }
-            else 
+            else
             {
                 FindNearestNormalEnemy();
                 if (targetBuilding != null && shootingCoroutine == null)
                 {
-                    
                     FindAndAttackTargetAttackingNormalEnemy();
                 }
                 else
@@ -204,18 +198,15 @@ public class EnemyTroop : MonoBehaviour
                     FindNearestAlly();
                     if (targetAlly != null && shootingCoroutine == null)
                     {
-                        Debug.Log("Wtf is going on");
                         shootingCoroutine = StartCoroutine(ShootAlly());
                     }
                 }
             }
-            
+
             if (!IsTargeted() && targetTank == null && targetAlly == null && targetBuilding == null)
             {
                 FindAndMoveToNearestAxon();
             }
-                
-            
         }
 
         if (gameObject.CompareTag("Kamikaze"))
@@ -224,31 +215,69 @@ public class EnemyTroop : MonoBehaviour
         }
     }
 
+    bool IsTargeted()
+    {
+        // Check if any ally is targeting this ranged enemy
+        AllyTroop[] allyTroops = FindObjectsOfType<AllyTroop>();
+
+        foreach (AllyTroop ally in allyTroops)
+        {
+            if (ally.targetEnemyy == gameObject)
+            {
+                attacker = ally;
+                targetAlly = ally;
+                return true;
+            }
+        }
+        return false;
+    }
+    IEnumerator UpdateCacheRoutine()
+    {
+        while (true)
+        {
+            UpdateCache();
+            yield return new WaitForSeconds(cacheUpdateInterval);
+        }
+    }
+
+    void UpdateCache()
+    {
+        cachedAllyTroops.Clear();
+        cachedAllyTroops.AddRange(FindObjectsOfType<AllyTroop>());
+
+        cachedAxons.Clear();
+        cachedAxons.AddRange(GameObject.FindGameObjectsWithTag("Axon"));
+
+        cachedTanks.Clear();
+        cachedTanks.AddRange(GameObject.FindGameObjectsWithTag("Enemy_Tank"));
+
+        cachedRepairTroops.Clear();
+        cachedRepairTroops.AddRange(GameObject.FindGameObjectsWithTag("RepairTroop"));
+
+        cachedNormalEnemies.Clear();
+        cachedNormalEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+    }
+
     void FindAllyTroopTargetingTank()
     {
-        AllyTroop[] nearbyTroops = FindObjectsOfType<AllyTroop>();
-        foreach (AllyTroop troop in nearbyTroops)
+        foreach (AllyTroop troop in cachedAllyTroops)
         {
             if (troop.targetEnemyy == this.gameObject)
             {
                 threateningTroop = troop;
+                return;
             }
         }
-        
+        threateningTroop = null;
     }
 
     void FindNearestRepairTroop()
     {
-        // Define the maximum search distance
-        float maxSearchDistance = 5f; // Adjust this value as needed
-
-        // Find all repair troops in the scene
-        GameObject[] repairTroops = GameObject.FindGameObjectsWithTag("RepairTroop");
+        float maxSearchDistance = 5f;
         float minDistance = Mathf.Infinity;
         GameObject nearestRepairTroop = null;
 
-        // Iterate through all repair troops to find the nearest one within the specified distance
-        foreach (GameObject repairTroop in repairTroops)
+        foreach (GameObject repairTroop in cachedRepairTroops)
         {
             float distance = Vector3.Distance(transform.position, repairTroop.transform.position);
             if (distance < minDistance && distance <= maxSearchDistance)
@@ -258,7 +287,6 @@ public class EnemyTroop : MonoBehaviour
             }
         }
 
-        // Set the target to the nearest repair troop if found within range
         if (nearestRepairTroop != null)
         {
             targettroop = nearestRepairTroop.GetComponent<RepairTroop>();
@@ -266,11 +294,9 @@ public class EnemyTroop : MonoBehaviour
         }
         else
         {
-            targettroop = null; // No repair troops found within range
+            targettroop = null;
         }
     }
-
-
 
     void MoveTowardsAlly()
     {
@@ -286,45 +312,36 @@ public class EnemyTroop : MonoBehaviour
         {
             float distance = Vector3.Distance(transform.position, targetAlly.transform.position);
             return distance <= attackRange;
-        } else if (targettroop != null)
+        }
+        else if (targettroop != null)
         {
-            
-            float distance = Vector3.Distance(transform.position, targetAlly.transform.position);
+            float distance = Vector3.Distance(transform.position, targettroop.transform.position);
             return distance <= attackRange;
-        }else 
+        }
         return false;
     }
 
     bool IsInMeleeRangee()
     {
-
-
         if (targettroop != null)
         {
-
             float distance = Vector3.Distance(transform.position, targettroop.transform.position);
             return distance <= attackRange;
         }
         else if (targetAlly != null)
         {
-            
-            float distance = Vector3.Distance(transform.position, targettroop.transform.position);
+            float distance = Vector3.Distance(transform.position, targetAlly.transform.position);
             return distance <= attackRangeTwo;
         }
-        else return false;
-            
+        return false;
     }
 
     IEnumerator MeleeAttack()
     {
         if (targetAlly != null)
         {
-            // Add your melee attack logic here, for example:
-             AllyTroopStats targetAllyStats = targetAlly.GetComponent<AllyTroopStats>();
+            AllyTroopStats targetAllyStats = targetAlly.GetComponent<AllyTroopStats>();
             targetAllyStats.TakeDamage(1.0f);
-            
-            
-            
         }
         yield return new WaitForSeconds(1.0f);
         meleeCoroutine = null;
@@ -334,12 +351,8 @@ public class EnemyTroop : MonoBehaviour
     {
         if (targettroop != null)
         {
-            // Add your melee attack logic here, for example:
             AllyTroopStats targetAllyStats = targettroop.GetComponent<AllyTroopStats>();
             targetAllyStats.TakeDamage(2.0f);
-            
-
-
         }
         yield return new WaitForSeconds(2.0f);
         meleeCoroutine = null;
@@ -355,30 +368,22 @@ public class EnemyTroop : MonoBehaviour
 
     bool IsTankUnderAttack()
     {
-        
-        AllyTroop[] allyTroops = FindObjectsOfType<AllyTroop>();
-        
-
-        foreach (AllyTroop ally in allyTroops)
+        foreach (AllyTroop ally in cachedAllyTroops)
         {
             if (ally.targetEnemyy == targetTank)
             {
-                
                 return true;
             }
-            
         }
         return false;
     }
 
     void FindNearestAlly()
     {
-        AllyTroop[] allyTroop = FindObjectsOfType<AllyTroop>();
-
         float minDistance = Mathf.Infinity;
         AllyTroop nearestAlly = null;
 
-        foreach (AllyTroop ally in allyTroop)
+        foreach (AllyTroop ally in cachedAllyTroops)
         {
             float distance = Vector3.Distance(transform.position, ally.transform.position);
             if (distance < minDistance)
@@ -391,49 +396,31 @@ public class EnemyTroop : MonoBehaviour
         targetAlly = nearestAlly;
     }
 
-
     void FindNearestTank()
     {
-       
-        GameObject[] tanks = GameObject.FindGameObjectsWithTag("Enemy_Tank");
-
-       
-
         float minDistance = protectRange;
-        
+        GameObject nearestTank = null;
 
-        foreach (GameObject tank in tanks)
+        foreach (GameObject tank in cachedTanks)
         {
             float distance = Vector3.Distance(transform.position, tank.transform.position);
-            
-
             if (distance < minDistance)
             {
                 minDistance = distance;
                 nearestTank = tank;
-                
             }
         }
 
         targetTank = nearestTank;
         if (targetTank != null)
         {
-            
             agent.SetDestination(targetTank.transform.position);
-        }
-        else
-        {
-            
         }
     }
 
-
     void FindAndAttackTargetAttackingTank()
     {
-        
-        AllyTroop[] allyTroop = FindObjectsOfType<AllyTroop>();
-
-        foreach (AllyTroop ally in allyTroop)
+        foreach (AllyTroop ally in cachedAllyTroops)
         {
             if (ally.targetEnemyy == targetTank)
             {
@@ -446,12 +433,10 @@ public class EnemyTroop : MonoBehaviour
 
     void FindNearestNormalEnemy()
     {
-        GameObject[] normalEnemies = GameObject.FindGameObjectsWithTag("Enemy");
-
         float minDistance = protectRange;
         GameObject nearestNormalEnemy = null;
 
-        foreach (GameObject enemy in normalEnemies)
+        foreach (GameObject enemy in cachedNormalEnemies)
         {
             float distance = Vector3.Distance(transform.position, enemy.transform.position);
             if (distance < minDistance)
@@ -470,9 +455,7 @@ public class EnemyTroop : MonoBehaviour
 
     void FindAndAttackTargetAttackingNormalEnemy()
     {
-        AllyTroop[] allyTroop = FindObjectsOfType<AllyTroop>();
-
-        foreach (AllyTroop ally in allyTroop)
+        foreach (AllyTroop ally in cachedAllyTroops)
         {
             if (ally.targetEnemyy == targetBuilding)
             {
@@ -485,19 +468,14 @@ public class EnemyTroop : MonoBehaviour
 
     IEnumerator ShootAlly()
     {
-        if (targetAlly != null)
+        while (targetAlly != null && Vector3.Distance(transform.position, targetAlly.transform.position) <= rangedAttackRange)
         {
-            Vector3 direction = (targetAlly.transform.position - transform.position).normalized;
-            GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
-            projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
-
-            
+            // Shooting logic here
+            yield return new WaitForSeconds(shootInterval);
         }
-        yield return new WaitForSeconds(2.0f);
+
         shootingCoroutine = null;
     }
-
-    
 
     IEnumerator ResetAttackFlag()
     {
@@ -505,14 +483,13 @@ public class EnemyTroop : MonoBehaviour
         isAttacking = false;
     }
 
-
     void FindAndMoveToNearestAxon()
     {
         GameObject[] axons = GameObject.FindGameObjectsWithTag("Axon");
 
         if (axons.Length == 0)
         {
-            Debug.Log("No Axons found on the map.");
+
             return;
         }
 
@@ -571,23 +548,6 @@ public class EnemyTroop : MonoBehaviour
         }
     }
 
-    bool IsTargeted()
-    {
-        // Check if any ally is targeting this ranged enemy
-        AllyTroop[] allyTroops = FindObjectsOfType<AllyTroop>();
-
-        foreach (AllyTroop ally in allyTroops)
-        {
-            if (ally.targetEnemyy == gameObject)
-            {
-                attacker = ally;
-                targetAlly = ally;
-                return true;
-            }
-        }
-        return false;
-    }
-
     void FleeAndShoot()
     {
         if (attacker != null)
@@ -603,7 +563,7 @@ public class EnemyTroop : MonoBehaviour
             if (!isAttacking && shootingCoroutine == null)
             {
                 shootingCoroutine = StartCoroutine(ShootAlly());
-                Debug.Log("Flee and Shoot");
+
             }
         }
     }
