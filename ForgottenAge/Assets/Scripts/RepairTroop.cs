@@ -56,7 +56,7 @@ public class RepairTroop : MonoBehaviour
                     {
                         targetAxon.Heal(healAmount);
                         
-                    }
+                    } 
 
                     // Wait for the next heal interval
                     yield return new WaitForSeconds(healInterval);

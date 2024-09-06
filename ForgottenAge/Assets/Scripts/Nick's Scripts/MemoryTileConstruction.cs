@@ -47,11 +47,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
      void Update()
      {
-        if (captureZone.priceIncrease == true && !priceFlag)
-        {
-            
-            priceFlag = true;
-        }
+        
         
         if (captureZone.cantBuild == false)
         {
@@ -61,7 +57,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (Input.GetMouseButtonDown(1) && numBuildings < 1 && captureZone.captured)
+        if (Input.GetMouseButtonDown(1) && numBuildings < 1 && captureZone.captured && captureZone.cantBuild == false)
         {
             selectedTile = this; // Set the selected tile for construction
             Vector3 mouseScreenPosition = Input.mousePosition;
@@ -78,6 +74,30 @@ public class MemoryTileConstruction : MonoBehaviour
                 constructionMenu.GetComponent<ConstructionMenu>().deconstructButton.interactable = false;
             }
         }
+    }
+
+    public void AllPricesIncrease()
+    {
+        areaTowerPrice += 5;
+        upgradedTowerPrice += 5;
+        conStoragePrice += 5;
+        upgradedBarracksPrice += 5;
+        towerPrice += 5;
+        barracksPrice += 5;
+        Debug.Log("Price Increase: " + barracksPrice);
+        constructionMenu.GetComponent<ConstructionMenu>().SetPrices(barracksPrice, towerPrice, upgradedBarracksPrice, conStoragePrice, upgradedTowerPrice, areaTowerPrice);
+    }
+
+    public void AllPricesDecrease()
+    {
+        areaTowerPrice -= 5;
+        upgradedTowerPrice -= 5;
+        conStoragePrice -= 5;
+        upgradedBarracksPrice -= 5;
+        towerPrice -= 5;
+        barracksPrice -= 5;
+        Debug.Log("Price Decrease: " + barracksPrice);
+        constructionMenu.GetComponent<ConstructionMenu>().SetPrices(barracksPrice, towerPrice, upgradedBarracksPrice, conStoragePrice, upgradedTowerPrice, areaTowerPrice);
     }
 
     public void ConstructBuilding()

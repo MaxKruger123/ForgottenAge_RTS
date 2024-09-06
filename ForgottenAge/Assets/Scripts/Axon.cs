@@ -12,21 +12,31 @@ public class Axon : MonoBehaviour
 
     public SpriteRenderer[] spriteRenderers; // Array to hold the sprite renderers of the three objects
     public bool dead = false;
+    public bool priceDecreased = true; // Flag to track if the price has been decreased
+    public MemoryTileConstruction memoryTileConstruction;
 
     void Start()
     {
         currentHealth = maxHealth; // Set current health to max health at the start
+        priceDecreased = true; // Set the flag to true at the start
     }
 
     void Update()
     {
         healthBar.fillAmount = currentHealth / maxHealth;
+
         if (currentHealth == maxHealth)
         {
             dead = false;
             ChangeColorToBlue();
-        }
 
+            // Only decrease price once when the axon is fully repaired
+            if (!priceDecreased)
+            {
+                
+                priceDecreased = true; // Ensure this happens only once
+            }
+        }
     }
 
     // Function to take damage
@@ -39,12 +49,14 @@ public class Axon : MonoBehaviour
             ChangeColorToGray();
             gameObject.tag = "DeadAxon";
             dead = true;
+           
+            priceDecreased = false; // Reset the flag since the Axon is damaged
         }
         else if (currentHealth > 0f)
         {
             gameObject.tag = "Axon";
+            priceDecreased = false; // Reset the flag when taking damage so the price can decrease again later
         }
-
     }
 
     // Function to heal the Axon
@@ -54,9 +66,11 @@ public class Axon : MonoBehaviour
         if (currentHealth > maxHealth)
         {
             currentHealth = maxHealth; // Ensure health does not exceed the maximum
-            dead = false;
-            ChangeColorToBlue();
         }
+
+        dead = false;
+        ChangeColorToBlue();
+        gameObject.tag = "Axon";
     }
 
     // Function to change the color of the three objects to gray
@@ -67,6 +81,8 @@ public class Axon : MonoBehaviour
             spriteRenderer.color = Color.gray;
         }
     }
+
+    // Function to change the color of the three objects to blue
     void ChangeColorToBlue()
     {
         foreach (var spriteRenderer in spriteRenderers)
@@ -74,5 +90,4 @@ public class Axon : MonoBehaviour
             spriteRenderer.color = Color.blue;
         }
     }
-
 }

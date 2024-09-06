@@ -9,8 +9,8 @@ public class CaptureZone : MonoBehaviour
     private float captureProgress = 0;
     public string capturingSide = null;
 
-    private int playerCount = 0;
-    private int enemyCount = 0;
+   
+    
 
     private SpriteRenderer spriteRenderer;
     private Coroutine flashCoroutine;
@@ -137,16 +137,7 @@ public class CaptureZone : MonoBehaviour
 
 
 
-    private IEnumerator FlashColor(Color flashColor)
-    {
-        while (true)
-        {
-            spriteRenderer.color = flashColor;
-            yield return new WaitForSeconds(0.5f);
-            spriteRenderer.color = Color.white;
-            yield return new WaitForSeconds(0.5f);
-        }
-    }
+   
 
     private void DestroyBuildingOnTile()
     {
