@@ -108,7 +108,7 @@ MonoBehaviour:
   currentHealth: 0
   healthBar: {fileID: 7035696489713507404}
   cardManager: {fileID: 0}
-  deathEffect: {fileID: 3259086518229417968, guid: 21060b30bdb16284e8394342e29416c3, type: 3}
+  deathEffect: {fileID: 1420983840688499619, guid: 8b7afb8d3c9318d4ea027453cfe34f2b, type: 3}
 --- !u!50 &2286012682210036067
 Rigidbody2D:
   serializedVersion: 4
@@ -165,6 +165,7 @@ MonoBehaviour:
   isRetreating: 0
   retreatDuration: 3
   retreatCheckInterval: 0.5
+  nearestAllyToHeal: {fileID: 0}
 --- !u!195 &-4291230968391600590
 NavMeshAgent:
   m_ObjectHideFlags: 0
