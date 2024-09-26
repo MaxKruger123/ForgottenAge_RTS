@@ -8,7 +8,7 @@ public class EnemyTroop : MonoBehaviour
     public float attackRange = 2f;
     public float attackRangeTwo = 10f;
     public float minDistanceToAlly = 1.5f;
-    public float rangedAttackRange = 5f;
+    public float rangedAttackRange = 10f;
     public float protectRange = 100f;
     public GameObject projectilePrefab;
     public float projectileSpeed = 10f;
@@ -59,6 +59,7 @@ public class EnemyTroop : MonoBehaviour
     {
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         agent = GetComponent<NavMeshAgent>();
+        shootingCoroutine = null;
 
         if (agent != null)
         {
@@ -180,6 +181,7 @@ public class EnemyTroop : MonoBehaviour
 
                 if (IsTankUnderAttack())
                 {
+                    
                     if (shootingCoroutine == null)
                     {
                         FindAndAttackTargetAttackingTank();
@@ -425,6 +427,7 @@ public class EnemyTroop : MonoBehaviour
             if (ally.targetEnemyy == targetTank)
             {
                 targetAlly = ally;
+                Debug.Log("shoott");
                 shootingCoroutine = StartCoroutine(ShootAlly());
                 return;
             }
@@ -468,9 +471,20 @@ public class EnemyTroop : MonoBehaviour
 
     IEnumerator ShootAlly()
     {
-        while (targetAlly != null && Vector3.Distance(transform.position, targetAlly.transform.position) <= rangedAttackRange)
+        while (targetAlly != null)
         {
-            // Shooting logic here
+            if (targetAlly != null)
+            {
+                float distanceToEnemy = Vector3.Distance(transform.position, targetAlly.transform.position);
+
+                if (distanceToEnemy <= rangedAttackRange)
+                {
+                    Vector3 direction = (targetAlly.transform.position - transform.position).normalized;
+                    GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                    projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+                }
+                
+            }
             yield return new WaitForSeconds(shootInterval);
         }
 
@@ -558,6 +572,7 @@ public class EnemyTroop : MonoBehaviour
 
             // Move the ranged enemy away from the attacker
             agent.SetDestination(fleePosition);
+            agent.speed = 0.5f;
 
             // Shoot at the attacker while fleeing
             if (!isAttacking && shootingCoroutine == null)
