@@ -9308,7 +9308,7 @@ MonoBehaviour:
   m_VoxelSize: 0.16666667
   m_BuildHeightMesh: 0
   m_HideEditorLogs: 0
-  m_NavMeshData: {fileID: 23800000, guid: af866ec6f4e69a14b9991e1586999b05, type: 2}
+  m_NavMeshData: {fileID: 23800000, guid: 98eb6acb0ac490646a5efb559984b166, type: 2}
 --- !u!1 &1212886689
 GameObject:
   m_ObjectHideFlags: 0
@@ -134738,6 +134738,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1745071529}
     m_Modifications:
+    - target: {fileID: 5417007741202268359, guid: 03d44744b78e5d34ca6e86564e35a1e6, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5417007741202268359, guid: 03d44744b78e5d34ca6e86564e35a1e6, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5947700722506144274, guid: 03d44744b78e5d34ca6e86564e35a1e6, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.4094013
@@ -134782,7 +134790,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: MainBrain
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 5417007741202268359, guid: 03d44744b78e5d34ca6e86564e35a1e6, type: 3}
     m_RemovedGameObjects:
     - {fileID: 8942960725775820518, guid: 03d44744b78e5d34ca6e86564e35a1e6, type: 3}
     m_AddedGameObjects: []

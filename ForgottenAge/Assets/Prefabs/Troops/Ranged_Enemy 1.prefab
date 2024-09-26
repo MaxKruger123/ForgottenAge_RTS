@@ -229,7 +229,7 @@ MonoBehaviour:
   attackRange: 7
   attackRangeTwo: 10
   minDistanceToAlly: 7
-  rangedAttackRange: 5
+  rangedAttackRange: 15
   protectRange: 100
   projectilePrefab: {fileID: 986697290854198135, guid: d39dd0af541002c4a9b5921458b47d77, type: 3}
   projectileSpeed: 10
