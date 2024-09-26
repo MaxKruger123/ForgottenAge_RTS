@@ -372,7 +372,7 @@ MonoBehaviour:
   centerObject: {fileID: 4023895286437346084}
   healthBar: {fileID: 4819532861238719743}
   damageIcon: {fileID: 188622879645996587}
-  deathEffect: {fileID: 3259086518229417968, guid: 7e40ca4aab79a4643a2ed6566c077c6d, type: 3}
+  deathEffect: {fileID: 6529768344002187759, guid: 7d4f83dc7e8b316439cce2da6ba12b67, type: 3}
 --- !u!114 &9111096891688561474
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -386,6 +386,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   attackRange: 2
+  attackRangeTwo: 10
   minDistanceToAlly: 2
   rangedAttackRange: 5
   protectRange: 100
@@ -395,9 +396,11 @@ MonoBehaviour:
   retreatHealthThreshold: 20
   retreatTime: 7
   targetAlly: {fileID: 0}
+  targettroop: {fileID: 0}
   targetBuilding: {fileID: 0}
   targetTank: {fileID: 0}
   tankUnderAttack: 0
+  threateningTroop: {fileID: 0}
 --- !u!195 &2309602299970033282
 NavMeshAgent:
   m_ObjectHideFlags: 0
