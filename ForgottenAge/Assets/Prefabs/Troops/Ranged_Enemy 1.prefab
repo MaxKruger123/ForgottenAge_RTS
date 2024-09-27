@@ -214,6 +214,9 @@ MonoBehaviour:
   healthBar: {fileID: 74327062746107729}
   damageIcon: {fileID: 7707013973064289727}
   deathEffect: {fileID: 6529768344002187759, guid: 7d4f83dc7e8b316439cce2da6ba12b67, type: 3}
+  currencyDrop: {fileID: 8677679166032479334, guid: 3c6828466a8630a49afc38f1e2dd852a, type: 3}
+  currencyDropTwo: {fileID: 3956598094168691203, guid: 25f27d411242fe54bbbfb0b19a111687, type: 3}
+  concentration: {fileID: 8992103966716098725, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
 --- !u!114 &3137157085799722520
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +245,7 @@ MonoBehaviour:
   targetTank: {fileID: 0}
   tankUnderAttack: 0
   threateningTroop: {fileID: 0}
+  stopFlee: 0
 --- !u!195 &4375272712733271054
 NavMeshAgent:
   m_ObjectHideFlags: 0

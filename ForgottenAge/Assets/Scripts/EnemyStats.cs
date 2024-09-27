@@ -12,6 +12,11 @@ public class EnemyStats : MonoBehaviour
     public GameObject damageIcon; // Reference to the damage icon
 
     public GameObject deathEffect;
+    public GameObject currencyDrop;
+    public GameObject currencyDropTwo;
+
+    public Concentration concentration;
+    
 
     public void Start()
     {
@@ -40,6 +45,21 @@ public class EnemyStats : MonoBehaviour
     {
         // Handle death (e.g., play animation, remove from scene, etc.)
         Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity);
+        
+        int random = Random.Range(0, 100);
+        if (random >= 0 && random <= 85)
+        {
+            Instantiate(currencyDrop, gameObject.transform.position, Quaternion.identity);
+            concentration.AddConcentration(1);
+        } else if (random >= 86 && random <= 95)
+        {
+            Instantiate(currencyDropTwo, gameObject.transform.position, Quaternion.identity);
+            concentration.AddDreamTokens(1);
+        }
+        else if (random >= 96 && random <= 100)
+        {
+            return;
+        }
         Destroy(gameObject);
     }
 

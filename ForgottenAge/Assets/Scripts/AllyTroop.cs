@@ -11,7 +11,7 @@ public class AllyTroop : MonoBehaviour
     public GameObject projectilePrefab;
     public float projectileSpeed = 10f;
 
-    public float healRange = 5f;
+    public float healRange = 50f;
     public float healAmount = 10f;
     public GameObject healingProjectilePrefab;
     public float healInterval = 2f;
@@ -153,7 +153,7 @@ public class AllyTroop : MonoBehaviour
 
                     yield return new WaitForSeconds(healInterval);
                 }
-            }
+            } 
 
             yield return new WaitForSeconds(0.5f);
         }
