@@ -2,13 +2,14 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
+using NavMeshPlus.Extensions;
 
 public class EnemyTroop : MonoBehaviour
 {
     public float attackRange = 2f;
     public float attackRangeTwo = 10f;
     public float minDistanceToAlly = 1.5f;
-    public float rangedAttackRange = 5f;
+    public float rangedAttackRange = 30f;
     public float protectRange = 100f;
     public GameObject projectilePrefab;
     public float projectileSpeed = 10f;
@@ -47,6 +48,8 @@ public class EnemyTroop : MonoBehaviour
     private float cacheUpdateInterval = 1f;
     private float lastCacheUpdateTime;
 
+    public bool stopFlee = false;
+
     
 
     private List<AllyTroop> cachedAllyTroops = new List<AllyTroop>();
@@ -59,6 +62,7 @@ public class EnemyTroop : MonoBehaviour
     {
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         agent = GetComponent<NavMeshAgent>();
+        shootingCoroutine = null;
 
         if (agent != null)
         {
@@ -172,6 +176,7 @@ public class EnemyTroop : MonoBehaviour
 
             if (IsTargeted())
             {
+                Debug.Log("Flee");
                 FleeAndShoot();
             }
             else if (targetTank != null)
@@ -188,7 +193,12 @@ public class EnemyTroop : MonoBehaviour
             }
             else
             {
-                FindNearestNormalEnemy();
+                if (!IsTargeted())
+                {
+                    Debug.Log("Atack");
+                    FindNearestNormalEnemy();
+                }
+
                 if (targetBuilding != null && shootingCoroutine == null)
                 {
                     FindAndAttackTargetAttackingNormalEnemy();
@@ -227,9 +237,11 @@ public class EnemyTroop : MonoBehaviour
                 attacker = ally;
                 targetAlly = ally;
                 return true;
+                
             }
         }
         return false;
+       
     }
     IEnumerator UpdateCacheRoutine()
     {
@@ -425,6 +437,7 @@ public class EnemyTroop : MonoBehaviour
             if (ally.targetEnemyy == targetTank)
             {
                 targetAlly = ally;
+                Debug.Log("shoott");
                 shootingCoroutine = StartCoroutine(ShootAlly());
                 return;
             }
@@ -468,9 +481,20 @@ public class EnemyTroop : MonoBehaviour
 
     IEnumerator ShootAlly()
     {
-        while (targetAlly != null && Vector3.Distance(transform.position, targetAlly.transform.position) <= rangedAttackRange)
+        while (targetAlly != null)
         {
-            // Shooting logic here
+            if (targetAlly != null)
+            {
+                float distanceToEnemy = Vector3.Distance(transform.position, targetAlly.transform.position);
+
+                if (distanceToEnemy <= rangedAttackRange)
+                {
+                    Vector3 direction = (targetAlly.transform.position - transform.position).normalized;
+                    GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                    projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
+                }
+                
+            }
             yield return new WaitForSeconds(shootInterval);
         }
 
@@ -550,23 +574,29 @@ public class EnemyTroop : MonoBehaviour
 
     void FleeAndShoot()
     {
-        if (attacker != null)
+        
+
+        // Distance between the ranged unit and its attacker (targetEnemy)
+        float distanceToEnemy = Vector3.Distance(transform.position, targetAlly.transform.position);
+
+        // Define a safe distance the ranged unit will flee to
+        float safeDistance = 10.0f;  // Adjust as needed
+
+        // If within the safe distance, flee from the enemy
+        if (distanceToEnemy < safeDistance && !stopFlee)
         {
-            // Calculate the direction to move away from the attacker
-            Vector3 fleeDirection = (transform.position - attacker.transform.position).normalized;
-            Vector3 fleePosition = transform.position + fleeDirection * 5f; // Adjust the distance as needed
+            // Calculate the flee direction (away from the enemy)
+            Vector3 fleeDirection = (transform.position - targetAlly.transform.position).normalized;
+            Vector3 fleePosition = transform.position + fleeDirection * safeDistance;
 
-            // Move the ranged enemy away from the attacker
+            // Set the destination to the calculated flee position
             agent.SetDestination(fleePosition);
-
-            // Shoot at the attacker while fleeing
-            if (!isAttacking && shootingCoroutine == null)
-            {
-                shootingCoroutine = StartCoroutine(ShootAlly());
-
-            }
+            agent.speed = 2f;  // Increase the agent's speed to flee faster
+            shootingCoroutine = StartCoroutine(ShootAlly());
+            stopFlee = true;
         }
+       
     }
 
-    
+
 }

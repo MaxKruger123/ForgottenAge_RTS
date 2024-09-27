@@ -153,7 +153,7 @@ MonoBehaviour:
   rangedAttackRange: 7
   projectilePrefab: {fileID: 0}
   projectileSpeed: 10
-  healRange: 5
+  healRange: 50
   healAmount: 10
   healingProjectilePrefab: {fileID: 986697290854198135, guid: f9d2089b2414497448924863d0bea565, type: 3}
   healInterval: 2
