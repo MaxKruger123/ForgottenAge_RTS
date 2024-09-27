@@ -4241,51 +4241,6 @@ MonoBehaviour:
     - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
     - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
     enemiesToSpawn: 450
-  - enemyPrefabs:
-    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
-    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
-    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 500
-  - enemyPrefabs:
-    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
-    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
-    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 550
-  - enemyPrefabs:
-    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
-    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
-    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 600
-  - enemyPrefabs:
-    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
-    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
-    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 600
-  - enemyPrefabs:
-    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
-    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
-    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 600
-  - enemyPrefabs:
-    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
-    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
-    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 600
-  - enemyPrefabs:
-    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
-    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
-    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 600
-  - enemyPrefabs:
-    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
-    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
-    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 600
-  - enemyPrefabs:
-    - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
-    - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
-    - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
-    enemiesToSpawn: 600
   currentWave: 0
   cardWaveCounter: 0
   cardScreen: {fileID: 551477856}
@@ -4294,6 +4249,11 @@ MonoBehaviour:
   cutsceneWaves: 050000000a00000014000000
   replacementChance: 15
   enemyTroopPrefab: {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+  enemyPrefabs:
+  - {fileID: 4910245958655939564, guid: 0ae8e14da214d3341bdc7e79c12b5baf, type: 3}
+  - {fileID: 4334886592822513324, guid: 7397725bdb882b64abe35026fd85d286, type: 3}
+  - {fileID: 2207439373119132160, guid: 8cbaec9a318f1ca4da8515e8d7b291a6, type: 3}
+  - {fileID: 5676163109379113002, guid: fc740d3c6b873fe43b4302ff05e414dc, type: 3}
 --- !u!4 &1641135205
 Transform:
   m_ObjectHideFlags: 0
