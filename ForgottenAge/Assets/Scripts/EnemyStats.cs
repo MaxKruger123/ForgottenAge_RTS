@@ -18,12 +18,12 @@ public class EnemyStats : MonoBehaviour
 
     public Concentration concentration;
 
-    
-
+    private Concentration concentrationManager;
 
     public void Start()
     {
         currentHealth = maxHealth;
+        concentrationManager = FindObjectOfType<Concentration>();
     }
 
     public void TakeDamage(float damage)
@@ -53,16 +53,22 @@ public class EnemyStats : MonoBehaviour
         if (random >= 0 && random <= 85)
         {
             Instantiate(currencyDrop, gameObject.transform.position, Quaternion.identity);
-            concentration.concentration++;
-        } else if (random >= 86 && random <= 95)
+            if (concentrationManager != null)
+            {
+                concentrationManager.AddConcentration(1);
+            }
+        } 
+        else if (random >= 86 && random <= 95)
         {
             Instantiate(currencyDropTwo, gameObject.transform.position, Quaternion.identity);
-            concentration.dreamTokens++;
-            
+            if (concentrationManager != null)
+            {
+                concentrationManager.AddDreamTokens(1);
+            }
         }
         else if (random >= 96 && random <= 100)
         {
-            return;
+            // Do nothing (no drop)
         }
         Destroy(gameObject);
     }
