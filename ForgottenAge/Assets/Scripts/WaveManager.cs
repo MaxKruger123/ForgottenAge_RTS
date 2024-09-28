@@ -31,6 +31,7 @@ public class WaveManager : MonoBehaviour
 
     public float replacementChance = 15f; // Percentage chance for ally troop replacement after wave 10
     public GameObject enemyTroopPrefab; // Prefab for the enemy troop to replace allies
+    public List<GameObject> enemyPrefabs;
 
     void Start()
     {
@@ -111,6 +112,48 @@ public class WaveManager : MonoBehaviour
         waveInProgress = true;
         // Get the current wave
         Wave wave = waves[currentWave - 1];
+
+        int block = (currentWave ) / 10;
+        int increment = 5 * (int)Mathf.Pow(2, block);
+        int baseEnemies = 5 * 10 * block;
+
+        int enemiesToSpawn = baseEnemies + ((currentWave) - (block * 10)) * increment;
+    
+
+        for (int i = 0; i < enemiesToSpawn; i++)
+        {
+            // Choose a random enemy prefab from the list
+            // GameObject enemyPrefab = wave.enemyPrefabs[Random.Range(0, wave.enemyPrefabs.Count)];
+            GameObject enemyPrefab = null;
+            if (currentWave <= 2)
+            {
+                enemyPrefab = enemyPrefabs[0];
+            }else if (currentWave <= 4)
+            {
+                enemyPrefab = enemyPrefabs[Random.Range(0, 2)];
+            }else if (currentWave <= 5)
+            {
+                enemyPrefab = enemyPrefabs[Random.Range(0, 3)];
+            }else if (currentWave < 6)
+            {
+                enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+            }
+
+            // Choose a spawn point based on the index
+            int spawnPointIndex = i % spawnPoints.Length;
+            Vector3 spawnPosition = spawnPoints[spawnPointIndex].position;
+
+            // Instantiate enemy at the chosen spawn point
+            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(enemySpawnEffect, new Vector3(spawnPosition.x, spawnPosition.y, -1), Quaternion.identity);
+
+            yield return new WaitForSeconds(0.1f); // Adjust this delay as needed
+        }
+        
+
+
+
+        /* THE OLD ONE
         int enemiesToSpawn = wave.enemiesToSpawn;
 
         for (int i = 0; i < enemiesToSpawn; i++)
@@ -127,7 +170,7 @@ public class WaveManager : MonoBehaviour
             Instantiate(enemySpawnEffect, new Vector3(spawnPosition.x, spawnPosition.y, -1), Quaternion.identity);
 
             yield return new WaitForSeconds(0.1f); // Adjust this delay as needed
-        }
+        }*/
 
         // Check if all enemies are dead
         while (GameObject.FindGameObjectWithTag("Enemy") != null || GameObject.FindGameObjectWithTag("EnemyRanged") != null)
@@ -137,7 +180,16 @@ public class WaveManager : MonoBehaviour
 
         // End of wave, start countdown for next wave
         waveInProgress = false;
-        CheckForCutsceneOrNextWave();
+        if (cardWaveCounter == wavesUntilCardEvent)
+        {
+            cardWaveCounter = 0;
+            cardScreen.ShowIconButton();
+        }
+        else
+        {
+            StartWaveTimerCoroutine();
+        }
+        //CheckForCutsceneOrNextWave();
     }
 
     // Function to replace ally troops with enemy troops

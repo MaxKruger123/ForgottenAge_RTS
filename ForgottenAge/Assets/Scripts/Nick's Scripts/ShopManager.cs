@@ -26,12 +26,12 @@ public class ShopManager : MonoBehaviour
     // Animators
     public Animator bombAnimator;
 
-    
+    public AudioManager audioManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
     }
 
     // Update is called once per frame
@@ -68,7 +68,7 @@ public class ShopManager : MonoBehaviour
                     if (areaOfEffectType == "Heal Troops")
                     {
                         spawnedAreaOfEffect.GetComponent<AreaOfEffect>().SetEffectActive(true);
-                        
+                        audioManager.PlaySFX(audioManager.healing);
                         GameObject particleEffect = spawnedAreaOfEffect.transform.GetChild(0).gameObject;
                         particleEffect.GetComponent<ParticleSystem>().Play();
                         particleEffect.transform.SetParent(null);
@@ -77,12 +77,14 @@ public class ShopManager : MonoBehaviour
                     }
                     else if(areaOfEffectType == "Bomb")
                     {
+                        audioManager.PlaySFX(audioManager.bomb);
                         bombAnimator.SetBool("BlowUp", true);
                         
                         
                     }
                     else if (areaOfEffectType == "Freeze")
                     {
+                        audioManager.PlaySFX(audioManager.freeze);
                         spawnedAreaOfEffect.GetComponent<AreaOfEffect>().Freeze();
                         spawnedAreaOfEffect.transform.GetChild(0).GetComponent<ParticleSystem>().Play();
                     }
@@ -98,6 +100,7 @@ public class ShopManager : MonoBehaviour
                 }
                 else if (Input.GetMouseButtonDown(1)) // cancel effect
                 {
+                    audioManager.PlaySFX(audioManager.menuClickReversed);
                     Destroy(spawnedAreaOfEffect);
                     spawnedAreaOfEffect = null; // Reset to prevent further interaction
                     Debug.Log("Cancelled");
@@ -134,6 +137,7 @@ public class ShopManager : MonoBehaviour
    
     public void PurchaseItem()// price cost and switching between different aoes
     {
+        audioManager.PlaySFX(audioManager.menuClick);
         string selectedItem = EventSystem.current.currentSelectedGameObject.transform.GetChild(0).GetComponent<TextMeshProUGUI>().text;
         int itemPrice = int.Parse(EventSystem.current.currentSelectedGameObject.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text);
         if (concentration.concentration >= itemPrice)
