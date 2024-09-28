@@ -10,7 +10,7 @@ public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Animator shopPanelAnimation;
     public GameObject shopPanel;
     public Sprite closeImage;
-    public AudioManager audioManager;
+    public AudioManagerr audioManager;
 
     private bool menuIsOpen=false;
     private Sprite shopImage;
@@ -20,7 +20,7 @@ public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     void Start()
     {
         shopImage = gameObject.GetComponent<Image>().sprite;
-        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
         
     }
 

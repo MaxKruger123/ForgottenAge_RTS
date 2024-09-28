@@ -137,7 +137,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3791397975095279159}
-  - component: {fileID: 926122491229563375}
+  - component: {fileID: 6205204568421102433}
   m_Layer: 0
   m_Name: AudioManager
   m_TagString: Untagged
@@ -162,7 +162,7 @@ Transform:
   - {fileID: 9035126152560662436}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &926122491229563375
+--- !u!114 &6205204568421102433
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -171,7 +171,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 5546943684149560594}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fd99169554014be469116d9ae60c837b, type: 3}
+  m_Script: {fileID: 11500000, guid: 9933cda455f5a0a4b95b5355b3b46d56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   music: {fileID: 931058938899452819}
@@ -180,7 +180,7 @@ MonoBehaviour:
   menuClickReversed: {fileID: 8300000, guid: 11dae66dba270094b8633281a838675c, type: 3}
   freeze: {fileID: 8300000, guid: de1a57296f88dc441be43eabb7181a76, type: 3}
   healing: {fileID: 8300000, guid: 911bc4ea765739641b2d3591add65ca6, type: 3}
-  bomb: {fileID: 0}
+  bomb: {fileID: 8300000, guid: 89c6f3a239e5cab4694136f4151786c2, type: 3}
   mainMenuMusic: {fileID: 8300000, guid: fe7237bf66e235247b30152001f8cc4d, type: 3}
 --- !u!1 &8382237893458048654
 GameObject:

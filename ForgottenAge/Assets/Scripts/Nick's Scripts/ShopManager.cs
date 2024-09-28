@@ -26,12 +26,12 @@ public class ShopManager : MonoBehaviour
     // Animators
     public Animator bombAnimator;
 
-    public AudioManager audioManager;
+    public AudioManagerr audioManager;
 
     // Start is called before the first frame update
     void Start()
     {
-        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
     }
 
     // Update is called once per frame

@@ -230,6 +230,7 @@ public class CardManager : MonoBehaviour
         //Gain 400 concentration immediately - skip 3 enemy waves
         concentration.AddConcentration(400);
         waveManager.SetCurrentWave(waveManager.GetCurrentWave() + 3);
+        waveManager.StartCoroutine(waveManager.SpawnEnemies());
     }
 
     public void ShiftingTidesCard()

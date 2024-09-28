@@ -176,7 +176,7 @@ public class EnemyTroop : MonoBehaviour
 
             if (IsTargeted())
             {
-                Debug.Log("Flee");
+                
                 FleeAndShoot();
             }
             else if (targetTank != null)
@@ -220,7 +220,7 @@ public class EnemyTroop : MonoBehaviour
 
             if (stopFlee == true)
             {
-                FindAndMoveToNearestAlly();
+                FindNearestNormalEnemy();
             }
         }
 
@@ -272,7 +272,7 @@ public class EnemyTroop : MonoBehaviour
         cachedRepairTroops.AddRange(GameObject.FindGameObjectsWithTag("RepairTroop"));
 
         cachedNormalEnemies.Clear();
-        cachedNormalEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        cachedNormalEnemies.AddRange(GameObject.FindGameObjectsWithTag("Player"));
     }
 
     void FindAllyTroopTargetingTank()
@@ -555,7 +555,7 @@ public class EnemyTroop : MonoBehaviour
                 if (distance < 2f && gameObject.CompareTag("Kamikaze"))
                 {
                     Axon axonScript = axon.GetComponent<Axon>();
-                    axonScript.TakeDamage(7f);
+                    axonScript.TakeDamage(20f);
                     Destroy(gameObject);
                     // Explode
                 }
@@ -618,6 +618,7 @@ public class EnemyTroop : MonoBehaviour
             agent.speed = 2f;  // Increase the agent's speed to flee faster
             shootingCoroutine = StartCoroutine(ShootAlly());
             stopFlee = true;
+            FindNearestNormalEnemy();
         }
 
         
