@@ -55,6 +55,7 @@ MonoBehaviour:
   - {fileID: 6088918444433888921}
   - {fileID: 6889474127590192775}
   dead: 0
+  priceDecreased: 0
   memoryTileConstruction: {fileID: 0}
 --- !u!114 &8994606177830681541
 MonoBehaviour:
@@ -68,11 +69,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 331c6d4f9eb61a949b3378edf5e5afab, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  repairTroopPrefab: {fileID: 8759948143378602571, guid: d1fd705bd2b713f4c89a3748c5c02f80, type: 3}
+  repairTroopPrefab: {fileID: 250734653409300052, guid: 19746bc7554b77141bab1cea2bfba77c, type: 3}
   initialSpawnInterval: 30
   respawnDelay: 30
   maxRepairTroops: 1
-  spawnRadius: 2
+  spawnRadius: 0.5
   activeRepairTroops: []
 --- !u!1 &6463278862094890105
 GameObject:

@@ -17,13 +17,14 @@ public class ProjectileArrow : MonoBehaviour
         if (collision.CompareTag("Enemy") || collision.CompareTag("EnemyRanged") || collision.CompareTag("Kamikaze") || collision.CompareTag("Enemy_Tank"))
         {
             EnemyStats enemyStats = collision.GetComponent<EnemyStats>();
+            Instantiate(particle, transform.position, Quaternion.identity);
             if (enemyStats != null)
             {
                 enemyStats.TakeDamage(cardManager.allyRangedDamage);
                 
                 Destroy(gameObject);
             }
-            Instantiate(particle, transform.position, Quaternion.identity);
+            
         }
     }
 

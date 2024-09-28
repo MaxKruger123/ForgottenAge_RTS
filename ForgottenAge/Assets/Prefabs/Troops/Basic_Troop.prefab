@@ -401,7 +401,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 101fc81a26781ad4f9743f9a4bf3d361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  attackRange: 2
+  attackRange: 3
   minDistanceToEnemy: 2
   rangedAttackRange: 7
   projectilePrefab: {fileID: 0}
@@ -419,6 +419,7 @@ MonoBehaviour:
   retreatDuration: 3
   retreatCheckInterval: 0.5
   nearestAllyToHeal: {fileID: 0}
+  hasReachedTile: 0
 --- !u!195 &-502297358609278984
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -433,10 +434,10 @@ NavMeshAgent:
   m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 2
-  m_AutoTraverseOffMeshLink: 1
+  m_StoppingDistance: 0
+  m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 0
-  m_AutoRepath: 1
+  m_AutoRepath: 0
   m_Height: 1
   m_BaseOffset: 0.5
   m_WalkableMask: 4294967295

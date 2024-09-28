@@ -75,18 +75,18 @@ public class EnemyTroop : MonoBehaviour
             }
             else
             {
-                Debug.LogError("EnemyTroop " + gameObject.name + " is not on a NavMesh!");
+               
             }
         }
         else
         {
-            Debug.LogError("NavMeshAgent component not found on " + gameObject.name);
+           
         }
 
         enemyStats = GetComponent<EnemyStats>();
         if (enemyStats == null)
         {
-            Debug.LogError("EnemyStats component not found on " + gameObject.name);
+            
         }
 
         meleeCoroutine = null;
@@ -216,6 +216,11 @@ public class EnemyTroop : MonoBehaviour
             if (!IsTargeted() && targetTank == null && targetAlly == null && targetBuilding == null)
             {
                 FindAndMoveToNearestAxon();
+            }
+
+            if (stopFlee == true)
+            {
+                FindAndMoveToNearestAlly();
             }
         }
 
@@ -402,6 +407,25 @@ public class EnemyTroop : MonoBehaviour
             {
                 minDistance = distance;
                 nearestAlly = ally;
+            }
+        }
+
+        targetAlly = nearestAlly;
+    }
+
+    void FindAndMoveToNearestAlly()
+    {
+        float minDistance = Mathf.Infinity;
+        AllyTroop nearestAlly = null;
+
+        foreach (AllyTroop ally in cachedAllyTroops)
+        {
+            float distance = Vector3.Distance(transform.position, ally.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestAlly = ally;
+                agent.SetDestination(nearestAlly.transform.position);
             }
         }
 
@@ -595,6 +619,8 @@ public class EnemyTroop : MonoBehaviour
             shootingCoroutine = StartCoroutine(ShootAlly());
             stopFlee = true;
         }
+
+        
        
     }
 

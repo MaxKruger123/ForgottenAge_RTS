@@ -12,12 +12,12 @@ GameObject:
   - component: {fileID: 7403621173723445076}
   - component: {fileID: 3036828249739942836}
   - component: {fileID: 1522429754047135005}
-  - component: {fileID: 4850754591020794174}
   - component: {fileID: 5877803097144423008}
   - component: {fileID: 4247853846387998636}
+  - component: {fileID: 1032538766488960409}
   m_Layer: 0
   m_Name: Ranged_Healing_Troop
-  m_TagString: AllyHealing
+  m_TagString: RepairTroop
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -136,36 +136,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &4850754591020794174
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 250734653409300052}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 101fc81a26781ad4f9743f9a4bf3d361, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackRange: 7
-  minDistanceToEnemy: 7
-  rangedAttackRange: 7
-  projectilePrefab: {fileID: 0}
-  projectileSpeed: 10
-  healRange: 50
-  healAmount: 10
-  healingProjectilePrefab: {fileID: 986697290854198135, guid: f9d2089b2414497448924863d0bea565, type: 3}
-  healInterval: 2
-  targetEnemy: {fileID: 0}
-  targetEnemyy: {fileID: 0}
-  targetTank: {fileID: 0}
-  detectionRange: 10
-  retreatHealthThreshold: 9
-  isRetreating: 0
-  retreatDuration: 3
-  retreatCheckInterval: 0.5
-  nearestAllyToHeal: {fileID: 0}
 --- !u!195 &5877803097144423008
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -223,6 +193,20 @@ CircleCollider2D:
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
   m_Radius: 2.06
+--- !u!114 &1032538766488960409
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250734653409300052}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a43c27968c4fd394b9fba4a538de5109, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  healAmount: 0.5
+  healInterval: 3
 --- !u!1 &628598764603436375
 GameObject:
   m_ObjectHideFlags: 0
@@ -458,7 +442,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 1
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.44773638, g: 1, b: 0.4292453, a: 1}
+  m_Color: {r: 0.038167953, g: 1, b: 0, a: 0.21960784}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
