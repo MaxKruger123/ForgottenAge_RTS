@@ -71,7 +71,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   repairTroopPrefab: {fileID: 250734653409300052, guid: 19746bc7554b77141bab1cea2bfba77c, type: 3}
   initialSpawnInterval: 30
-  respawnDelay: 30
+  respawnDelay: 60
   maxRepairTroops: 1
   spawnRadius: 0.5
   activeRepairTroops: []
