@@ -54,7 +54,7 @@ public class MemoryTileConstruction : MonoBehaviour
         tutorialManager = FindObjectOfType<TutorialManager>();
         if (tutorialManager == null)
         {
-            Debug.LogError("TutorialManager not found in the scene!");
+            
         }
     }
 

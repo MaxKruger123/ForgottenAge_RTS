@@ -7,11 +7,11 @@ public class MainMenu : MonoBehaviour
 {
 
     public GameObject tutorialPage;
-    public AudioManager audioManager;
+    public AudioManagerr audioManager;
 
     void Start()
     {
-        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
         audioManager.PlayMusic(audioManager.mainMenuMusic);
     }
 

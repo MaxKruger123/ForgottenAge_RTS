@@ -73,8 +73,16 @@ public class TutorialManager : MonoBehaviour
     [SerializeField] private float arrowWidth = 50f;  // Consistent arrow width
     [SerializeField] private string mainMenuSceneName = "MainMenu";  // Name of the main menu scene
 
+
+    public AudioManagerr audioManager;
+
     void Start()
     {
+        // play music
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
+        audioManager.PlayMusic(audioManager.mainMenuMusic);
+
+
         // Set up click listener for the text box
         textBoxPanel.GetComponent<Button>().onClick.AddListener(OnTextBoxClick);
         // Get reference to CameraController
