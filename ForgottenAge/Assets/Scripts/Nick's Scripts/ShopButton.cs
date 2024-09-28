@@ -10,14 +10,17 @@ public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     public Animator shopPanelAnimation;
     public GameObject shopPanel;
     public Sprite closeImage;
+    public AudioManager audioManager;
 
     private bool menuIsOpen=false;
     private Sprite shopImage;
+
+    
     // Start is called before the first frame update
     void Start()
     {
         shopImage = gameObject.GetComponent<Image>().sprite;
-        
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManager>();
         
     }
 
@@ -61,14 +64,14 @@ public class ShopButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandl
     {
         if (!menuIsOpen)
         {
-            
+            audioManager.PlaySFX(audioManager.menuClick);
             menuIsOpen = true;
             shopPanelAnimation.SetBool("PlayAnimation", true);
             shopPanelAnimation.SetBool("ReverseAnimation", false);
         }
         else
         {
-            
+            audioManager.PlaySFX(audioManager.menuClickReversed);
             menuIsOpen = false;
             gameObject.GetComponent<Image>().sprite = shopImage;
             shopPanelAnimation.SetBool("PlayAnimation", false);
