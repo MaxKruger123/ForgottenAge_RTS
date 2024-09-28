@@ -55,6 +55,7 @@ MonoBehaviour:
   - {fileID: 6088918444433888921}
   - {fileID: 6889474127590192775}
   dead: 0
+  priceDecreased: 1
   memoryTileConstruction: {fileID: 0}
 --- !u!114 &8994606177830681541
 MonoBehaviour:

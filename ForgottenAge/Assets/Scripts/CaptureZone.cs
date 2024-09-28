@@ -9,11 +9,9 @@ public class CaptureZone : MonoBehaviour
     private float captureProgress = 0;
     public string capturingSide = null;
 
-   
-    
-
     private SpriteRenderer spriteRenderer;
-    private Coroutine flashCoroutine;
+    private Color originalColor;
+    private bool isFlashing = false;
 
     public TileController tileController;
 
@@ -25,9 +23,13 @@ public class CaptureZone : MonoBehaviour
     private MemoryTileConstruction numBuildings; // Reference to the MemoryTileConstruction associated with the nearest MemoryTile
     public Axon[] nearestAxons = new Axon[2];
 
+    private TutorialManager tutorialManager;
+    private MemoryTileConstruction memoryTileConstruction;
+
     private void Start()
     {
         spriteRenderer = GetComponent<SpriteRenderer>();
+        originalColor = spriteRenderer.color;
         FindNearestMemoryTile();
         FindNearestAxons();
 
@@ -44,20 +46,29 @@ public class CaptureZone : MonoBehaviour
             }
         }
 
-        spriteRenderer.color = Color.blue; // Start as captured
-        captured = true;
+        SetInitialColor();
+
+        tutorialManager = FindObjectOfType<TutorialManager>();
+        memoryTileConstruction = GetComponent<MemoryTileConstruction>();
     }
 
     private void Update()
+    {
+        UpdateCaptureState();
+        if (!isFlashing)
+        {
+            UpdateColor();
+        }
+    }
+
+    private void UpdateCaptureState()
     {
         if (nearestAxons[0].dead == true && nearestAxons[1].dead == false)
         {
             priceIncrease = true;
             cantBuild = false;
         }
-        else
-
-        if (nearestAxons[0].dead == false && nearestAxons[1].dead == true)
+        else if (nearestAxons[0].dead == false && nearestAxons[1].dead == true)
         {
             priceIncrease = true;
             cantBuild = false;
@@ -66,14 +77,42 @@ public class CaptureZone : MonoBehaviour
         {
             priceIncrease = false;
             cantBuild = true;
-            spriteRenderer.color = Color.gray;
-        } else if (nearestAxons[0].dead == false && nearestAxons[1].dead == false)
+        }
+        else if (nearestAxons[0].dead == false && nearestAxons[1].dead == false)
         {
             cantBuild = false;
             priceIncrease = false;
         }
+    }
 
-        
+    private void UpdateColor()
+    {
+        if (cantBuild)
+        {
+            spriteRenderer.color = Color.gray;
+        }
+        else
+        {
+            spriteRenderer.color = originalColor;
+        }
+    }
+
+    private void SetInitialColor()
+    {
+        originalColor = Color.blue;
+        spriteRenderer.color = originalColor;
+        captured = true;
+    }
+
+    public void StartFlashing()
+    {
+        isFlashing = true;
+    }
+
+    public void StopFlashing()
+    {
+        isFlashing = false;
+        UpdateColor();
     }
 
     private void FindNearestMemoryTile()
@@ -94,8 +133,6 @@ public class CaptureZone : MonoBehaviour
 
     public Axon[] FindNearestAxons()
     {
-        
-
         // Find all objects with the "Axon" tag
         GameObject[] allAxons = GameObject.FindGameObjectsWithTag("Axon");
 
@@ -115,29 +152,13 @@ public class CaptureZone : MonoBehaviour
         nearestAxons[0] = sortedAxons[0].GetComponent<Axon>();
         nearestAxons[1] = sortedAxons[1].GetComponent<Axon>();
 
-        
-
-
-
         return nearestAxons;
     }
 
-
-
-
     public void ChangeColorToBlue()
     {
-        
-            spriteRenderer.color = Color.blue;
-        
+        spriteRenderer.color = Color.blue;
     }
-
-
-
-
-
-
-   
 
     private void DestroyBuildingOnTile()
     {
@@ -146,6 +167,79 @@ public class CaptureZone : MonoBehaviour
             Destroy(nearestMemoryTile.building);
             nearestMemoryTile.building = null;
             Debug.Log("Destroyed building on memory tile: " + nearestMemoryTile.name);
+        }
+    }
+
+    private void OnMouseOver()
+    {
+        if (Input.GetMouseButtonDown(1)) // Right mouse button
+        {
+            if (memoryTileConstruction.numBuildings < 1 && captured && !cantBuild)
+            {
+                // Open the construction menu
+                Vector3 mouseScreenPosition = Input.mousePosition;
+                memoryTileConstruction.constructionMenu.SetActive(true);
+                memoryTileConstruction.constructionMenu.transform.position = mouseScreenPosition;
+
+                // Notify the tutorial manager that the build menu has been opened
+                OnBuildMenuOpened();
+            }
+            else if (memoryTileConstruction.numBuildings > 0)
+            {
+                // Handle existing buildings
+                Building building = GetComponentInChildren<Building>();
+                if (building != null)
+                {
+                    OpenBuildingMenu(building);
+                }
+            }
+        }
+    }
+
+    private void OpenBuildingMenu(Building building)
+    {
+        switch (building.buildingType)
+        {
+            case Building.BuildingType.Default:
+                MemoryTileConstruction.selectedBuilding = building;
+                building.recruitmentMenu.SetActive(true);
+                building.recruitmentMenu.transform.position = Input.mousePosition;
+                building.recruitmentMenu.GetComponent<RecruitmentMenu>().SetButton(building);
+                break;
+            case Building.BuildingType.DefenseTower:
+            case Building.BuildingType.UpgradedDefenseTower:
+            case Building.BuildingType.AreaDamageTower:
+            case Building.BuildingType.ConcentrationStorage:
+                building.deconstructMenu.SetActive(true);
+                building.deconstructMenu.transform.position = Input.mousePosition;
+                MemoryTileConstruction.selectedBuilding = building;
+                break;
+            case Building.BuildingType.UpgradedBarracks:
+                MemoryTileConstruction.selectedBuilding = building;
+                building.recruitmentMenuTwo.SetActive(true);
+                building.recruitmentMenuTwo.transform.position = Input.mousePosition;
+                building.recruitmentMenuTwo.GetComponent<RecruitmentMenuTwo>().SetButton(building);
+                break;
+        }
+    }
+
+    public void OnBuildMenuOpened()
+    {
+        if (tutorialManager != null)
+        {
+            tutorialManager.OnBuildMenuOpened();
+        }
+        else
+        {
+            Debug.LogWarning("TutorialManager is null in CaptureZone.OnBuildMenuOpened()");
+        }
+    }
+
+    public void OnBuildingSelected(Building.BuildingType buildingType)
+    {
+        if (tutorialManager != null)
+        {
+            tutorialManager.OnBuildingSelected(buildingType);
         }
     }
 }

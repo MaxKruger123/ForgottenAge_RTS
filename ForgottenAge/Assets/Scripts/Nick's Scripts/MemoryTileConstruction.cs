@@ -30,9 +30,10 @@ public class MemoryTileConstruction : MonoBehaviour
 
     public static Building selectedBuilding; // Track the selected building for deconstruction
 
+    private TutorialManager tutorialManager;
+
     void Start()
     {
-        
         constructionMenu.SetActive(false); // Ensure the construction menu is initially inactive
         concentration = GameObject.Find("UICanvas").GetComponent<Concentration>();
         areaTowerPrice = 250;
@@ -43,22 +44,39 @@ public class MemoryTileConstruction : MonoBehaviour
         barracksPrice = 20;
         
         constructionMenu.GetComponent<ConstructionMenu>().SetPrices(barracksPrice, towerPrice, upgradedBarracksPrice, conStoragePrice, upgradedTowerPrice, areaTowerPrice);
+        
+        // If captureZone is not assigned in the inspector, try to get it from this GameObject
+        if (captureZone == null)
+        {
+            captureZone = GetComponent<CaptureZone>();
+        }
+
+        tutorialManager = FindObjectOfType<TutorialManager>();
+        if (tutorialManager == null)
+        {
+            Debug.LogError("TutorialManager not found in the scene!");
+        }
     }
 
-     void Update()
-     {
-        
-        
+    void Update()
+    {
         if (captureZone.cantBuild == false)
         {
             captureZone.ChangeColorToBlue();
         }
-     }
+    }
 
     private void OnMouseOver()
     {
         if (Input.GetMouseButtonDown(1) && numBuildings < 1 && captureZone.captured && captureZone.cantBuild == false)
         {
+            // Notify the TutorialManager that the memory tile was clicked
+            if (tutorialManager != null)
+            {
+                tutorialManager.OnMemoryTileClicked();
+                tutorialManager.OnBuildMenuOpened();
+            }
+
             selectedTile = this; // Set the selected tile for construction
             Vector3 mouseScreenPosition = Input.mousePosition;
             constructionMenu.SetActive(true);
@@ -72,6 +90,12 @@ public class MemoryTileConstruction : MonoBehaviour
             else
             {
                 constructionMenu.GetComponent<ConstructionMenu>().deconstructButton.interactable = false;
+            }
+
+            // Notify the TutorialManager that the build menu has been opened
+            if (tutorialManager != null)
+            {
+                tutorialManager.OnBuildMenuOpened();
             }
         }
     }
@@ -112,13 +136,17 @@ public class MemoryTileConstruction : MonoBehaviour
             constructionMenu.SetActive(false);
             selectedTile = null; // Clear the selected tile
             Instantiate(spawnEffect, currentBuilding.transform.position, Quaternion.identity);
+
+            // Notify the TutorialManager that a building has been constructed
+            if (tutorialManager != null)
+            {
+                tutorialManager.OnBuildingSelected(Building.BuildingType.Default);
+            }
         }
         else
         {
             Debug.Log("No tile selected or tile already has a building.");
         }
-
-
     }
 
     public void ConstructConcentrationStorage()
@@ -138,8 +166,6 @@ public class MemoryTileConstruction : MonoBehaviour
         {
             Debug.Log("No tile selected or tile already has a building.");
         }
-
-
     }
 
     public void ConstructDefenseTower()
@@ -153,13 +179,17 @@ public class MemoryTileConstruction : MonoBehaviour
             constructionMenu.SetActive(false);
             selectedTile = null; // Clear the selected tile
             Instantiate(spawnEffect, currentBuilding.transform.position, Quaternion.identity);
+
+            // Notify the TutorialManager that a defense tower has been constructed
+            if (tutorialManager != null)
+            {
+                tutorialManager.OnBuildingSelected(Building.BuildingType.DefenseTower);
+            }
         }
         else
         {
             Debug.Log("No tile selected or tile already has a building.");
         }
-
-
     }
 
     public void ConstructUpgradedBarracks()
@@ -178,15 +208,12 @@ public class MemoryTileConstruction : MonoBehaviour
         {
             Debug.Log("No tile selected or tile already has a building.");
         }
-
-
     }
 
     public void ConstructUpgradedDefenseTower()
     {
         if (selectedTile != null && selectedTile.numBuildings < 1 && concentration.concentration >= upgradedTowerPrice && captureZone.cantBuild == false)
         {
-            
             GameObject currentBuilding = Instantiate(upgradedDefenseTower, new Vector3(selectedTile.transform.position.x, selectedTile.transform.position.y, selectedTile.transform.position.z - 0.5f), Quaternion.identity);
             concentration.SubtractConcentration(upgradedTowerPrice);
             selectedTile.numBuildings++;
@@ -199,8 +226,6 @@ public class MemoryTileConstruction : MonoBehaviour
         {
             Debug.Log("No tile selected or tile already has a building.");
         }
-
-
     }
 
     public void ConstructAreaDamageTower()
@@ -219,8 +244,6 @@ public class MemoryTileConstruction : MonoBehaviour
         {
             Debug.Log("No tile selected or tile already has a building.");
         }
-
-
     }
 
     public void DeconstructBuilding()
@@ -237,6 +260,4 @@ public class MemoryTileConstruction : MonoBehaviour
             Debug.Log("No building selected.");
         }
     }
-
-  
 }

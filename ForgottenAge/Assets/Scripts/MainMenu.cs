@@ -19,7 +19,7 @@ public class MainMenu : MonoBehaviour
     public void TutPage()
     {
         audioManager.PlaySFX(audioManager.menuClick);
-        tutorialPage.SetActive(true);
+        SceneManager.LoadScene("TutorialScene");
         Debug.Log("Open Tut Page");
     }
 

@@ -9,7 +9,7 @@ public class ConstructionMenu : MonoBehaviour
 {
     public Concentration concentration;
     public Button deconstructButton; // Reference to the deconstruct button
-
+    private TutorialManager tutorialManager;
     public List<TextMeshProUGUI> prices;
 
     public List<Button> buttons;
@@ -17,7 +17,25 @@ public class ConstructionMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        tutorialManager = FindObjectOfType<TutorialManager>();
+        if (tutorialManager == null)
+        {
+            Debug.LogWarning("TutorialManager not found in the scene.");
+        }
+    }
 
+    void OnEnable()
+    {
+        Debug.Log("Construction menu enabled");
+        tutorialManager = FindObjectOfType<TutorialManager>();
+        if (tutorialManager != null)
+        {
+            tutorialManager.OnBuildMenuOpened();
+        }
+        else
+        {
+            Debug.LogWarning("TutorialManager not found in the scene.");
+        }
     }
 
     // Update is called once per frame

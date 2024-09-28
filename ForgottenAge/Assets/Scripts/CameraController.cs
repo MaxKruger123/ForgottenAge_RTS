@@ -18,10 +18,42 @@ public class CameraController : MonoBehaviour
 
     private bool isPanning = false;
     private Vector3 lastMousePosition;
+    private bool hasMoved = false;
+
+    private TutorialManager.CameraMovementType requiredMovement = TutorialManager.CameraMovementType.None;
+    private bool hasPerformedRightClickPan = false;
+    private bool hasPerformedEdgePan = false;
+    private bool hasPerformedZoom = false;
+
+    private bool isPanningEnabled = true;  // Changed to true by default
+    private bool isTutorialMode = false;  // New field to check if we're in tutorial mode
+    private TutorialManager tutorialManager;  // New field
+
+    void Start()
+    {
+        tutorialManager = FindObjectOfType<TutorialManager>();
+        isTutorialMode = tutorialManager != null;
+        isPanningEnabled = true;
+    }
 
     void Update()
     {
-        // Right mouse button panning
+        if (!isTutorialMode || isPanningEnabled)
+        {
+            HandleRightClickPanning();
+            HandleEdgePanning();
+            HandleZooming();
+        }
+        else if (isTutorialMode)
+        {
+            HandleTutorialMovement();
+        }
+
+        ClampCameraPosition();
+    }
+
+    void HandleRightClickPanning()
+    {
         if (Input.GetMouseButtonDown(1))
         {
             isPanning = true;
@@ -34,44 +66,121 @@ public class CameraController : MonoBehaviour
         if (isPanning)
         {
             Vector3 mouseDelta = Input.mousePosition - lastMousePosition;
-            Vector3 panDirection = new Vector3(-mouseDelta.x, -mouseDelta.y, 0f).normalized;
-            transform.Translate(panDirection * panSpeed * Time.deltaTime, Space.World);
-            lastMousePosition = Input.mousePosition;
-
-            // Clamp the camera position
-            Vector3 pos = transform.position;
-            pos.x = Mathf.Clamp(pos.x, minX, maxX);
-            pos.y = Mathf.Clamp(pos.y, minYBound, maxYBound);
-            transform.position = pos;
+            if (mouseDelta.magnitude > 5f) // Threshold to detect significant movement
+            {
+                Vector3 panDirection = new Vector3(-mouseDelta.x, -mouseDelta.y, 0f);
+                transform.Translate(panDirection * panSpeed * Time.deltaTime, Space.World);
+                lastMousePosition = Input.mousePosition;
+                if (isTutorialMode && requiredMovement == TutorialManager.CameraMovementType.RightClick)
+                {
+                    hasPerformedRightClickPan = true;
+                }
+            }
         }
+    }
 
-        // Edge scrolling (optional)
-        if (!isPanning)
+    void HandleEdgePanning()
+    {
+        Vector3 movement = Vector3.zero;
+        if (Input.mousePosition.y >= Screen.height - panBorderThickness)
+            movement += Vector3.up;
+        else if (Input.mousePosition.y <= panBorderThickness)
+            movement += Vector3.down;
+        if (Input.mousePosition.x >= Screen.width - panBorderThickness)
+            movement += Vector3.right;
+        else if (Input.mousePosition.x <= panBorderThickness)
+            movement += Vector3.left;
+
+        if (movement != Vector3.zero)
         {
-            if (Input.mousePosition.y >= Screen.height - panBorderThickness)
-                transform.Translate(Vector3.up * panSpeed * Time.deltaTime, Space.World);
-            else if (Input.mousePosition.y <= panBorderThickness)
-                transform.Translate(Vector3.down * panSpeed * Time.deltaTime, Space.World);
-
-            if (Input.mousePosition.x >= Screen.width - panBorderThickness)
-                transform.Translate(Vector3.right * panSpeed * Time.deltaTime, Space.World);
-            else if (Input.mousePosition.x <= panBorderThickness)
-                transform.Translate(Vector3.left * panSpeed * Time.deltaTime, Space.World);
-
-            // Clamp the camera position
-            Vector3 pos = transform.position;
-            pos.x = Mathf.Clamp(pos.x, minX, maxX);
-            pos.y = Mathf.Clamp(pos.y, minYBound, maxYBound);
-            transform.position = pos;
+            transform.Translate(movement * panSpeed * Time.deltaTime, Space.World);
+            if (isTutorialMode && requiredMovement == TutorialManager.CameraMovementType.EdgePan)
+            {
+                hasPerformedEdgePan = true;
+            }
         }
+    }
 
-        // Scrollwheel zooming
+    void HandleZooming()
+    {
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         if (scroll != 0f)
         {
             float newSize = Camera.main.fieldOfView - scroll * scrollSpeed;
             newSize = Mathf.Clamp(newSize, minFOV, maxFOV);
             Camera.main.fieldOfView = newSize;
+            if (isTutorialMode && requiredMovement == TutorialManager.CameraMovementType.Zoom)
+            {
+                hasPerformedZoom = true;
+            }
         }
+    }
+
+    void HandleTutorialMovement()
+    {
+        // This method will handle movement specifically for tutorial mode
+        // It's similar to the old Update method, but only for tutorial-specific actions
+        if (requiredMovement == TutorialManager.CameraMovementType.RightClick)
+        {
+            HandleRightClickPanning();
+        }
+        else if (requiredMovement == TutorialManager.CameraMovementType.EdgePan)
+        {
+            HandleEdgePanning();
+        }
+        else if (requiredMovement == TutorialManager.CameraMovementType.Zoom)
+        {
+            HandleZooming();
+        }
+    }
+
+    void ClampCameraPosition()
+    {
+        Vector3 pos = transform.position;
+        pos.x = Mathf.Clamp(pos.x, minX, maxX);
+        pos.y = Mathf.Clamp(pos.y, minYBound, maxYBound);
+        transform.position = pos;
+    }
+
+    public void SetAllowedMovement(TutorialManager.CameraMovementType movementType)
+    {
+        requiredMovement = movementType;
+        hasPerformedRightClickPan = false;
+        hasPerformedEdgePan = false;
+        hasPerformedZoom = false;
+        isPanningEnabled = (movementType == TutorialManager.CameraMovementType.RightClick ||
+                            movementType == TutorialManager.CameraMovementType.EdgePan);
+    }
+
+    public bool HasCompletedRequiredMovement()
+    {
+        switch (requiredMovement)
+        {
+            case TutorialManager.CameraMovementType.None:
+                return true;
+            case TutorialManager.CameraMovementType.RightClick:
+                return hasPerformedRightClickPan;
+            case TutorialManager.CameraMovementType.EdgePan:
+                return hasPerformedEdgePan;
+            case TutorialManager.CameraMovementType.Zoom:
+                return hasPerformedZoom;
+            default:
+                return false;
+        }
+    }
+
+    public void ResetMovementFlag()
+    {
+        hasPerformedRightClickPan = false;
+        hasPerformedEdgePan = false;
+        hasPerformedZoom = false;
+    }
+
+    // Call this method when switching to non-tutorial scene
+    public void DisableTutorialMode()
+    {
+        isTutorialMode = false;
+        isPanningEnabled = true;
+        requiredMovement = TutorialManager.CameraMovementType.None;
     }
 }
