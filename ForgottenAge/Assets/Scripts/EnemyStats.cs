@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.VFX;
@@ -16,7 +17,9 @@ public class EnemyStats : MonoBehaviour
     public GameObject currencyDropTwo;
 
     public Concentration concentration;
+
     
+
 
     public void Start()
     {
@@ -50,11 +53,12 @@ public class EnemyStats : MonoBehaviour
         if (random >= 0 && random <= 85)
         {
             Instantiate(currencyDrop, gameObject.transform.position, Quaternion.identity);
-            concentration.AddConcentration(1);
+            concentration.concentration++;
         } else if (random >= 86 && random <= 95)
         {
             Instantiate(currencyDropTwo, gameObject.transform.position, Quaternion.identity);
-            concentration.AddDreamTokens(1);
+            concentration.dreamTokens++;
+            
         }
         else if (random >= 96 && random <= 100)
         {

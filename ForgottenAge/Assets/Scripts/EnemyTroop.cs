@@ -75,18 +75,18 @@ public class EnemyTroop : MonoBehaviour
             }
             else
             {
-                Debug.LogError("EnemyTroop " + gameObject.name + " is not on a NavMesh!");
+               
             }
         }
         else
         {
-            Debug.LogError("NavMeshAgent component not found on " + gameObject.name);
+           
         }
 
         enemyStats = GetComponent<EnemyStats>();
         if (enemyStats == null)
         {
-            Debug.LogError("EnemyStats component not found on " + gameObject.name);
+            
         }
 
         meleeCoroutine = null;
@@ -176,7 +176,7 @@ public class EnemyTroop : MonoBehaviour
 
             if (IsTargeted())
             {
-                Debug.Log("Flee");
+                
                 FleeAndShoot();
             }
             else if (targetTank != null)
@@ -216,6 +216,11 @@ public class EnemyTroop : MonoBehaviour
             if (!IsTargeted() && targetTank == null && targetAlly == null && targetBuilding == null)
             {
                 FindAndMoveToNearestAxon();
+            }
+
+            if (stopFlee == true)
+            {
+                FindNearestNormalEnemy();
             }
         }
 
@@ -267,7 +272,7 @@ public class EnemyTroop : MonoBehaviour
         cachedRepairTroops.AddRange(GameObject.FindGameObjectsWithTag("RepairTroop"));
 
         cachedNormalEnemies.Clear();
-        cachedNormalEnemies.AddRange(GameObject.FindGameObjectsWithTag("Enemy"));
+        cachedNormalEnemies.AddRange(GameObject.FindGameObjectsWithTag("Player"));
     }
 
     void FindAllyTroopTargetingTank()
@@ -408,6 +413,25 @@ public class EnemyTroop : MonoBehaviour
         targetAlly = nearestAlly;
     }
 
+    void FindAndMoveToNearestAlly()
+    {
+        float minDistance = Mathf.Infinity;
+        AllyTroop nearestAlly = null;
+
+        foreach (AllyTroop ally in cachedAllyTroops)
+        {
+            float distance = Vector3.Distance(transform.position, ally.transform.position);
+            if (distance < minDistance)
+            {
+                minDistance = distance;
+                nearestAlly = ally;
+                agent.SetDestination(nearestAlly.transform.position);
+            }
+        }
+
+        targetAlly = nearestAlly;
+    }
+
     void FindNearestTank()
     {
         float minDistance = protectRange;
@@ -531,7 +555,7 @@ public class EnemyTroop : MonoBehaviour
                 if (distance < 2f && gameObject.CompareTag("Kamikaze"))
                 {
                     Axon axonScript = axon.GetComponent<Axon>();
-                    axonScript.TakeDamage(7f);
+                    axonScript.TakeDamage(20f);
                     Destroy(gameObject);
                     // Explode
                 }
@@ -594,7 +618,10 @@ public class EnemyTroop : MonoBehaviour
             agent.speed = 2f;  // Increase the agent's speed to flee faster
             shootingCoroutine = StartCoroutine(ShootAlly());
             stopFlee = true;
+            FindNearestNormalEnemy();
         }
+
+        
        
     }
 

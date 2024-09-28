@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -46,6 +47,9 @@ public class AllyTroop : MonoBehaviour
 
     private Coroutine updateCacheRoutine;
 
+    public bool hasReachedTile = false;
+    
+
     // Optimization variables
     private float updateInterval = 0.2f;
     private float lastUpdateTime;
@@ -58,6 +62,7 @@ public class AllyTroop : MonoBehaviour
 
     void Start()
     {
+        
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         agent = GetComponent<NavMeshAgent>();
 
@@ -72,12 +77,12 @@ public class AllyTroop : MonoBehaviour
             }
             else
             {
-                Debug.LogError("AllyTroop " + gameObject.name + " is not on a NavMesh!");
+                
             }
         }
         else
         {
-            Debug.LogError("NavMeshAgent component not found on " + gameObject.name);
+            
         }
 
         stats = gameObject.GetComponent<AllyTroopStats>();
@@ -96,15 +101,48 @@ public class AllyTroop : MonoBehaviour
 
         lastUpdateTime = Time.time;
 
-        if (gameObject.CompareTag("AllyRanged"))
+        // If the troop has reached the memory tile, stop the agent and check for enemies
+        if (agent != null)
         {
-            RangedBehavior();
+           
+            isAttacking = false; // Ensure troop isn't locked into moving mode
+
+            // Now check for nearby enemies and switch to attack mode
+            FindNearestEnemy();
+            if (targetEnemyy != null)
+            {
+                
+                if (gameObject.CompareTag("AllyRanged"))
+                {
+                    RangedBehavior();
+                }
+                else if (gameObject.CompareTag("Player") || gameObject.CompareTag("AllyTank"))
+                {
+                    BasicMeleeBehavior();
+                    
+                }
+            } else
+            {
+                StartCoroutine(Wait());
+                FindNearestEnemy();
+                if (targetEnemyy == null)
+                {
+                    FindAndMoveToNearestAxon();
+                }
+                
+                
+            }
         }
-        else if (gameObject.CompareTag("Player") || gameObject.CompareTag("AllyTank"))
+
+        
+
+        // Continue checking for enemies even if troop is not moving
+        if (cachedEnemies.Count > 0)
         {
-            BasicMeleeBehavior();
+            FindNearestEnemy();
         }
-        else if (gameObject.CompareTag("AllyHealing"))
+
+        if (gameObject.CompareTag("AllyHealing"))
         {
             if (healingCoroutine == null)
             {
@@ -112,6 +150,27 @@ public class AllyTroop : MonoBehaviour
             }
         }
     }
+
+    void OnReachedTile()
+    {
+        // Stop moving once the tile is reached
+        agent.ResetPath();
+
+        // Immediately start checking for enemies
+        FindNearestEnemy();
+        if (targetEnemy != null)
+        {
+            if (gameObject.CompareTag("AllyRanged"))
+            {
+                RangedBehavior();
+            }
+            else if (gameObject.CompareTag("Player") || gameObject.CompareTag("AllyTank"))
+            {
+                BasicMeleeBehavior();
+            }
+        }
+    }
+
 
     IEnumerator UpdateCacheRoutine()
     {
@@ -253,14 +312,19 @@ public class AllyTroop : MonoBehaviour
     {
         EnemyTroop newTargetEnemy = null;
 
-        foreach (EnemyTroop enemy in cachedEnemies)
+        if (cachedEnemies.Count > 0)
         {
-            if (enemy.targetAlly == this)
+            foreach (EnemyTroop enemy in cachedEnemies)
             {
-                newTargetEnemy = enemy;
-                break;
+                if (enemy.targetAlly == this)
+                {
+                    newTargetEnemy = enemy;
+                    break;
+                }
             }
-        }
+        } 
+
+        
 
         if (newTargetEnemy != null)
         {
@@ -372,6 +436,35 @@ public class AllyTroop : MonoBehaviour
         shootingCoroutine = null;
     }
 
+    
+
+    
+
+    void BasicMeleeBehavior()
+    {
+        FindNearestEnemy();
+        if (targetEnemyy != null)
+        {
+            
+            agent.SetDestination(targetEnemyy.transform.position);
+            float distanceToEnemy = Vector3.Distance(transform.position, targetEnemy.transform.position);
+
+            if (distanceToEnemy <= attackRange)
+            {
+                if (meleeCoroutine == null)
+                {
+                    meleeCoroutine = StartCoroutine(MeleeAttack());
+                }
+            }
+            else
+            {
+                agent.SetDestination(targetEnemyy.transform.position);
+                hasReachedTile = false;
+            }
+        }
+       
+    }
+
     void FindNearestEnemy()
     {
         float searchRange = 40f;
@@ -394,55 +487,44 @@ public class AllyTroop : MonoBehaviour
 
     void FindAndMoveToNearestAxon()
     {
-        GameObject[] axons = GameObject.FindGameObjectsWithTag("Axon");
+        // Find all memory tiles
+        GameObject[] memoryTiles = GameObject.FindGameObjectsWithTag("MemoryTile");
+        if (memoryTiles.Length == 0) return; // No memory tiles to move to
 
-        if (axons.Length == 0)
+        // Find all troops with relevant tags
+        List<GameObject> friendlyTroops = new List<GameObject>();
+        friendlyTroops.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+        friendlyTroops.AddRange(GameObject.FindGameObjectsWithTag("AllyRanged"));
+        friendlyTroops.AddRange(GameObject.FindGameObjectsWithTag("AllyTank"));
+
+        int totalTroops = friendlyTroops.Count;
+        if (totalTroops == 0) return; // No troops found
+
+        // Calculate how many troops to send to each memory tile (totalTroops / 4)
+        int troopsPerTile = Mathf.CeilToInt((float)totalTroops / 4);
+
+        // Loop through troops and assign them to memory tiles
+        int tileIndex = 0;
+        foreach (GameObject troop in friendlyTroops)
         {
-            return;
-        }
+            NavMeshAgent agent = troop.GetComponent<NavMeshAgent>();
+            if (agent == null) continue; // Skip if troop has no agent
 
-        GameObject nearestAxon = null;
-        float minDistance = Mathf.Infinity;
-
-        foreach (GameObject axon in axons)
-        {
-            float distance = Vector3.Distance(transform.position, axon.transform.position);
-            if (distance < minDistance)
-            {
-                minDistance = distance;
-                nearestAxon = axon;
-            }
-        }
-
-        if (nearestAxon != null)
-        {
-            agent.SetDestination(nearestAxon.transform.position);
-        }
-    }
-
-    void BasicMeleeBehavior()
-    {
-        FindNearestEnemy();
-        if (targetEnemyy != null)
-        {
-            agent.SetDestination(targetEnemyy.transform.position);
-            float distanceToEnemy = Vector3.Distance(transform.position, targetEnemy.transform.position);
-
-            if (distanceToEnemy <= attackRange)
-            {
-                if (meleeCoroutine == null)
-                {
-                    meleeCoroutine = StartCoroutine(MeleeAttack());
-                }
-            }
-            else
+            // If the troop has an enemy target, attack
+            if (targetEnemyy != null)
             {
                 agent.SetDestination(targetEnemyy.transform.position);
+                
+                continue; // Skip moving to tile if there's an enemy
             }
-        }
-        else
-        {
-            FindAndMoveToNearestAxon();
+
+            // Move troop to a memory tile
+            GameObject assignedTile = memoryTiles[tileIndex];
+            agent.SetDestination(assignedTile.transform.position);
+            
+
+            // Increment the tile index, and wrap around if we reach the last tile
+            tileIndex = (tileIndex + 1) % memoryTiles.Length;
         }
     }
 
@@ -457,6 +539,16 @@ public class AllyTroop : MonoBehaviour
         }
 
         meleeCoroutine = null;
+    }
+
+    IEnumerator Wait()
+    {
+        
+
+        yield return new WaitForSeconds(2.0f);
+        
+
+        
     }
 
     void FindAndAttack()

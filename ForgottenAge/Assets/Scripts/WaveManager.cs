@@ -107,7 +107,7 @@ public class WaveManager : MonoBehaviour
         }
     }
 
-    IEnumerator SpawnEnemies()
+    public IEnumerator SpawnEnemies()
     {
         waveInProgress = true;
         // Get the current wave
@@ -134,9 +134,9 @@ public class WaveManager : MonoBehaviour
             }else if (currentWave <= 5)
             {
                 enemyPrefab = enemyPrefabs[Random.Range(0, 3)];
-            }else if (currentWave < 6)
+            }else if (currentWave >= 6 )
             {
-                enemyPrefab = enemyPrefabs[Random.Range(0, enemyPrefabs.Count)];
+                enemyPrefab = enemyPrefabs[Random.Range(0, 4)];
             }
 
             // Choose a spawn point based on the index
