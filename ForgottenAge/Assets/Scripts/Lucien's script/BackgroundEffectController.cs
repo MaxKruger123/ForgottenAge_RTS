@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI; // Add this for UI elements
 
 public class BackgroundEffectController : MonoBehaviour
 {
@@ -35,7 +36,29 @@ public class BackgroundEffectController : MonoBehaviour
     public float maxColorOffset = 0.1f;
     public float maxGlitchPositionOffset = 0.1f;
 
+    [Header("Color Change Mode")]
+    [SerializeField] private bool useTimerBasedMode = false;
+    [SerializeField] private bool useWaveBasedMode = false;
+    [SerializeField] private bool useAxonBasedMode = false;
+    [SerializeField] private bool useDynamicMode = true;
+
+    [Header("Dynamic Mode Settings")]
+    [SerializeField] private float timeWeight = 1f;
+    [SerializeField] private float waveWeight = 1.5f;
+    [SerializeField] private float axonWeight = 2f;
+    [SerializeField] private float maxGameTime = 1800f; // 30 minutes
+    [SerializeField] private int waveScalingFactor = 30; // Adjusts how quickly wave effect saturates
+    [SerializeField] private int maxDeadAxons = 7;
+
+    [Header("Transition Settings")]
+    [SerializeField] private float transitionSpeed = 0.5f;
+
+    private WaveManager waveManager;
+    private AxonManager axonManager;
+
     private float elapsedTime = 0f;
+    private float currentT = 0f;
+    private float targetT = 0f;
     private ParticleSystem.MainModule particleMain;
     private ParticleSystem.EmissionModule particleEmission;
     private ParticleSystem.ColorOverLifetimeModule particleColorOverLifetime;
@@ -44,6 +67,35 @@ public class BackgroundEffectController : MonoBehaviour
     private Vector3 originalPosition;
     private Quaternion originalRotation;
     private bool isGlitching = false;
+
+    void OnValidate()
+    {
+        // Ensure only one mode is active at a time
+        if (useTimerBasedMode)
+        {
+            useWaveBasedMode = false;
+            useAxonBasedMode = false;
+            useDynamicMode = false;
+        }
+        else if (useWaveBasedMode)
+        {
+            useTimerBasedMode = false;
+            useAxonBasedMode = false;
+            useDynamicMode = false;
+        }
+        else if (useAxonBasedMode)
+        {
+            useTimerBasedMode = false;
+            useWaveBasedMode = false;
+            useDynamicMode = false;
+        }
+        else if (useDynamicMode)
+        {
+            useTimerBasedMode = false;
+            useWaveBasedMode = false;
+            useAxonBasedMode = false;
+        }
+    }
 
     void Start()
     {
@@ -72,6 +124,14 @@ public class BackgroundEffectController : MonoBehaviour
 
         // Ensure camera is set up for 2D
         Camera.main.transparencySortMode = TransparencySortMode.Orthographic;
+
+        waveManager = FindObjectOfType<WaveManager>();
+        axonManager = FindObjectOfType<AxonManager>();
+
+        if (waveManager == null || axonManager == null)
+        {
+            Debug.LogError("WaveManager or AxonManager not found in the scene!");
+        }
 
         StartCoroutine(GlitchRoutine());
         StartCoroutine(ErraticBackgroundMovement());
@@ -106,9 +166,37 @@ public class BackgroundEffectController : MonoBehaviour
 
     void Update()
     {
-        elapsedTime += Time.deltaTime;
-        float t = Mathf.Clamp01(elapsedTime / transitionDuration);
-        float curvedT = transitionCurve.Evaluate(t);
+        if (useTimerBasedMode)
+        {
+            elapsedTime += Time.deltaTime;
+            currentT = Mathf.Clamp01(elapsedTime / transitionDuration);
+        }
+        else if (useWaveBasedMode)
+        {
+            targetT = 1f - (1f / (1f + (float)waveManager.GetCurrentWave() / waveScalingFactor));
+            currentT = Mathf.Lerp(currentT, targetT, Time.deltaTime * transitionSpeed);
+        }
+        else if (useAxonBasedMode)
+        {
+            targetT = Mathf.Clamp01((float)axonManager.deadAxons / maxDeadAxons);
+            currentT = Mathf.Lerp(currentT, targetT, Time.deltaTime * transitionSpeed);
+        }
+        else if (useDynamicMode)
+        {
+            elapsedTime += Time.deltaTime;
+            float timeT = Mathf.Clamp01(elapsedTime / maxGameTime);
+            float waveT = 1f - (1f / (1f + (float)waveManager.GetCurrentWave() / waveScalingFactor));
+            float axonT = Mathf.Clamp01((float)axonManager.deadAxons / maxDeadAxons);
+
+            targetT = (timeT * timeWeight + waveT * waveWeight + axonT * axonWeight) / (timeWeight + waveWeight + axonWeight);
+            currentT = Mathf.Lerp(currentT, targetT, Time.deltaTime * transitionSpeed);
+        }
+        else
+        {
+            return; // No mode selected, do nothing
+        }
+
+        float curvedT = transitionCurve.Evaluate(currentT);
 
         // Calculate new background color
         Color newBackgroundColor = CalculateBackgroundColor(curvedT);
@@ -119,14 +207,14 @@ public class BackgroundEffectController : MonoBehaviour
             backgroundSprite.color = newBackgroundColor;
         }
 
-        // Calculate particle colors (lighter version of background color)
-        Color particleStartColor = LightenColor(newBackgroundColor, particleLightnessOffset);
-        Color particleEndColor = particleStartColor;
-        particleEndColor.a = 0f; // Fade out to transparent
-
         // Update particle properties
         if (voidParticles != null)
         {
+            // Calculate particle colors (lighter version of background color)
+            Color particleStartColor = LightenColor(newBackgroundColor, particleLightnessOffset);
+            Color particleEndColor = particleStartColor;
+            particleEndColor.a = 0f; // Fade out to transparent
+
             // Update Color over Lifetime
             Gradient gradient = new Gradient();
             gradient.SetKeys(

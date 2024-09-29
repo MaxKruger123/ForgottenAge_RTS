@@ -2309,7 +2309,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.AABox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":-3.20513916015625,"y":-1.8164520263671876,"z":0.0},"size":{"x":215.15432739257813,"y":157.751220703125,"z":1.0}}'
+      m_SerializableObject: '{"center":{"x":-7.116943359375,"y":-4.1929779052734379,"z":0.0},"size":{"x":224.35409545898438,"y":137.67312622070313,"z":1.0}}'
     m_Space: 0
   m_Property:
     name: Box
@@ -2811,7 +2811,7 @@ MonoBehaviour:
       m_Type:
         m_SerializableType: UnityEditor.VFX.AABox, Unity.VisualEffectGraph.Editor,
           Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
-      m_SerializableObject: '{"center":{"x":-3.1502761840820314,"y":-1.9337997436523438,"z":0.0},"size":{"x":130.73789978027345,"y":66.49177551269531,"z":1.0}}'
+      m_SerializableObject: '{"center":{"x":-8.616874694824219,"y":-2.651874542236328,"z":0.0},"size":{"x":147.3438262939453,"y":58.599082946777347,"z":1.0}}'
     m_Space: 0
   m_Property:
     name: box

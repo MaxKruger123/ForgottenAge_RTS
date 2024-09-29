@@ -29,6 +29,8 @@ public class CameraController : MonoBehaviour
     private bool isTutorialMode = false;  // New field to check if we're in tutorial mode
     private TutorialManager tutorialManager;  // New field
 
+    public float fogBuffer = 5f; // Buffer zone for fog visibility
+
     void Start()
     {
         tutorialManager = FindObjectOfType<TutorialManager>();
@@ -137,8 +139,8 @@ public class CameraController : MonoBehaviour
     void ClampCameraPosition()
     {
         Vector3 pos = transform.position;
-        pos.x = Mathf.Clamp(pos.x, minX, maxX);
-        pos.y = Mathf.Clamp(pos.y, minYBound, maxYBound);
+        pos.x = Mathf.Clamp(pos.x, minX + fogBuffer, maxX - fogBuffer);
+        pos.y = Mathf.Clamp(pos.y, minYBound + fogBuffer, maxYBound - fogBuffer);
         transform.position = pos;
     }
 

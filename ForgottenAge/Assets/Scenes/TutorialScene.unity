@@ -1352,6 +1352,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 931058938899452819, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
+      propertyPath: m_Volume
+      value: 0.1
+      objectReference: {fileID: 0}
     - target: {fileID: 3791397975095279159, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
       propertyPath: m_LocalPosition.x
       value: 16.77682
@@ -1391,6 +1395,10 @@ PrefabInstance:
     - target: {fileID: 3791397975095279159, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3845864312169929258, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
+      propertyPath: m_Volume
+      value: 0.1
       objectReference: {fileID: 0}
     - target: {fileID: 5546943684149560594, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
       propertyPath: m_Name
@@ -1752,6 +1760,7 @@ MonoBehaviour:
   maxX: 46
   minYBound: -35
   maxYBound: 26
+  fogBuffer: 5
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0
