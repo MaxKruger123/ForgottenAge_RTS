@@ -6,7 +6,7 @@ using UnityEngine.AI;
 public class SpawnRepairTroop : MonoBehaviour
 {
     public GameObject repairTroopPrefab; // Assign the prefab of the repair troop
-    public float initialSpawnInterval = 30f; // Interval between initial spawns
+    public float initialSpawnInterval = 10f; // Interval between initial spawns
     public float respawnDelay = 40f; // Delay before respawning a dead repair troop
     public int maxRepairTroops = 1; // Maximum number of repair troops allowed at a time (changed to 1)
     public float spawnRadius = 2f; // Radius around the axon to spawn the repair troops
@@ -17,7 +17,7 @@ public class SpawnRepairTroop : MonoBehaviour
     void Start()
     {
         // Start initial spawning of repair troops
-        StartCoroutine(InitialSpawnRepairTroops());
+        InitialSpawnRepairTroops();
     }
 
     void Update()
@@ -32,11 +32,12 @@ public class SpawnRepairTroop : MonoBehaviour
         }
     }
 
-    IEnumerator InitialSpawnRepairTroops()
+    void InitialSpawnRepairTroops()
     {
-        // Spawn one repair troop at the start
-        yield return new WaitForSeconds(initialSpawnInterval);
+        
+        
         SpawnRepairTroopp();
+        isSpawning = false;
     }
 
     IEnumerator HandleTroopRespawn()
