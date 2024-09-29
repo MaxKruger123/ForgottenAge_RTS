@@ -127650,10 +127650,18 @@ PrefabInstance:
       propertyPath: mainBrain
       value: 
       objectReference: {fileID: 1331288524}
+    - target: {fileID: 7446387271712392549, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7634565707385714886, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1786741184}
+    - target: {fileID: 7893329981209152570, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8066034886633061386, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
@@ -127667,7 +127675,9 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1786741184}
     m_RemovedComponents: []
-    m_RemovedGameObjects: []
+    m_RemovedGameObjects:
+    - {fileID: 9131676658323890303, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
+    - {fileID: 1941878234295523286, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
