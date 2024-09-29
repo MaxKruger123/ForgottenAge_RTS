@@ -6,6 +6,7 @@ public class AxonChecker : MonoBehaviour
 {
     public GameObject objectToActivate; // The GameObject to activate when all axons are dead
 
+    public bool allAxonsDead; // Whether all axons are dead
     void Start()
     {
         
@@ -17,7 +18,7 @@ public class AxonChecker : MonoBehaviour
         GameObject[] axons = GameObject.FindGameObjectsWithTag("Axon");
 
         // Assume all axons are dead until proven otherwise
-        bool allAxonsDead = true;
+        allAxonsDead = true;
 
         // Loop through each axon and check if it's dead
         foreach (GameObject axon in axons)
@@ -44,15 +45,10 @@ public class AxonChecker : MonoBehaviour
             }
         }
 
-        // If all axons are dead, activate the specified GameObject
         if (allAxonsDead)
         {
+            Debug.Log("All axons are dead, activating lose screen.");
             objectToActivate.SetActive(true);
-            
-        }
-        else
-        {
-           
         }
     }
 }

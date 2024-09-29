@@ -63,11 +63,11 @@ public class RecruitmentMenuTwo : MonoBehaviour
         buttons[0].onClick.RemoveAllListeners();
         buttons[0].onClick.AddListener(() => building.SpawnTankTroop());
         buttons[1].onClick.RemoveAllListeners();
-        buttons[1].onClick.AddListener(() => building.SpawnHealingTroop());
+        buttons[1].onClick.AddListener(() => building.SpawnTankTroopInstant());
         buttons[2].onClick.RemoveAllListeners();
         buttons[2].onClick.AddListener(() => building.SpawnTankTroopInstant());
         buttons[3].onClick.RemoveAllListeners();
-        buttons[3].onClick.AddListener(() => building.SpawnHealingTroopInstant());
+        
     }
 
     public void SetPrices(int tankPrice, int healerPrice)

@@ -158,7 +158,7 @@ public class Building : MonoBehaviour
 
     private void ShootAtNearestEnemy()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, LayerMask.GetMask("Enemy"));
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, LayerMask.GetMask("Enemy", "Kamikaze"));
 
         if (colliders.Length > 0)
         {
@@ -354,7 +354,7 @@ public class Building : MonoBehaviour
         {
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
-            Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
+            Instantiate(rangedAllyTroopPrefab, spawnPosition, Quaternion.identity);
             concentration.dreamTokens--;
         }
     }

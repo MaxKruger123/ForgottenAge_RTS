@@ -5,7 +5,6 @@ using System.Linq;
 public class CaptureZone : MonoBehaviour
 {
     public float captureTime = 5.0f; // Time required to capture the platform
-
     private float captureProgress = 0;
     public string capturingSide = null;
 
@@ -25,6 +24,8 @@ public class CaptureZone : MonoBehaviour
 
     private TutorialManager tutorialManager;
     private MemoryTileConstruction memoryTileConstruction;
+
+    private bool buildingDestroyed = false; // Flag to ensure only one building is destroyed
 
     private void Start()
     {
@@ -73,10 +74,13 @@ public class CaptureZone : MonoBehaviour
             priceIncrease = true;
             cantBuild = false;
         }
-        else if (nearestAxons[0].dead == true && nearestAxons[1].dead == true)
+        else if (nearestAxons[0].dead == true && nearestAxons[1].dead == true && !buildingDestroyed)
         {
             priceIncrease = false;
             cantBuild = true;
+            UpdateColor();
+            DestroyNearestBuilding(); // Destroy the nearest building when both axons are dead
+            numBuildings.numBuildings = 0;
         }
         else if (nearestAxons[0].dead == false && nearestAxons[1].dead == false)
         {
@@ -155,19 +159,42 @@ public class CaptureZone : MonoBehaviour
         return nearestAxons;
     }
 
+    private void DestroyNearestBuilding()
+    {
+        // Check if the building has already been destroyed
+        if (buildingDestroyed)
+        {
+            return; // Do nothing if the building has already been destroyed
+        }
+
+        // Find all buildings with the "Building" tag
+        GameObject[] allBuildings = GameObject.FindGameObjectsWithTag("Building");
+
+        if (allBuildings.Length == 0)
+        {
+            Debug.LogWarning("No buildings found to destroy.");
+            return;
+        }
+
+        // Find the nearest building
+        GameObject nearestBuilding = allBuildings
+            .OrderBy(building => Vector3.Distance(transform.position, building.transform.position))
+            .FirstOrDefault();
+
+        // Destroy the nearest building
+        if (nearestBuilding != null)
+        {
+            Debug.Log("Destroying nearest building: " + nearestBuilding.name);
+            Destroy(nearestBuilding); // Call destroy directly after logging
+
+            // Set the flag to indicate the building has been destroyed
+            buildingDestroyed = true;
+        }
+    }
+
     public void ChangeColorToBlue()
     {
         spriteRenderer.color = Color.blue;
-    }
-
-    private void DestroyBuildingOnTile()
-    {
-        if (nearestMemoryTile != null && nearestMemoryTile.building != null)
-        {
-            Destroy(nearestMemoryTile.building);
-            nearestMemoryTile.building = null;
-            Debug.Log("Destroyed building on memory tile: " + nearestMemoryTile.name);
-        }
     }
 
     private void OnMouseOver()
