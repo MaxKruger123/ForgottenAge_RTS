@@ -23,7 +23,7 @@ public class CardManager : MonoBehaviour
     public float allyMeleeMaxHealth = 10.0f;
     public int troopCostModifier = 0;
     public bool passiveHealing = false;
-    public int incomeModifier = 0;
+    public int incomeModifier;
     public float towerDamage = 2.0f;
 
     public GameObject memoryTile1;
@@ -50,8 +50,8 @@ public class CardManager : MonoBehaviour
 
     public void ConcentrationCard()
     {
-        incomeModifier = incomeModifier + cardScreen.GetCardData(0).buffValue;
-        Debug.Log("concentration added " + cardScreen.GetCardData(0).buffValue + "\n new total concentration is " + concentration.GetConcentration());
+        incomeModifier++;
+        
     }
 
     public void GlassCannonCard()
@@ -85,7 +85,7 @@ public class CardManager : MonoBehaviour
 
     public void FocusCard() // WORKS
     {
-        concentration.AddConcentration(cardScreen.GetCardData(3).buffValue);
+        concentration.AddConcentration(100);
         troopCostModifier = troopCostModifier + 5;
         // troop cost +5
         Debug.Log("concentration added " + cardScreen.GetCardData(3).buffValue + "\n new total concentration is " + concentration.GetConcentration());
@@ -167,8 +167,8 @@ public class CardManager : MonoBehaviour
 
     public void PerilousInsightCard() 
     {
-        incomeModifier = incomeModifier + cardScreen.GetCardData(5).buffValue;
-        enemyMeleeDamage = enemyMeleeDamage + cardScreen.GetCardData(5).debuffValue;
+        incomeModifier++;
+        enemyMeleeDamage = enemyMeleeDamage + 2;
     }
 
     public void FortifiedRespiteCard()
@@ -230,7 +230,7 @@ public class CardManager : MonoBehaviour
         //Gain 400 concentration immediately - skip 3 enemy waves
         concentration.AddConcentration(400);
         waveManager.SetCurrentWave(waveManager.GetCurrentWave() + 3);
-        waveManager.StartCoroutine(waveManager.SpawnEnemies());
+        
     }
 
     public void ShiftingTidesCard()
