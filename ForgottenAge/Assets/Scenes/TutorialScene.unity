@@ -159,6 +159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   instructionText: {fileID: 1554260425}
   textBoxPanel: {fileID: 1216225133}
+  buildInterfaceButton: {fileID: 485508677}
   tutorialSections:
   - sectionName: Welcome
     steps:
@@ -322,7 +323,7 @@ MonoBehaviour:
   - sectionName: Troop - production
     steps:
     - instructions:
-      - Produce 3 Basic Troops.
+      - Produce 5 Basic Troops.
       highlightObjects:
       - targetObject: {fileID: 305651469}
         shouldFlicker: 1
@@ -425,12 +426,10 @@ MonoBehaviour:
       enemiesToEnable: []
       waitForEnemiesDestroyed: 0
   targetMemoryTile: {fileID: 1849003607}
-  buildInterfaceButton: {fileID: 485508677}
   arrowPrefab: {fileID: 7441700282977100218, guid: 4396d157c18230340b18cc1524b53266, type: 3}
   arrowGap: 1
   arrowWidth: 80
   mainMenuSceneName: Main Menu
-  audioManager: {fileID: 0}
 --- !u!4 &72905669
 Transform:
   m_ObjectHideFlags: 0
@@ -1619,6 +1618,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   objectToActivate: {fileID: 930106930}
+  allAxonsDead: 0
 --- !u!4 &440594978
 Transform:
   m_ObjectHideFlags: 0
@@ -127592,6 +127592,14 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 962581289}
     - target: {fileID: 32574202113163563, guid: 6a4d6d1d75190a248ac9f343e16776e8, type: 3}
+      propertyPath: useDynamicMode
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 32574202113163563, guid: 6a4d6d1d75190a248ac9f343e16776e8, type: 3}
+      propertyPath: useTimerBasedMode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 32574202113163563, guid: 6a4d6d1d75190a248ac9f343e16776e8, type: 3}
       propertyPath: transitionDuration
       value: 1000
       objectReference: {fileID: 0}
@@ -128662,6 +128670,10 @@ PrefabInstance:
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 1786741184}
+    - target: {fileID: 7893329981209152570, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 8066034886633061386, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
