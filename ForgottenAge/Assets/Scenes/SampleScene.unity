@@ -461,6 +461,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6dbaf9729ac3c0d4781be358eeb495d8, type: 3}
+--- !u!114 &119525431 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 2736422512581908376, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
+  m_PrefabInstance: {fileID: 1338022886847484554}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &124934474
 GameObject:
   m_ObjectHideFlags: 0
@@ -127668,9 +127679,13 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2360498176514265738, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
+      propertyPath: buttons.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2360498176514265738, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
       propertyPath: prices.Array.data[1]
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 119525431}
     - target: {fileID: 2360498176514265738, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
       propertyPath: buttons.Array.data[1]
       value: 
