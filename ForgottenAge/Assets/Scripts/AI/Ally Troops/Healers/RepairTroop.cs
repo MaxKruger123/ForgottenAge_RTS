@@ -34,6 +34,11 @@ public class RepairTroop : MonoBehaviour
         }
     }
 
+    void Update()
+    {
+       transform.rotation = Quaternion.Euler(0, 0, 0);
+    }
+
     IEnumerator RepairBehavior()
     {
         while (true)

@@ -2,8 +2,8 @@ using UnityEngine;
 using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
-using NavMeshPlus.Extensions;
-using UnityEditor.Experimental.GraphView;
+
+
 
 public class EnemyTroop : MonoBehaviour
 {

@@ -71,7 +71,7 @@ public class SpawnRepairTroop : MonoBehaviour
         }
 
         // Set the correct rotation
-        repairTroop.transform.rotation = Quaternion.identity;
+        repairTroop.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         // Re-enable the NavMeshAgent
         if (agent != null)
