@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;  // Add this at the top of the file
 
 public class TutorialManager : MonoBehaviour
 {
-    // Serializable class to store information about objects to highlight
+    // Serializable classes (no changes)
     [System.Serializable]
     public class HighlightInfo
     {
@@ -17,7 +17,6 @@ public class TutorialManager : MonoBehaviour
         public bool isUIElement = false;  // Identifies UI elements
     }
 
-    // Serializable class to define each step of the tutorial
     [System.Serializable]
     public class TutorialStep
     {
@@ -33,7 +32,14 @@ public class TutorialManager : MonoBehaviour
         public bool waitForEnemiesDestroyed = false;
     }
 
-    // Enum to define different types of camera movements
+    [System.Serializable]
+    public class TutorialSection
+    {
+        public string sectionName;
+        public List<TutorialStep> steps;
+    }
+
+    // Enum (no changes)
     public enum CameraMovementType
     {
         None,
@@ -42,46 +48,62 @@ public class TutorialManager : MonoBehaviour
         Zoom
     }
 
-    // Serializable class to group tutorial steps into sections
-    [System.Serializable]
-    public class TutorialSection
-    {
-        public string sectionName;
-        public List<TutorialStep> steps;
-    }
+    // Serialized fields
+    [Header("UI References")]
+    [SerializeField] private TMP_Text instructionText;
+    [SerializeField] private GameObject textBoxPanel;
+    [SerializeField] private Button buildInterfaceButton;
 
-    public TMP_Text instructionText;
-    public GameObject textBoxPanel;
-    public List<TutorialSection> tutorialSections;
+    [Header("Tutorial Configuration")]
+    [SerializeField] private List<TutorialSection> tutorialSections;
+    [SerializeField] private MemoryTile targetMemoryTile;
+    [SerializeField] private GameObject arrowPrefab;
+    [SerializeField] private float arrowGap = 10f;
+    [SerializeField] private float arrowWidth = 50f;
+    [SerializeField] private string mainMenuSceneName = "MainMenu";
 
+    // Private fields
     private int currentSection = 0;
     private int currentStep = 0;
     private int currentInstruction = 0;
     private List<(GameObject obj, Vector3 originalScale)> activeHighlights = new List<(GameObject, Vector3)>();
     private List<Coroutine> activeFlickerCoroutines = new List<Coroutine>();
+    private List<GameObject> activeArrows = new List<GameObject>();
     private bool waitingForClick = false;
-    private CameraController cameraController;
-    public bool IsWaitingForMovement { get; private set; }
-    public MemoryTile targetMemoryTile; // Assign in Unity Inspector
-    public Button buildInterfaceButton; // Assign in Unity Inspector
     private bool waitingForTileClick = false;
     private bool waitingForBuildMenuOpen = false;
     private bool waitingForBuildingSelection = false;
-    [SerializeField] private GameObject arrowPrefab; // Assign arrow prefab in Unity Inspector
-    private List<GameObject> activeArrows = new List<GameObject>();
-    [SerializeField] private float arrowGap = 10f;  // Gap between arrow and target
-    [SerializeField] private float arrowWidth = 50f;  // Consistent arrow width
-    [SerializeField] private string mainMenuSceneName = "MainMenu";  // Name of the main menu scene
 
+    // Component references
+    private CameraController cameraController;
+    private AudioManagerr audioManager;
 
-    public AudioManagerr audioManager;
+    // Public properties
+    public bool IsWaitingForMovement { get; private set; }
+
+    public void OnMemoryTileClicked()
+    {
+        Debug.Log("Memory tile clicked");
+        waitingForTileClick = false;
+    }
+
+    public void OnBuildMenuOpened()
+    {
+        Debug.Log("Build menu opened in TutorialManager");
+        waitingForBuildMenuOpen = false;
+    }
+
+    public void OnBuildingSelected(Building.BuildingType buildingType)
+    {
+        Debug.Log($"Building selected: {buildingType}");
+        waitingForBuildingSelection = false;
+    }
 
     void Start()
     {
         // play music
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
         audioManager.PlayMusic(audioManager.mainMenuMusic);
-
 
         // Set up click listener for the text box
         textBoxPanel.GetComponent<Button>().onClick.AddListener(OnTextBoxClick);
@@ -336,26 +358,5 @@ public class TutorialManager : MonoBehaviour
 
         // Load the main menu scene
         SceneManager.LoadScene(mainMenuSceneName);
-    }
-
-    // Called when a memory tile is clicked
-    public void OnMemoryTileClicked()
-    {
-        Debug.Log("Memory tile clicked");
-        waitingForTileClick = false;
-    }
-
-    // Called when the build menu is opened
-    public void OnBuildMenuOpened()
-    {
-        Debug.Log("Build menu opened in TutorialManager");
-        waitingForBuildMenuOpen = false;
-    }
-
-    // Called when a building is selected
-    public void OnBuildingSelected(Building.BuildingType buildingType)
-    {
-        Debug.Log($"Building selected: {buildingType}");
-        waitingForBuildingSelection = false;
     }
 }
