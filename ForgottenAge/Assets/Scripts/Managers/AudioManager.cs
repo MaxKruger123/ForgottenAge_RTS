@@ -13,10 +13,19 @@ public class AudioManager : MonoBehaviour
     public AudioClip freeze;
     public AudioClip healing;
     public AudioClip bomb;
-    public AudioClip mainMenuMusic;
+    public AudioClip death1;
+    public AudioClip death2;
+    public AudioClip impact;
+    public AudioClip impact2;
+    public AudioClip shoot1;
+    public AudioClip shoot2;
+    public AudioClip buildingBuilt;
+    public AudioClip towerShoot1;
+    public AudioClip towerShoot2;
+    public AudioClip towerShoot3;
+    public AudioClip towerShoot4;
 
-
-
+    public List<AudioClip> songs;
 
     // Start is called before the first frame update
     void Start()
