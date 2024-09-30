@@ -6,8 +6,11 @@ public class ProjectileArrow : MonoBehaviour
 {
     public GameObject particle;
     private CardManager cardManager;
+
+    public AudioManagerr audioManager;
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         Destroy(gameObject, 5f);
     }
@@ -21,7 +24,7 @@ public class ProjectileArrow : MonoBehaviour
             if (enemyStats != null)
             {
                 enemyStats.TakeDamage(cardManager.allyRangedDamage);
-                
+                audioManager.SFX.PlayOneShot(audioManager.impact);
                 Destroy(gameObject);
             }
             

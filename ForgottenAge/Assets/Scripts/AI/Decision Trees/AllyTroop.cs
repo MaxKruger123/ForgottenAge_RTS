@@ -47,8 +47,11 @@ public class AllyTroop : MonoBehaviour
 
     private Coroutine updateCacheRoutine;
 
+    public AudioManagerr audioManager;
+
     public bool hasReachedTile = false;
     
+
 
     // Optimization variables
     private float updateInterval = 0.2f;
@@ -62,7 +65,7 @@ public class AllyTroop : MonoBehaviour
 
     void Start()
     {
-        
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         agent = GetComponent<NavMeshAgent>();
 
@@ -443,6 +446,7 @@ public class AllyTroop : MonoBehaviour
                 {
                     Vector3 direction = (targetEnemy.transform.position - transform.position).normalized;
                     GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                    audioManager.SFX.PlayOneShot(audioManager.shoot1);
                     projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
                 }
             }

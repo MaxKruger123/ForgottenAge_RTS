@@ -8,13 +8,14 @@ public class AllyTroopStats : MonoBehaviour
 {
     public float maxHealth = 10;
     public float currentHealth;
-
+    public AudioManagerr audioManager;
     public Image healthBar;
     public CardManager cardManager;
     public GameObject deathEffect;
 
     public void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         currentHealth = maxHealth;
         if (gameObject.tag == "Player")
@@ -36,6 +37,7 @@ public class AllyTroopStats : MonoBehaviour
         if (currentHealth <= 0)
         {
             Instantiate(deathEffect, gameObject.transform.position, Quaternion.identity);
+            audioManager.SFX.PlayOneShot(audioManager.death1);
             Destroy(gameObject);
         }
         currentHealth -= damage;

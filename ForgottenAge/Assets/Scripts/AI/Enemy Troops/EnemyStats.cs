@@ -17,11 +17,13 @@ public class EnemyStats : MonoBehaviour
     public GameObject currencyDropTwo;
 
     public Concentration concentration;
+    public AudioManagerr audioManager;
 
     private Concentration concentrationManager;
 
     public void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
         currentHealth = maxHealth;
         concentrationManager = FindObjectOfType<Concentration>();
     }
@@ -35,6 +37,7 @@ public class EnemyStats : MonoBehaviour
 
         if (currentHealth <= 0)
         {
+            audioManager.SFX.PlayOneShot(audioManager.death1);
             Die();
         }
     }
