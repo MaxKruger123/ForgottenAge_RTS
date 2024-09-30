@@ -50,7 +50,7 @@ public class Building : MonoBehaviour
 
     public CardManager cardManager;
 
-
+    public AudioManagerr audioManager;
 
     private enum TroopType
     {
@@ -62,6 +62,7 @@ public class Building : MonoBehaviour
 
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();   
         concentration = FindAnyObjectByType<Concentration>();
         menuManager = concentration.gameObject.GetComponent<MenuManager>();
         recruitmentMenu = menuManager.GetMenuObject("RecruitmentMenu");
@@ -185,6 +186,7 @@ public class Building : MonoBehaviour
     {
         Vector3 direction = (targetPosition - transform.position).normalized;
         GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+        audioManager.SFX.PlayOneShot(audioManager.shoot1);
         projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
         shootTimer = 0f;
     }
@@ -292,19 +294,24 @@ public class Building : MonoBehaviour
             {
                 case TroopType.Ally:
                     Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
+                    audioManager.SFX.PlayOneShot(audioManager.towerShoot4);
                     break;
                 case TroopType.Ranged:
                     Instantiate(rangedAllyTroopPrefab, spawnPosition, Quaternion.identity);
+                    audioManager.SFX.PlayOneShot(audioManager.towerShoot4);
                     break;
                 case TroopType.Healing:
                     Instantiate(rangedHealingTroopPrefab, spawnPosition, Quaternion.identity);
+                    audioManager.SFX.PlayOneShot(audioManager.towerShoot4);
                     break;
                 case TroopType.Tank:
                     Instantiate(tankTroopPrefab, spawnPosition, Quaternion.identity);
+                    audioManager.SFX.PlayOneShot(audioManager.towerShoot4);
                     break;
             }
 
             Instantiate(spawnEffect, spawnPosition, Quaternion.identity);
+            
             troopQueue.Dequeue();
         }
 
@@ -323,6 +330,7 @@ public class Building : MonoBehaviour
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
             Instantiate(allyTroopPrefab, spawnPosition, Quaternion.identity);
+            audioManager.SFX.PlayOneShot(audioManager.towerShoot4);
             concentration.dreamTokens--;
         }
     }
@@ -339,6 +347,7 @@ public class Building : MonoBehaviour
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
             Instantiate(tankTroopPrefab, spawnPosition, Quaternion.identity);
+            audioManager.SFX.PlayOneShot(audioManager.towerShoot4);
             concentration.dreamTokens--;
         }
     }
@@ -355,6 +364,7 @@ public class Building : MonoBehaviour
             Vector2 randomPos = Random.insideUnitCircle * spawnRadius;
             Vector3 spawnPosition = transform.position + new Vector3(randomPos.x, randomPos.y, 0f);
             Instantiate(rangedAllyTroopPrefab, spawnPosition, Quaternion.identity);
+            audioManager.SFX.PlayOneShot(audioManager.towerShoot4);
             concentration.dreamTokens--;
         }
     }
