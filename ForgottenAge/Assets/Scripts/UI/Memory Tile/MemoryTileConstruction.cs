@@ -31,9 +31,11 @@ public class MemoryTileConstruction : MonoBehaviour
     public static Building selectedBuilding; // Track the selected building for deconstruction
 
     private TutorialManager tutorialManager;
+    public AudioManagerr audioManager;
 
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
         constructionMenu.SetActive(false); // Ensure the construction menu is initially inactive
         concentration = GameObject.Find("UICanvas").GetComponent<Concentration>();
         areaTowerPrice = 250;
@@ -136,6 +138,7 @@ public class MemoryTileConstruction : MonoBehaviour
             constructionMenu.SetActive(false);
             selectedTile = null; // Clear the selected tile
             Instantiate(spawnEffect, currentBuilding.transform.position, Quaternion.identity);
+            audioManager.PlaySFX(audioManager.buildingBuilt);
 
             // Notify the TutorialManager that a building has been constructed
             if (tutorialManager != null)
@@ -161,6 +164,7 @@ public class MemoryTileConstruction : MonoBehaviour
             selectedTile = null; // Clear the selected tile
             concentration.CS = true;
             Instantiate(spawnEffect, currentBuilding.transform.position, Quaternion.identity);
+            audioManager.PlaySFX(audioManager.buildingBuilt);
         }
         else
         {
@@ -179,7 +183,7 @@ public class MemoryTileConstruction : MonoBehaviour
             constructionMenu.SetActive(false);
             selectedTile = null; // Clear the selected tile
             Instantiate(spawnEffect, currentBuilding.transform.position, Quaternion.identity);
-
+            audioManager.PlaySFX(audioManager.buildingBuilt);
             // Notify the TutorialManager that a defense tower has been constructed
             if (tutorialManager != null)
             {
@@ -203,6 +207,7 @@ public class MemoryTileConstruction : MonoBehaviour
             constructionMenu.SetActive(false);
             selectedTile = null; // Clear the selected tile
             Instantiate(spawnEffect, currentBuilding.transform.position, Quaternion.identity);
+            audioManager.PlaySFX(audioManager.buildingBuilt);
         }
         else
         {
@@ -221,6 +226,7 @@ public class MemoryTileConstruction : MonoBehaviour
             constructionMenu.SetActive(false);
             selectedTile = null; // Clear the selected tile
             Instantiate(spawnEffect, currentBuilding.transform.position, Quaternion.identity);
+            audioManager.PlaySFX(audioManager.buildingBuilt);
         }
         else
         {
@@ -239,6 +245,7 @@ public class MemoryTileConstruction : MonoBehaviour
             constructionMenu.SetActive(false);
             selectedTile = null; // Clear the selected tile
             Instantiate(spawnEffect, currentBuilding.transform.position, Quaternion.identity);
+            audioManager.PlaySFX(audioManager.buildingBuilt);
         }
         else
         {

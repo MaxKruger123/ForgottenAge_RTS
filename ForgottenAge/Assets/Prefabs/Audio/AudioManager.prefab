@@ -181,7 +181,19 @@ MonoBehaviour:
   freeze: {fileID: 8300000, guid: de1a57296f88dc441be43eabb7181a76, type: 3}
   healing: {fileID: 8300000, guid: 911bc4ea765739641b2d3591add65ca6, type: 3}
   bomb: {fileID: 8300000, guid: 89c6f3a239e5cab4694136f4151786c2, type: 3}
+  death1: {fileID: 8300000, guid: 2979b603198fcdc4f9da2b7adcb3a184, type: 3}
+  death2: {fileID: 8300000, guid: cf42dcae0a813834f947452146a9a347, type: 3}
+  impact: {fileID: 8300000, guid: ecf95f4516411ce40ae6b13676f4809e, type: 3}
+  impact2: {fileID: 8300000, guid: 0bc0f1d026fb8764c90c0e138595dfd6, type: 3}
+  shoot1: {fileID: 8300000, guid: 434311fc8d0545b4690a24e446f0e6f9, type: 3}
+  shoot2: {fileID: 8300000, guid: 15b43c680b0dce2499622d4d50d1ad18, type: 3}
+  buildingBuilt: {fileID: 8300000, guid: 90a34ac0af38a7042bcead4d904ea220, type: 3}
+  towerShoot1: {fileID: 8300000, guid: 511daafae5be61e48acfec9f5d7cd01f, type: 3}
+  towerShoot2: {fileID: 8300000, guid: 21d2ba8e20b37bc48b95eb0ccc160194, type: 3}
+  towerShoot3: {fileID: 8300000, guid: 7055cd6cf706cad4ea4118b7e70e946a, type: 3}
+  towerShoot4: {fileID: 8300000, guid: e6aca90995bdfa14fa590dd562c8767f, type: 3}
   mainMenuMusic: {fileID: 8300000, guid: fe7237bf66e235247b30152001f8cc4d, type: 3}
+  songs: []
 --- !u!1 &8382237893458048654
 GameObject:
   m_ObjectHideFlags: 0
@@ -226,7 +238,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.1
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0

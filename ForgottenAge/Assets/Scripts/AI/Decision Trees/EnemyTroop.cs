@@ -51,6 +51,8 @@ public class EnemyTroop : MonoBehaviour
 
     public bool stopFlee = false;
 
+    public AudioManagerr audioManager;
+
     
 
     private List<AllyTroop> cachedAllyTroops = new List<AllyTroop>();
@@ -61,6 +63,7 @@ public class EnemyTroop : MonoBehaviour
 
     void Start()
     {
+        audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
         cardManager = GameObject.Find("CardScreen").GetComponent<CardManager>();
         agent = GetComponent<NavMeshAgent>();
         shootingCoroutine = null;
@@ -599,6 +602,7 @@ public class EnemyTroop : MonoBehaviour
                 {
                     Vector3 direction = (targetAlly.transform.position - transform.position).normalized;
                     GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+                    audioManager.SFX.PlayOneShot(audioManager.shoot1);
                     projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
                 }
                 
