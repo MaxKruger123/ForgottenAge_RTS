@@ -52,5 +52,10 @@ public class AudioManagerr : MonoBehaviour
         music.clip = song;
         music.Play();
     }
+
+    public AudioClip GetSong(int i)
+    {
+        return songs[i];
+    }
 }
 
