@@ -185,7 +185,7 @@ MonoBehaviour:
   death2: {fileID: 8300000, guid: cf42dcae0a813834f947452146a9a347, type: 3}
   impact: {fileID: 8300000, guid: ecf95f4516411ce40ae6b13676f4809e, type: 3}
   impact2: {fileID: 8300000, guid: 0bc0f1d026fb8764c90c0e138595dfd6, type: 3}
-  shoot1: {fileID: 8300000, guid: 511daafae5be61e48acfec9f5d7cd01f, type: 3}
+  shoot1: {fileID: 8300000, guid: 434311fc8d0545b4690a24e446f0e6f9, type: 3}
   shoot2: {fileID: 8300000, guid: 15b43c680b0dce2499622d4d50d1ad18, type: 3}
   buildingBuilt: {fileID: 8300000, guid: 90a34ac0af38a7042bcead4d904ea220, type: 3}
   towerShoot1: {fileID: 8300000, guid: 511daafae5be61e48acfec9f5d7cd01f, type: 3}
@@ -238,7 +238,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.02
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0

@@ -1548,6 +1548,7 @@ MonoBehaviour:
   upgradedTowerPrice: 150
   areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
 --- !u!58 &548436703
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2058,6 +2059,7 @@ MonoBehaviour:
   upgradedTowerPrice: 150
   areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
 --- !u!58 &808046421
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2425,6 +2427,7 @@ MonoBehaviour:
   upgradedTowerPrice: 150
   areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
 --- !u!58 &894166584
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -2757,6 +2760,7 @@ MonoBehaviour:
   upgradedTowerPrice: 150
   areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
 --- !u!58 &1012926655
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -3016,6 +3020,7 @@ MonoBehaviour:
   upgradedTowerPrice: 150
   areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
 --- !u!58 &1019785406
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -4292,6 +4297,7 @@ MonoBehaviour:
   upgradedTowerPrice: 150
   areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
 --- !u!58 &1685625838
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -126186,6 +126192,7 @@ MonoBehaviour:
   upgradedTowerPrice: 150
   areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
 --- !u!114 &1786741185
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126451,6 +126458,7 @@ MonoBehaviour:
   upgradedTowerPrice: 150
   areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
 --- !u!58 &1849003606
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -126951,6 +126959,7 @@ MonoBehaviour:
   upgradedTowerPrice: 150
   areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
 --- !u!58 &2033309786
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -127408,6 +127417,7 @@ MonoBehaviour:
   upgradedTowerPrice: 150
   areaTowerPrice: 250
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
 --- !u!58 &2132242232
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -127855,10 +127865,6 @@ PrefabInstance:
     - target: {fileID: 3791397975095279159, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3845864312169929258, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
-      propertyPath: m_Volume
-      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: 5546943684149560594, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
       propertyPath: m_Name
