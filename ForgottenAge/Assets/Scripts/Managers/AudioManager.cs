@@ -25,6 +25,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip towerShoot3;
     public AudioClip towerShoot4;
 
+    public AudioClip mainMenuMusic;
+
     public List<AudioClip> songs;
 
     // Start is called before the first frame update
