@@ -32,7 +32,7 @@ public class RecruitmentMenuTwo : MonoBehaviour
             buttons[0].interactable = true;
         }
 
-        if (concentration.GetConcentration() < int.Parse(prices[1].text.TrimEnd('c')))
+        if (concentration.GetDreamTokens() < int.Parse(prices[1].text.Replace(" dream", "").Trim()))
         {
             buttons[1].interactable = false;
         }
@@ -41,16 +41,7 @@ public class RecruitmentMenuTwo : MonoBehaviour
             buttons[1].interactable = true;
         }
 
-        if(concentration.dreamTokens < 1)
-        {
-            buttons[2].interactable = false;
-            buttons[3].interactable = false;
-        }
-        else
-        {
-            buttons[2].interactable = true;
-            buttons[3].interactable = true;
-        }
+
     }
 
     public void HideMenu()
@@ -64,10 +55,8 @@ public class RecruitmentMenuTwo : MonoBehaviour
         buttons[0].onClick.AddListener(() => building.SpawnTankTroop());
         buttons[1].onClick.RemoveAllListeners();
         buttons[1].onClick.AddListener(() => building.SpawnTankTroopInstant());
-        buttons[2].onClick.RemoveAllListeners();
-        buttons[2].onClick.AddListener(() => building.SpawnTankTroopInstant());
-        buttons[3].onClick.RemoveAllListeners();
-        
+
+
     }
 
     public void SetPrices(int tankPrice, int healerPrice)
@@ -79,7 +68,3 @@ public class RecruitmentMenuTwo : MonoBehaviour
         prices[1].text = healerPrice + "c";
     }
 }
-
-
-
-

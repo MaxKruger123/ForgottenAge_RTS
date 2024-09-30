@@ -7170,12 +7170,11 @@ MonoBehaviour:
   concentration: {fileID: 8992103966716098725}
   buttons:
   - {fileID: 4999914019915377329}
-  - {fileID: 0}
   - {fileID: 2277968200987966631}
-  - {fileID: 0}
+  - {fileID: 2277968200987966631}
   prices:
   - {fileID: 89372967209565566}
-  - {fileID: 0}
+  - {fileID: 2736422512581908376}
 --- !u!114 &8760763099876469110
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8685,6 +8684,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 5342339141166531590}
     m_Modifications:
+    - target: {fileID: 2673680596662306, guid: 7274320c6d01bc148ab5b5eba613156f, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 530.4535
+      objectReference: {fileID: 0}
+    - target: {fileID: 2673680596662306, guid: 7274320c6d01bc148ab5b5eba613156f, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 281.5361
+      objectReference: {fileID: 0}
+    - target: {fileID: 2673680596662306, guid: 7274320c6d01bc148ab5b5eba613156f, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -1183
+      objectReference: {fileID: 0}
+    - target: {fileID: 2673680596662306, guid: 7274320c6d01bc148ab5b5eba613156f, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 82
+      objectReference: {fileID: 0}
     - target: {fileID: 374189409600630201, guid: 7274320c6d01bc148ab5b5eba613156f, type: 3}
       propertyPath: m_text
       value: 1
@@ -8705,6 +8720,14 @@ PrefabInstance:
       propertyPath: shopButtons.Array.data[2]
       value: 
       objectReference: {fileID: 3654399022318730961}
+    - target: {fileID: 1960372576102550293, guid: 7274320c6d01bc148ab5b5eba613156f, type: 3}
+      propertyPath: m_Type
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1960372576102550293, guid: 7274320c6d01bc148ab5b5eba613156f, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 76729c3ec18f9af4c8680aea8d548618, type: 3}
     - target: {fileID: 5992805955733448160, guid: 7274320c6d01bc148ab5b5eba613156f, type: 3}
       propertyPath: m_Name
       value: ShopMenu

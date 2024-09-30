@@ -295,16 +295,24 @@ public class AllyTroop : MonoBehaviour
     {
         foreach (EnemyTroop enemy in cachedEnemies)
         {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distance <= detectionRange && enemy.targetAlly == this)
+            if (enemy != null)
             {
-                if (!isRetreating)
+                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distance <= detectionRange && enemy.targetAlly == this)
                 {
-                    isRetreating = true;
-                    StartCoroutine(RetreatFromEnemy(enemy));
-                    return; // Exit the method once we start retreating
+                    if (!isRetreating)
+                    {
+                        isRetreating = true;
+                        StartCoroutine(RetreatFromEnemy(enemy));
+                        return; // Exit the method once we start retreating
+                    }
                 }
             }
+            else
+            {
+                continue;
+            }
+            
         }
     }
 
@@ -361,15 +369,24 @@ public class AllyTroop : MonoBehaviour
 
         foreach (AllyTroop ally in cachedAllies)
         {
-            if (ally.CompareTag("AllyTank"))
+
+            if (ally != null)
             {
-                float distance = Vector3.Distance(transform.position, ally.transform.position);
-                if (distance < minDistance)
+                if (ally.CompareTag("AllyTank"))
                 {
-                    minDistance = distance;
-                    nearestTank = ally;
+                    float distance = Vector3.Distance(transform.position, ally.transform.position);
+                    if (distance < minDistance)
+                    {
+                        minDistance = distance;
+                        nearestTank = ally;
+                    }
                 }
             }
+            else
+            {
+                continue;
+            }
+            
         }
 
         targetTank = nearestTank;
@@ -462,6 +479,10 @@ public class AllyTroop : MonoBehaviour
                 hasReachedTile = false;
             }
         }
+        else
+        {
+            return;
+        }
        
     }
 
@@ -473,12 +494,22 @@ public class AllyTroop : MonoBehaviour
 
         foreach (EnemyTroop enemy in cachedEnemies)
         {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distance < minDistance)
+            if (enemy != null)
             {
-                minDistance = distance;
-                nearestEnemy = enemy;
+                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestEnemy = enemy;
+                }
             }
+            else
+            {
+                continue;
+            }
+            
+            
         }
 
         targetEnemy = nearestEnemy;
@@ -536,6 +567,11 @@ public class AllyTroop : MonoBehaviour
             enemyStats.TakeDamage(1);
 
             yield return new WaitForSeconds(1.0f);
+        }
+
+        if (targetEnemy == null)
+        {
+           //nothing happens
         }
 
         meleeCoroutine = null;

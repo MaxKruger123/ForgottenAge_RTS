@@ -3,6 +3,7 @@ using UnityEngine.AI;
 using System.Collections;
 using System.Collections.Generic;
 using NavMeshPlus.Extensions;
+using UnityEditor.Experimental.GraphView;
 
 public class EnemyTroop : MonoBehaviour
 {
@@ -195,7 +196,7 @@ public class EnemyTroop : MonoBehaviour
             {
                 if (!IsTargeted())
                 {
-                    Debug.Log("Atack");
+                   
                     FindNearestNormalEnemy();
                 }
 
@@ -237,14 +238,22 @@ public class EnemyTroop : MonoBehaviour
 
         foreach (AllyTroop ally in allyTroops)
         {
-            if (ally.targetEnemyy == gameObject)
+            if (ally != null)
             {
-                attacker = ally;
-                targetAlly = ally;
-                return true;
-                
+                if (ally.targetEnemyy == gameObject)
+                {
+                    attacker = ally;
+                    targetAlly = ally;
+                    return true;
+
+                }
             }
-        }
+            else
+            {
+                continue;
+            }
+            
+        } 
         return false;
        
     }
@@ -279,11 +288,19 @@ public class EnemyTroop : MonoBehaviour
     {
         foreach (AllyTroop troop in cachedAllyTroops)
         {
-            if (troop.targetEnemyy == this.gameObject)
+            if (troop != null)
             {
-                threateningTroop = troop;
-                return;
+                if (troop.targetEnemyy == this.gameObject)
+                {
+                    threateningTroop = troop;
+                    return;
+                }
             }
+            else
+            {
+                continue;
+            }
+            
         }
         threateningTroop = null;
     }
@@ -296,12 +313,20 @@ public class EnemyTroop : MonoBehaviour
 
         foreach (GameObject repairTroop in cachedRepairTroops)
         {
-            float distance = Vector3.Distance(transform.position, repairTroop.transform.position);
-            if (distance < minDistance && distance <= maxSearchDistance)
+            if (repairTroop != null)
             {
-                minDistance = distance;
-                nearestRepairTroop = repairTroop;
+                float distance = Vector3.Distance(transform.position, repairTroop.transform.position);
+                if (distance < minDistance && distance <= maxSearchDistance)
+                {
+                    minDistance = distance;
+                    nearestRepairTroop = repairTroop;
+                }
             }
+            else
+            {
+                continue;
+            }
+            
         }
 
         if (nearestRepairTroop != null)
@@ -387,10 +412,18 @@ public class EnemyTroop : MonoBehaviour
     {
         foreach (AllyTroop ally in cachedAllyTroops)
         {
-            if (ally.targetEnemyy == targetTank)
+            if (ally != null)
             {
-                return true;
+                if (ally.targetEnemyy == targetTank)
+                {
+                    return true;
+                }
             }
+            else
+            {
+                continue;
+            }
+            
         }
         return false;
     }
@@ -402,12 +435,20 @@ public class EnemyTroop : MonoBehaviour
 
         foreach (AllyTroop ally in cachedAllyTroops)
         {
-            float distance = Vector3.Distance(transform.position, ally.transform.position);
-            if (distance < minDistance)
+            if (ally != null)
             {
-                minDistance = distance;
-                nearestAlly = ally;
+                float distance = Vector3.Distance(transform.position, ally.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestAlly = ally;
+                }
             }
+            else
+            {
+                continue;
+            }
+            
         }
 
         targetAlly = nearestAlly;
@@ -420,13 +461,21 @@ public class EnemyTroop : MonoBehaviour
 
         foreach (AllyTroop ally in cachedAllyTroops)
         {
-            float distance = Vector3.Distance(transform.position, ally.transform.position);
-            if (distance < minDistance)
+            if (ally != null)
             {
-                minDistance = distance;
-                nearestAlly = ally;
-                agent.SetDestination(nearestAlly.transform.position);
+                float distance = Vector3.Distance(transform.position, ally.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestAlly = ally;
+                    agent.SetDestination(nearestAlly.transform.position);
+                }
             }
+            else
+            {
+                continue;
+            }
+           
         }
 
         targetAlly = nearestAlly;
@@ -439,12 +488,20 @@ public class EnemyTroop : MonoBehaviour
 
         foreach (GameObject tank in cachedTanks)
         {
-            float distance = Vector3.Distance(transform.position, tank.transform.position);
-            if (distance < minDistance)
+            if (tank != null)
             {
-                minDistance = distance;
-                nearestTank = tank;
+                float distance = Vector3.Distance(transform.position, tank.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestTank = tank;
+                }
             }
+            else
+            {
+                continue;
+            }
+            
         }
 
         targetTank = nearestTank;
@@ -458,13 +515,21 @@ public class EnemyTroop : MonoBehaviour
     {
         foreach (AllyTroop ally in cachedAllyTroops)
         {
-            if (ally.targetEnemyy == targetTank)
+            if (ally != null)
             {
-                targetAlly = ally;
-                Debug.Log("shoott");
-                shootingCoroutine = StartCoroutine(ShootAlly());
-                return;
+                if (ally.targetEnemyy == targetTank)
+                {
+                    targetAlly = ally;
+                    Debug.Log("shoott");
+                    shootingCoroutine = StartCoroutine(ShootAlly());
+                    return;
+                }
             }
+            else
+            {
+                continue;
+            }
+            
         }
     }
 
@@ -475,12 +540,21 @@ public class EnemyTroop : MonoBehaviour
 
         foreach (GameObject enemy in cachedNormalEnemies)
         {
-            float distance = Vector3.Distance(transform.position, enemy.transform.position);
-            if (distance < minDistance)
+
+            if (enemy != null)
             {
-                minDistance = distance;
-                nearestNormalEnemy = enemy;
+                float distance = Vector3.Distance(transform.position, enemy.transform.position);
+                if (distance < minDistance)
+                {
+                    minDistance = distance;
+                    nearestNormalEnemy = enemy;
+                }
             }
+            else
+            {
+                continue;
+            }
+            
         }
 
         targetBuilding = nearestNormalEnemy;
@@ -494,12 +568,22 @@ public class EnemyTroop : MonoBehaviour
     {
         foreach (AllyTroop ally in cachedAllyTroops)
         {
-            if (ally.targetEnemyy == targetBuilding)
+            if (ally != null)
             {
-                targetAlly = ally;
-                shootingCoroutine = StartCoroutine(ShootAlly());
-                return;
+                if (ally.targetEnemyy == targetBuilding)
+                {
+
+                    targetAlly = ally;
+                    shootingCoroutine = StartCoroutine(ShootAlly());
+                    return;
+                }
             }
+            else
+            {
+                continue;
+            }
+            
+            
         }
     }
 
@@ -546,20 +630,28 @@ public class EnemyTroop : MonoBehaviour
 
         foreach (GameObject axon in axons)
         {
-            float distance = Vector3.Distance(transform.position, axon.transform.position);
-            if (distance < minDistance)
+            if (axon != null)
             {
-                minDistance = distance;
-                nearestAxon = axon;
-
-                if (distance < 2f && gameObject.CompareTag("Kamikaze"))
+                float distance = Vector3.Distance(transform.position, axon.transform.position);
+                if (distance < minDistance)
                 {
-                    Axon axonScript = axon.GetComponent<Axon>();
-                    axonScript.TakeDamage(20f);
-                    Destroy(gameObject);
-                    // Explode
+                    minDistance = distance;
+                    nearestAxon = axon;
+
+                    if (distance < 2f && gameObject.CompareTag("Kamikaze"))
+                    {
+                        Axon axonScript = axon.GetComponent<Axon>();
+                        axonScript.TakeDamage(20f);
+                        Destroy(gameObject);
+                        // Explode
+                    }
                 }
             }
+            else
+            {
+                continue;
+            }
+            
         }
 
         if (nearestAxon != null)

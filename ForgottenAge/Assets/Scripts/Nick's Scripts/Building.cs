@@ -128,7 +128,7 @@ public class Building : MonoBehaviour
 
     private void DealAreaDamage()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, LayerMask.GetMask("Enemy", "Kamikaze"));
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, LayerMask.GetMask("Enemy"));
 
         // Keep track of enemies currently being affected
         HashSet<EnemyStats> affectedEnemies = new HashSet<EnemyStats>();
@@ -158,7 +158,7 @@ public class Building : MonoBehaviour
 
     private void ShootAtNearestEnemy()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, LayerMask.GetMask("Enemy", "Kamikaze"));
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, detectionRadius, LayerMask.GetMask("Enemy"));
 
         if (colliders.Length > 0)
         {
