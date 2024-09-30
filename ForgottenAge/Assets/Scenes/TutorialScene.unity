@@ -1418,7 +1418,7 @@ PrefabInstance:
     - target: {fileID: 6205204568421102433, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
       propertyPath: shoot1
       value: 
-      objectReference: {fileID: 8300000, guid: 434311fc8d0545b4690a24e446f0e6f9, type: 3}
+      objectReference: {fileID: 8300000, guid: 293b234ee5e80814a971d8d130e9d18e, type: 3}
     - target: {fileID: 6205204568421102433, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
       propertyPath: shoot2
       value: 
@@ -1430,7 +1430,7 @@ PrefabInstance:
     - target: {fileID: 6205204568421102433, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
       propertyPath: towerShoot1
       value: 
-      objectReference: {fileID: 8300000, guid: 511daafae5be61e48acfec9f5d7cd01f, type: 3}
+      objectReference: {fileID: 8300000, guid: 293b234ee5e80814a971d8d130e9d18e, type: 3}
     - target: {fileID: 6205204568421102433, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
       propertyPath: towerShoot2
       value: 
@@ -1442,7 +1442,7 @@ PrefabInstance:
     - target: {fileID: 6205204568421102433, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
       propertyPath: towerShoot4
       value: 
-      objectReference: {fileID: 8300000, guid: e6aca90995bdfa14fa590dd562c8767f, type: 3}
+      objectReference: {fileID: 8300000, guid: da825cbb201f31e47adc16d2f324f660, type: 3}
     - target: {fileID: 6205204568421102433, guid: 0f343c0b8e4bae44099f9559ad100f79, type: 3}
       propertyPath: buildingBuilt
       value: 
