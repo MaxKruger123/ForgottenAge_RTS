@@ -74,13 +74,12 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Positions:
-  - {x: 0, y: 0, z: 0}
   - {x: 0, y: 0, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.5
+    widthMultiplier: 3
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -94,21 +93,39 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.9973333
-        value: 0.09523809
-        inSlope: -1.8335441
-        outSlope: -1.8335441
+        time: 0.16636428
+        value: 0.59965104
+        inSlope: -1.4984175
+        outSlope: -1.4984175
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.07466674
+        inWeight: 0.33333334
+        outWeight: 0.9122068
+      - serializedVersion: 3
+        time: 0.37403747
+        value: 0.29101175
+        inSlope: -0.4869397
+        outSlope: -0.4869397
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.33333334
+        outWeight: 0.26405463
+      - serializedVersion: 3
+        time: 1
+        value: 0.114035085
+        inSlope: -0.8557689
+        outSlope: -0.8557689
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.2870836
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.92784035, b: 0.43867922, a: 1}
-      key1: {r: 1, g: 0.92941177, b: 0.4392157, a: 1}
+      key0: {r: 1, g: 0.92784035, b: 0.43867922, a: 0.78431374}
+      key1: {r: 1, g: 0.92941177, b: 0.4392157, a: 0.78431374}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
       key4: {r: 0, g: 0, b: 0, a: 0}
@@ -135,10 +152,10 @@ LineRenderer:
       m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
-    numCornerVertices: 0
-    numCapVertices: 0
+    numCornerVertices: 10
+    numCapVertices: 10
     alignment: 0
-    textureMode: 1
+    textureMode: 0
     textureScale: {x: 1, y: 1}
     shadowBias: 0.5
     generateLightingData: 0
@@ -158,7 +175,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 75a436bb3c3c7494baff07b10f7bfc86, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetPosition: {x: -1, y: 3}
-  growthSpeed: 1
+  targetPosition: {x: -1, y: 3, z: 0}
+  growthSpeed: 2
   hasTarget: 0
   neuronBehaviour: {fileID: 0}

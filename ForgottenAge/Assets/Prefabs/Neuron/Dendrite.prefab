@@ -73,7 +73,7 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 1
   m_Positions:
   - {x: 0, y: -0, z: 0}
   - {x: 0.15045543, y: -0.3884644, z: 0}
@@ -81,7 +81,7 @@ LineRenderer:
   - {x: 1.1682563, y: -1.585835, z: 0}
   m_Parameters:
     serializedVersion: 3
-    widthMultiplier: 0.5
+    widthMultiplier: 3
     widthCurve:
       serializedVersion: 2
       m_Curve:
@@ -95,22 +95,31 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.21578133
-        value: 0.58810115
-        inSlope: -0.1540315
-        outSlope: -0.1540315
+        time: 0.087777175
+        value: 0.959625
+        inSlope: -2.5836616
+        outSlope: -2.5836616
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.44072685
-        outWeight: 0.18794058
+        inWeight: 0.33333334
+        outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.9973333
-        value: 0.09523809
-        inSlope: -1.8335441
-        outSlope: -1.8335441
+        time: 0.2757064
+        value: 0.43020636
+        inSlope: -1.4669911
+        outSlope: -1.4669911
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.07466674
+        inWeight: 0.4398631
+        outWeight: 0.18073839
+      - serializedVersion: 3
+        time: 1
+        value: 0.04636288
+        inSlope: -0.7564282
+        outSlope: -0.7564282
+        tangentMode: 0
+        weightedMode: 0
+        inWeight: 0.07599922
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2

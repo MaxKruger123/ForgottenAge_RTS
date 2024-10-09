@@ -1,42 +1,72 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
 public class AxonBehaviour : MonoBehaviour
 {
     private LineRenderer lineRenderer;
-    public Vector2 targetPosition;  // The position of the target neuron (in world space)
+    public Vector3 targetPosition;  // The position of the target neuron (in world space)
     public float growthSpeed = 2f;  // Speed of axon growth
     public bool hasTarget;
 
     public NeuronBehaviour neuronBehaviour;
 
+    private List<Vector3> positions = new List<Vector3>();  // List to store positions dynamically
+    private Vector3 controlPoint1;  // First control point for the Bezier curve
+    private Vector3 controlPoint2;  // Second control point for the Bezier curve
+
+    private int maxPoints = 500;  // Maximum number of points the axon will have
+    private float segmentLength = 0.25f;  // Minimum distance between points before a new one is added
+    private float t = 0;  // Progress along the Bezier curve
+
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
 
-        // Set initial start and end points of the line (world space)
-        lineRenderer.positionCount = 2;
-        lineRenderer.SetPosition(0, transform.position);  // Start at the axon's world position (neuron body center)
-        lineRenderer.SetPosition(1, transform.position);  // Initial end point at the same position (no growth yet)
+        // Initialize the LineRenderer with 2 points
+        positions.Add(neuronBehaviour.transform.position);  // Start at the neuron's position
+        positions.Add(neuronBehaviour.transform.position);  // Initial end point (same as start)
+        lineRenderer.positionCount = positions.Count;
+
+        // Initialize control points for Bezier curve
+        InitializeControlPoints();
     }
 
     void Update()
     {
         if (hasTarget)
         {
-            // Smoothly move the end point toward the target position (world space)
-            Vector3 currentEndPosition = lineRenderer.GetPosition(1);
-            Vector3 newEndPosition = Vector3.MoveTowards(currentEndPosition, targetPosition, growthSpeed * Time.deltaTime);
+            
+            //lineRenderer.startColor = new Color(255, 237, 112, 255);
+            // Increase t (progress along the Bezier curve)
+            t += (growthSpeed * Time.deltaTime) / Vector3.Distance(transform.position, targetPosition);
+            t = Mathf.Clamp01(t);  // Ensure t stays between 0 and 1
 
-            // Update the end position of the axon in the LineRenderer (world space)
-            lineRenderer.SetPosition(1, newEndPosition);
+            // Move the current last point along the Bezier curve
+            Vector3 bezierPosition = CalculateBezierPosition(t);
+            positions[positions.Count - 1] = bezierPosition;
 
-            // Optional: Check if the axon has reached the target position
-            if (Vector3.Distance(newEndPosition, targetPosition) < 0.1f)
+            // If the last point is far enough from the second-to-last point, add a new point
+            if (positions.Count < maxPoints && Vector3.Distance(positions[positions.Count - 1], positions[positions.Count - 2]) > segmentLength)
             {
+                if (Vector3.Distance(targetPosition, positions[positions.Count - 1]) < segmentLength)
+                {
+                    Debug.Log("Close enough dont need new point");
+                }
+                else
+                {
+                    AddNewPoint();
+                }
                 
-                // Trigger any synaptic event or connection effect here
+            }
+
+            // Update the LineRenderer
+            lineRenderer.positionCount = positions.Count;
+            lineRenderer.SetPositions(positions.ToArray());
+
+            // Optional: Check if the axon has fully reached the target
+            if (Vector3.Distance(bezierPosition, targetPosition) < 0.1f)
+            {
+                Debug.Log("Axon reached target neuron!");
             }
         }
         else if (neuronBehaviour.InitialisationCheck())  // Wait for dendrites to be initialized
@@ -45,21 +75,31 @@ public class AxonBehaviour : MonoBehaviour
 
             if (targetNeuron != null)
             {
-                List<GameObject> targetDendrites = targetNeuron.GetComponent<NeuronBehaviour>().GetDendrites();
+                NeuronBehaviour targetNeuronBehaviour = targetNeuron.GetComponent<NeuronBehaviour>();
+                List<GameObject> targetDendrites = targetNeuronBehaviour.GetDendrites();
                 float shortestDistance = Mathf.Infinity;
                 GameObject nearestDendrite = null;
 
                 foreach (GameObject dendrite in targetDendrites)
                 {
-                    // Get the world position of the 4th point of the dendrite's LineRenderer
-                    LineRenderer dendriteLineRenderer = dendrite.GetComponent<LineRenderer>();
-                    Vector3 dendriteWorldPosition = dendriteLineRenderer.GetPosition(3);  // In world space
-
-                    float distanceToDendrite = Vector3.Distance(transform.position, dendriteWorldPosition);
-                    if (distanceToDendrite < shortestDistance)
+                    // Ensure the dendrite has not already been connected
+                    if (!targetNeuronBehaviour.connectedDendrites.Contains(dendrite))
                     {
-                        shortestDistance = distanceToDendrite;
-                        nearestDendrite = dendrite;
+                        // Get the world position of the 4th point of the dendrite's LineRenderer
+                        if (dendrite.GetComponent<LineRenderer>() != null)
+                        {
+                            LineRenderer dendriteLineRenderer = dendrite.GetComponent<LineRenderer>();
+                            Vector3 dendriteWorldPosition = dendriteLineRenderer.GetPosition(3);  // In world space
+
+                            float distanceToDendrite = Vector3.Distance(transform.position, dendriteWorldPosition);
+                            if (distanceToDendrite < shortestDistance)
+                            {
+                                shortestDistance = distanceToDendrite;
+                                nearestDendrite = dendrite;
+                            }
+                        }
+                        
+                        
                     }
                 }
 
@@ -77,6 +117,12 @@ public class AxonBehaviour : MonoBehaviour
                         // Mark both neurons as connected to each other to avoid redundant connections
                         neuronBehaviour.AddConnectedNeuron(targetNeuron);
                         targetNeuron.GetComponent<NeuronBehaviour>().AddConnectedNeuron(neuronBehaviour.gameObject);
+
+                        // Mark this dendrite as connected
+                        targetNeuronBehaviour.AddConnectedDendrite(nearestDendrite);
+
+                        // Reinitialize the control points for the Bezier curve
+                        InitializeControlPoints();
                     }
                     else
                     {
@@ -89,5 +135,43 @@ public class AxonBehaviour : MonoBehaviour
                 }
             }
         }
+    }
+
+    // Adds a new point to the axon as it grows
+    private void AddNewPoint()
+    {
+        Vector3 previousPosition = positions[positions.Count - 1];  // Last point's position
+        positions.Insert(positions.Count - 1, previousPosition);  // Insert a new point before the last one
+
+        // Update the LineRenderer
+        lineRenderer.positionCount = positions.Count;
+    }
+
+    // Initializes the control points for the Bezier curve with some random offsets
+    private void InitializeControlPoints()
+    {
+        Vector3 startPosition = transform.position;
+        //float deviation = 2;
+        // Control points are set with some random offset to create the bending effect
+        //controlPoint1 = startPosition + new Vector3(Random.Range(-deviation, deviation), Random.Range(-deviation, deviation), 0) * (Vector3.Distance(startPosition, targetPosition) / 5);
+        //controlPoint2 = targetPosition + new Vector3(Random.Range(-deviation, deviation), Random.Range(-deviation, deviation), 0) * (Vector3.Distance(startPosition, targetPosition) / 10);
+
+        float deviation = 0.5f;
+        controlPoint1 = startPosition + new Vector3(Random.Range(-deviation, deviation), Random.Range(-deviation, deviation), 0) * (Vector3.Distance(startPosition, targetPosition));
+        controlPoint2 = targetPosition + new Vector3(Random.Range(-deviation, deviation), Random.Range(-deviation, deviation), 0) * (Vector3.Distance(startPosition, targetPosition)/5);
+    }
+
+    // Calculate the position along a cubic Bezier curve
+    private Vector3 CalculateBezierPosition(float t)
+    {
+        Vector3 start = transform.position;
+        Vector3 p1 = Vector3.Lerp(start, controlPoint1, t);
+        Vector3 p2 = Vector3.Lerp(controlPoint1, controlPoint2, t);
+        Vector3 p3 = Vector3.Lerp(controlPoint2, targetPosition, t);
+
+        Vector3 p4 = Vector3.Lerp(p1, p2, t);
+        Vector3 bezierPosition = Vector3.Lerp(p4, p3, t);
+
+        return bezierPosition;
     }
 }

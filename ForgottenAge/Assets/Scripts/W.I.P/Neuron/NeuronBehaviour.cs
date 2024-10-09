@@ -6,11 +6,14 @@ public class NeuronBehaviour : MonoBehaviour
 {
     public GameObject dendritePrefab;
     public List<GameObject> dendrites;
+    public List<GameObject> connectedDendrites = new List<GameObject>();  // List to track connected dendrites
     public GameObject Axon;
 
     public List<GameObject> connectedNeurons;
     public bool reinitialise = false;
     public bool initialised = false;
+
+    public int searchDistance;
     // Start is called before the first frame update
     void Start()
     {
@@ -37,11 +40,10 @@ public class NeuronBehaviour : MonoBehaviour
         }
         
     }
-
     // Only search for neurons that are not already connected to this neuron
     public GameObject SearchForNeuron()
     {
-        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, 10);
+        Collider2D[] colliders = Physics2D.OverlapCircleAll(transform.position, searchDistance);
         float shortestDistance = Mathf.Infinity;
         GameObject nearestNeuron = null;
 
@@ -127,6 +129,15 @@ public class NeuronBehaviour : MonoBehaviour
             }
         }
         initialised = true;
+    }
+
+    // Method to add a connected dendrite to the list
+    public void AddConnectedDendrite(GameObject dendrite)
+    {
+        if (!connectedDendrites.Contains(dendrite))
+        {
+            connectedDendrites.Add(dendrite);
+        }
     }
 
 
