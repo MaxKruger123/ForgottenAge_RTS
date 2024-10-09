@@ -53,7 +53,7 @@ public class EnemyTroop : MonoBehaviour
 
     public AudioManagerr audioManager;
 
-    
+    public float rotationSpeed = 5f;
 
     private List<AllyTroop> cachedAllyTroops = new List<AllyTroop>();
     private List<GameObject> cachedAxons = new List<GameObject>();
@@ -111,7 +111,9 @@ public class EnemyTroop : MonoBehaviour
             FindNearestAlly();
             if (targetAlly != null)
             {
+
                 MoveTowardsAlly();
+                
                 if (IsInMeleeRange())
                 {
                     if (meleeCoroutine == null)
@@ -233,6 +235,8 @@ public class EnemyTroop : MonoBehaviour
             FindAndMoveToNearestAxon();
         }
     }
+
+    
 
     bool IsTargeted()
     {
