@@ -138,7 +138,7 @@ MonoBehaviour:
   connectedNeurons: []
   reinitialise: 0
   initialised: 0
-  searchDistance: 20
+  searchDistance: 10
 --- !u!58 &5009726335837126894
 CircleCollider2D:
   m_ObjectHideFlags: 0

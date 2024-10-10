@@ -1,12 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+
 public class AxonBehaviour : MonoBehaviour
 {
     private LineRenderer lineRenderer;
-    public Vector3 targetPosition;  // The position of the target neuron (in world space)
+    public Vector3 targetPosition;  // The position of the target neuron's dendrite (in world space)
     public float growthSpeed = 2f;  // Speed of axon growth
     public bool hasTarget;
+    public bool isRetracting = false;  // Indicates if the axon is retracting
+    public float cooldownTime = 5f;  // Time before the axon can search for a new target
+    private float cooldownTimer = 0f;
 
     public NeuronBehaviour neuronBehaviour;
 
@@ -18,14 +22,20 @@ public class AxonBehaviour : MonoBehaviour
     private float segmentLength = 0.25f;  // Minimum distance between points before a new one is added
     private float t = 0;  // Progress along the Bezier curve
 
+    public GameObject targetNeuron;  // Store the reference to the target neuron
+    public GameObject targetDendrite;  // Store the reference to the target neuron
+    public bool die=false;
+
+
     void Start()
     {
         lineRenderer = GetComponent<LineRenderer>();
-
+        growthSpeed = Random.Range(0.5f, 2f);
         // Initialize the LineRenderer with 2 points
         positions.Add(neuronBehaviour.transform.position);  // Start at the neuron's position
         positions.Add(neuronBehaviour.transform.position);  // Initial end point (same as start)
         lineRenderer.positionCount = positions.Count;
+        lineRenderer.SetPositions(positions.ToArray());
 
         // Initialize control points for Bezier curve
         InitializeControlPoints();
@@ -33,107 +43,147 @@ public class AxonBehaviour : MonoBehaviour
 
     void Update()
     {
-        if (hasTarget)
+        if (die)
+        {
+            Die();
+            die = false;
+        }
+        
+        if (isRetracting)
         {
             
-            //lineRenderer.startColor = new Color(255, 237, 112, 255);
-            // Increase t (progress along the Bezier curve)
-            t += (growthSpeed * Time.deltaTime) / Vector3.Distance(transform.position, targetPosition);
-            t = Mathf.Clamp01(t);  // Ensure t stays between 0 and 1
+            RetractAxon();
+        }
+        else if (cooldownTimer > 0)
+        {
+            cooldownTimer -= Time.deltaTime;  // Countdown cooldown timer
+        }
+        else if (hasTarget)
+        {
+            
+            GrowAxon();
+        }
+        else if (neuronBehaviour.InitialisationCheck() && cooldownTimer <= 0)  // Wait for dendrites to be initialized and cooldown to finish
+        {
+            SearchForNewTarget();
+        }
+        
+    }
 
-            // Move the current last point along the Bezier curve
-            Vector3 bezierPosition = CalculateBezierPosition(t);
-            positions[positions.Count - 1] = bezierPosition;
+    // Handles the axon growing towards its target
+    private void GrowAxon()
+    {
+        // Increase t (progress along the Bezier curve)
+        t += (growthSpeed * Time.deltaTime) / Vector3.Distance(transform.position, targetPosition);
+        t = Mathf.Clamp01(t);  // Ensure t stays between 0 and 1
 
-            // If the last point is far enough from the second-to-last point, add a new point
-            if (positions.Count < maxPoints && Vector3.Distance(positions[positions.Count - 1], positions[positions.Count - 2]) > segmentLength)
+        // Move the current last point along the Bezier curve
+        Vector3 bezierPosition = CalculateBezierPosition(t);
+        positions[positions.Count - 1] = bezierPosition;
+
+        // If the last point is far enough from the second-to-last point, add a new point
+        if (positions.Count < maxPoints && Vector3.Distance(positions[positions.Count - 1], positions[positions.Count - 2]) > segmentLength)
+        {
+            if (Vector3.Distance(targetPosition, positions[positions.Count - 1]) < segmentLength)
             {
-                if (Vector3.Distance(targetPosition, positions[positions.Count - 1]) < segmentLength)
-                {
-                    Debug.Log("Close enough dont need new point");
-                }
-                else
-                {
-                    AddNewPoint();
-                }
-                
+                //Debug.Log("Close enough, no need for a new point.");
             }
-
-            // Update the LineRenderer
-            lineRenderer.positionCount = positions.Count;
-            lineRenderer.SetPositions(positions.ToArray());
-
-            // Optional: Check if the axon has fully reached the target
-            if (Vector3.Distance(bezierPosition, targetPosition) < 0.1f)
+            else
             {
-                Debug.Log("Axon reached target neuron!");
+                AddNewPoint();
             }
         }
-        else if (neuronBehaviour.InitialisationCheck())  // Wait for dendrites to be initialized
+
+        // Update the LineRenderer
+        lineRenderer.positionCount = positions.Count;
+        lineRenderer.SetPositions(positions.ToArray());
+
+        // Check if the axon has fully reached the target
+        if (Vector3.Distance(bezierPosition, targetPosition) < 0.1f)
         {
-            GameObject targetNeuron = neuronBehaviour.SearchForNeuron();  // Find the closest neuron within a certain distance
+            //Debug.Log("Axon reached target neuron!");
+        }
+    }
 
-            if (targetNeuron != null)
+    // Handles the axon retracting back to its neuron
+    private void RetractAxon()
+    {
+        // Retract the axon by moving points back toward the neuron
+        for (int i = positions.Count - 1; i >= 1; i--)
+        {
+            positions[i] = Vector3.MoveTowards(positions[i], neuronBehaviour.transform.position, growthSpeed * Time.deltaTime);
+
+            // Remove points that are close enough to the neuron
+            if (Vector3.Distance(positions[i], neuronBehaviour.transform.position) < 0.1f)
             {
-                NeuronBehaviour targetNeuronBehaviour = targetNeuron.GetComponent<NeuronBehaviour>();
-                List<GameObject> targetDendrites = targetNeuronBehaviour.GetDendrites();
-                float shortestDistance = Mathf.Infinity;
-                GameObject nearestDendrite = null;
+                positions.RemoveAt(i);  // Remove the point once it reaches the neuron
+            }
+        }
 
-                foreach (GameObject dendrite in targetDendrites)
+        // Update the LineRenderer to reflect the new list of positions
+        lineRenderer.positionCount = positions.Count;
+        lineRenderer.SetPositions(positions.ToArray());
+
+        // Check if the axon has fully retracted (only the initial point remains)
+        if (positions.Count <= 2 && Vector3.Distance(positions[positions.Count - 1], neuronBehaviour.transform.position) < 0.1f)
+        {
+            Debug.Log("Axon fully retracted.");
+            isRetracting = false;
+            cooldownTimer = cooldownTime;  // Start the cooldown timer
+            ResetAxon();  // Reset for future connections
+        }
+    }
+
+    // Searches for a new neuron and sets it as the target
+    private void SearchForNewTarget()
+    {
+        targetNeuron = neuronBehaviour.SearchForNeuron();  // Find the closest neuron within a certain distance
+
+        if (targetNeuron != null)
+        {
+            NeuronBehaviour targetNeuronBehaviour = targetNeuron.GetComponent<NeuronBehaviour>();
+            List<GameObject> targetDendrites = targetNeuronBehaviour.GetDendrites();
+            float shortestDistance = Mathf.Infinity;
+            GameObject nearestDendrite = null;
+
+            foreach (GameObject dendrite in targetDendrites)
+            {
+                if (!targetNeuronBehaviour.connectedDendrites.Contains(dendrite))
                 {
-                    // Ensure the dendrite has not already been connected
-                    if (!targetNeuronBehaviour.connectedDendrites.Contains(dendrite))
+                    LineRenderer dendriteLineRenderer = dendrite.GetComponent<LineRenderer>();
+                    Vector3 dendriteWorldPosition = dendriteLineRenderer.GetPosition(3);  // In world space
+
+                    float distanceToDendrite = Vector3.Distance(transform.position, dendriteWorldPosition);
+                    if (distanceToDendrite < shortestDistance)
                     {
-                        // Get the world position of the 4th point of the dendrite's LineRenderer
-                        if (dendrite.GetComponent<LineRenderer>() != null)
-                        {
-                            LineRenderer dendriteLineRenderer = dendrite.GetComponent<LineRenderer>();
-                            Vector3 dendriteWorldPosition = dendriteLineRenderer.GetPosition(3);  // In world space
-
-                            float distanceToDendrite = Vector3.Distance(transform.position, dendriteWorldPosition);
-                            if (distanceToDendrite < shortestDistance)
-                            {
-                                shortestDistance = distanceToDendrite;
-                                nearestDendrite = dendrite;
-                            }
-                        }
-                        
-                        
+                        shortestDistance = distanceToDendrite;
+                        nearestDendrite = dendrite;
                     }
-                }
-
-                // Check if a nearest dendrite was found and its LineRenderer has enough positions
-                if (nearestDendrite != null)
-                {
-                    LineRenderer nearestLineRenderer = nearestDendrite.GetComponent<LineRenderer>();
-
-                    if (nearestLineRenderer != null && nearestLineRenderer.positionCount > 3)
-                    {
-                        // Get the 4th point in world space and set it as the target position
-                        targetPosition = nearestLineRenderer.GetPosition(3);
-                        hasTarget = true;
-
-                        // Mark both neurons as connected to each other to avoid redundant connections
-                        neuronBehaviour.AddConnectedNeuron(targetNeuron);
-                        targetNeuron.GetComponent<NeuronBehaviour>().AddConnectedNeuron(neuronBehaviour.gameObject);
-
-                        // Mark this dendrite as connected
-                        targetNeuronBehaviour.AddConnectedDendrite(nearestDendrite);
-
-                        // Reinitialize the control points for the Bezier curve
-                        InitializeControlPoints();
-                    }
-                    else
-                    {
-                        Debug.LogWarning("Nearest dendrite's LineRenderer has fewer than 4 positions.");
-                    }
-                }
-                else
-                {
-                    Debug.LogWarning("No nearest dendrite found.");
                 }
             }
+
+            if (nearestDendrite != null)
+            {
+                LineRenderer nearestLineRenderer = nearestDendrite.GetComponent<LineRenderer>();
+
+                if (nearestLineRenderer != null && nearestLineRenderer.positionCount > 3)
+                {
+                    targetPosition = nearestLineRenderer.GetPosition(3);
+                    hasTarget = true;
+
+                    // Mark both neurons as connected to each other to avoid redundant connections
+                    neuronBehaviour.AddConnectedNeuron(targetNeuron);
+                    targetNeuron.GetComponent<NeuronBehaviour>().AddConnectedNeuron(neuronBehaviour.gameObject);
+
+                    // Mark this dendrite as connected
+                    targetNeuronBehaviour.AddConnectedDendrite(nearestDendrite);
+                    targetDendrite = nearestDendrite;
+
+                    // Reinitialize the control points for the Bezier curve
+                    InitializeControlPoints();
+                }
+            }
+            
         }
     }
 
@@ -151,14 +201,9 @@ public class AxonBehaviour : MonoBehaviour
     private void InitializeControlPoints()
     {
         Vector3 startPosition = transform.position;
-        //float deviation = 2;
-        // Control points are set with some random offset to create the bending effect
-        //controlPoint1 = startPosition + new Vector3(Random.Range(-deviation, deviation), Random.Range(-deviation, deviation), 0) * (Vector3.Distance(startPosition, targetPosition) / 5);
-        //controlPoint2 = targetPosition + new Vector3(Random.Range(-deviation, deviation), Random.Range(-deviation, deviation), 0) * (Vector3.Distance(startPosition, targetPosition) / 10);
-
         float deviation = 0.5f;
         controlPoint1 = startPosition + new Vector3(Random.Range(-deviation, deviation), Random.Range(-deviation, deviation), 0) * (Vector3.Distance(startPosition, targetPosition));
-        controlPoint2 = targetPosition + new Vector3(Random.Range(-deviation, deviation), Random.Range(-deviation, deviation), 0) * (Vector3.Distance(startPosition, targetPosition)/5);
+        controlPoint2 = targetPosition + new Vector3(Random.Range(-deviation, deviation), Random.Range(-deviation, deviation), 0) * (Vector3.Distance(startPosition, targetPosition) / 5);
     }
 
     // Calculate the position along a cubic Bezier curve
@@ -174,4 +219,42 @@ public class AxonBehaviour : MonoBehaviour
 
         return bezierPosition;
     }
+
+    // Resets the axon for a new connection
+    private void ResetAxon()
+    {
+        hasTarget = false;
+        t = 0;
+        positions.Clear();
+
+        // Add the neuron's position twice (for start and end) to reset the axon
+        Vector3 neuronPosition = neuronBehaviour.transform.position;
+        positions.Add(neuronPosition);  // First point (start)
+        positions.Add(neuronPosition);  // Second point (end)
+
+        // Update the LineRenderer to reflect the reset state
+        lineRenderer.positionCount = positions.Count;
+        lineRenderer.SetPositions(positions.ToArray());
+        growthSpeed = Random.Range(0.5f, 2f);
+    }
+
+    // Public method to trigger axon death and start retraction
+    public void Die()
+    {
+        Debug.Log("Axon is dying and retracting.");
+        isRetracting = true;
+        hasTarget = false;
+
+        // Disconnect the target neuron and remove it from the connected neurons list
+        if (targetNeuron != null)
+        {
+            targetNeuron.GetComponent<NeuronBehaviour>().RemoveConnectedDendrite(targetDendrite);
+            targetDendrite = null;
+            neuronBehaviour.RemoveConnectedNeuron(targetNeuron);
+            targetNeuron.GetComponent<NeuronBehaviour>().RemoveConnectedNeuron(neuronBehaviour.gameObject);
+            targetNeuron = null;  // Clear reference after disconnection
+        }
+    }
+
+
 }

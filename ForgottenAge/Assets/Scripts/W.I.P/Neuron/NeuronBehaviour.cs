@@ -140,6 +140,15 @@ public class NeuronBehaviour : MonoBehaviour
         }
     }
 
+    // Method to remove a connected dendrite
+    public void RemoveConnectedDendrite(GameObject dendrite)
+    {
+        if (connectedDendrites.Contains(dendrite))
+        {
+            connectedDendrites.Remove(dendrite);
+        }
+    }
+
 
     public List<GameObject> GetDendrites()
     {
@@ -156,6 +165,15 @@ public class NeuronBehaviour : MonoBehaviour
         if (!connectedNeurons.Contains(connectedNeuron))
         {
             connectedNeurons.Add(connectedNeuron);
+        }
+    }
+
+    // Method to remove a connected neuron
+    public void RemoveConnectedNeuron(GameObject disconnectedNeuron)
+    {
+        if (connectedNeurons.Contains(disconnectedNeuron))
+        {
+            connectedNeurons.Remove(disconnectedNeuron);
         }
     }
 }
