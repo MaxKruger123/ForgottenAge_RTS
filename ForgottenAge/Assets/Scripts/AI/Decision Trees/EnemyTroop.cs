@@ -640,7 +640,8 @@ public class EnemyTroop : MonoBehaviour
         {
             if (axon != null)
             {
-                float distance = Vector3.Distance(transform.position, axon.transform.position);
+                Vector2 axonCentre = axon.GetComponent<LineRenderer>().GetPosition(axon.GetComponent<LineRenderer>().positionCount / 2);
+                float distance = Vector3.Distance(transform.position, axonCentre);
                 if (distance < minDistance)
                 {
                     minDistance = distance;
@@ -664,10 +665,11 @@ public class EnemyTroop : MonoBehaviour
 
         if (nearestAxon != null)
         {
-            agent.SetDestination(nearestAxon.transform.position);
+            Vector2 axonCentre = nearestAxon.GetComponent<LineRenderer>().GetPosition(nearestAxon.GetComponent<LineRenderer>().positionCount / 2);
+            agent.SetDestination(axonCentre);
 
             // Check if the tank is within melee range of the axon
-            if (gameObject.CompareTag("Enemy_Tank") && Vector3.Distance(transform.position, nearestAxon.transform.position) <= 2f || gameObject.CompareTag("Enemy") && Vector3.Distance(transform.position, nearestAxon.transform.position) <= 2f)
+            if (gameObject.CompareTag("Enemy_Tank") && Vector3.Distance(transform.position, axonCentre) <= 2f || gameObject.CompareTag("Enemy") && Vector3.Distance(transform.position, axonCentre) <= 2f)
             {
                 if (damageCoroutine == null)
                 {

@@ -26,9 +26,11 @@ public class CaptureZone : MonoBehaviour
     private MemoryTileConstruction memoryTileConstruction;
 
     private bool buildingDestroyed = false; // Flag to ensure only one building is destroyed
+    public NeuronBehaviour neuronBehaviour;
 
     private void Start()
     {
+        tileController = GameObject.Find("TileController").GetComponent<TileController>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         originalColor = spriteRenderer.color;
         FindNearestMemoryTile();
@@ -55,7 +57,8 @@ public class CaptureZone : MonoBehaviour
 
     private void Update()
     {
-        UpdateCaptureState();
+        //UpdateCaptureState();
+        //NewUpdateCaptureState();
         if (!isFlashing)
         {
             UpdateColor();
@@ -86,6 +89,26 @@ public class CaptureZone : MonoBehaviour
         {
             cantBuild = false;
             priceIncrease = false;
+        }
+    }
+
+    private void NewUpdateCaptureState()
+    {
+        if(neuronBehaviour.connectedNeurons.Count > 1)
+        {
+            priceIncrease = true;
+            cantBuild = false;
+        }else if (neuronBehaviour.connectedNeurons.Count == 1)
+        {
+            priceIncrease = false;
+            cantBuild = false;
+        }else if(neuronBehaviour.connectedNeurons.Count < 1 && !buildingDestroyed)
+        {
+            priceIncrease = false;
+            cantBuild = true;
+            UpdateColor();
+            DestroyNearestBuilding(); // Destroy the nearest building when both axons are dead
+            numBuildings.numBuildings = 0;
         }
     }
 

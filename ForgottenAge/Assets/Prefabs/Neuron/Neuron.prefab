@@ -10,9 +10,14 @@ GameObject:
   m_Component:
   - component: {fileID: 1094703192260596133}
   - component: {fileID: 3993148876304298331}
+  - component: {fileID: 1045631785863670421}
+  - component: {fileID: 8316190787798079095}
+  - component: {fileID: 5128183084831849322}
+  - component: {fileID: 5879493217397023876}
+  - component: {fileID: 4198488051341176938}
   m_Layer: 0
   m_Name: Neuron Body
-  m_TagString: Untagged
+  m_TagString: MemoryTile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,6 +90,121 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1045631785863670421
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826029975616668098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2220375f0f51b924baa9d30f66c6f306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  captureTime: 5
+  capturingSide: 
+  tileController: {fileID: 0}
+  captured: 0
+  priceIncrease: 0
+  cantBuild: 0
+  nearestAxons:
+  - {fileID: 0}
+  - {fileID: 0}
+  neuronBehaviour: {fileID: 0}
+--- !u!114 &8316190787798079095
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826029975616668098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 03ff0a9eed5453342ad37ca85f5ac3d0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  basicAllyTroopPrefab: {fileID: 3664961237465649554, guid: 633596d60ce1cf949a5998ab9237531f, type: 3}
+  rangedAllyTroopPrefab: {fileID: 2551482059323990870, guid: df65e8d1cedeb0b45a8628208493e32b, type: 3}
+  spawnRadius: 5
+--- !u!114 &5128183084831849322
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826029975616668098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 339f007a65123e747b86632887626545, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  building: {fileID: 0}
+--- !u!114 &5879493217397023876
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826029975616668098}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0495f762816dbe47a7de4f178fc587f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  concentration: {fileID: 0}
+  constructionMenu: {fileID: 0}
+  buildingPrefab: {fileID: 6815607758482877518, guid: 5204f3e1049618540b6ce62f7dcd48f1, type: 3}
+  defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
+  upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
+  concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
+  upgradedDefenseTower: {fileID: 4083095997658018058, guid: ac76cad0580c7b84aa90367dcd9b8c97, type: 3}
+  areaDamageTower: {fileID: 3994371643690341818, guid: dfcf8628e07cf3846a83030d4c6485ba, type: 3}
+  numBuildings: 0
+  captureZone: {fileID: 0}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
+--- !u!58 &4198488051341176938
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 826029975616668098}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 0.5
 --- !u!1 &8582602058372932309
 GameObject:
   m_ObjectHideFlags: 0
@@ -98,7 +218,7 @@ GameObject:
   - component: {fileID: 5009726335837126894}
   m_Layer: 0
   m_Name: Neuron
-  m_TagString: MemoryTile
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -146,7 +266,7 @@ CircleCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8582602058372932309}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
@@ -168,7 +288,7 @@ CircleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -222,6 +342,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4639105220850879181, guid: 0295ddf53e1d909439382059fb804594, type: 3}
+      propertyPath: healthBar
+      value: 
+      objectReference: {fileID: 1070156723861064063}
     - target: {fileID: 4688737387022577143, guid: 0295ddf53e1d909439382059fb804594, type: 3}
       propertyPath: m_Name
       value: Axon
@@ -230,11 +354,26 @@ PrefabInstance:
       propertyPath: neuronBehaviour
       value: 
       objectReference: {fileID: 5274444341944676834}
+    - target: {fileID: 7850500842906899976, guid: 0295ddf53e1d909439382059fb804594, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0295ddf53e1d909439382059fb804594, type: 3}
+--- !u!114 &1070156723861064063 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 411389932878837674, guid: 0295ddf53e1d909439382059fb804594, type: 3}
+  m_PrefabInstance: {fileID: 823166044856532693}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &4166225668216407082 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 3656097181354523391, guid: 0295ddf53e1d909439382059fb804594, type: 3}

@@ -33,11 +33,16 @@ public class MemoryTileConstruction : MonoBehaviour
     private TutorialManager tutorialManager;
     public AudioManagerr audioManager;
 
+    public MenuManager menuManager;
+
     void Start()
     {
         audioManager = GameObject.Find("AudioManager").GetComponent<AudioManagerr>();
-        constructionMenu.SetActive(false); // Ensure the construction menu is initially inactive
+        
+        menuManager = GameObject.Find("UICanvas").GetComponent<MenuManager>();
         concentration = GameObject.Find("UICanvas").GetComponent<Concentration>();
+        constructionMenu = menuManager.Menus[1]; // assigns menu using menu manager
+        constructionMenu.SetActive(false); // Ensure the construction menu is initially inactive
         areaTowerPrice = 250;
         upgradedTowerPrice = 150;
         conStoragePrice = 200;
@@ -50,8 +55,9 @@ public class MemoryTileConstruction : MonoBehaviour
         // If captureZone is not assigned in the inspector, try to get it from this GameObject
         if (captureZone == null)
         {
-            captureZone = GetComponent<CaptureZone>();
+            captureZone = transform.GetChild(0).GetComponent<CaptureZone>();
         }
+        
 
         tutorialManager = FindObjectOfType<TutorialManager>();
         if (tutorialManager == null)

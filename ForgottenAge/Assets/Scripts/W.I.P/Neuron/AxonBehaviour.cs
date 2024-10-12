@@ -26,9 +26,11 @@ public class AxonBehaviour : MonoBehaviour
     public GameObject targetDendrite;  // Store the reference to the target neuron
     public bool die=false;
 
+    public Axon axon;
 
     void Start()
     {
+        
         lineRenderer = GetComponent<LineRenderer>();
         growthSpeed = Random.Range(0.5f, 2f);
         // Initialize the LineRenderer with 2 points
@@ -54,16 +56,11 @@ public class AxonBehaviour : MonoBehaviour
             
             RetractAxon();
         }
-        else if (cooldownTimer > 0)
-        {
-            cooldownTimer -= Time.deltaTime;  // Countdown cooldown timer
-        }
         else if (hasTarget)
         {
-            
             GrowAxon();
         }
-        else if (neuronBehaviour.InitialisationCheck() && cooldownTimer <= 0)  // Wait for dendrites to be initialized and cooldown to finish
+        else if (neuronBehaviour.InitialisationCheck() && gameObject.tag == "Axon")  // Wait for dendrites to be initialized 
         {
             SearchForNewTarget();
         }
@@ -129,7 +126,7 @@ public class AxonBehaviour : MonoBehaviour
         {
             Debug.Log("Axon fully retracted.");
             isRetracting = false;
-            cooldownTimer = cooldownTime;  // Start the cooldown timer
+            //cooldownTimer = cooldownTime;  // Start the cooldown timer
             ResetAxon();  // Reset for future connections
         }
     }

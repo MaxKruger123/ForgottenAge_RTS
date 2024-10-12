@@ -1,0 +1,143 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &7813864453442774117
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 826029975616668098, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
+    - target: {fileID: 3993148876304298331, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4198488051341176938, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009726335837126894, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5274444341944676834, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: searchDistance
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 5879493217397023876, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877839902675942260, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877839902675942260, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877839902675942260, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877839902675942260, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877839902675942260, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877839902675942260, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877839902675942260, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877839902675942260, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877839902675942260, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6877839902675942260, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Parameters.numCornerVertices
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582602058372932309, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Name
+      value: Neuron Intergrated
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582602058372932309, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_TagString
+      value: MemoryTile
+      objectReference: {fileID: 0}
+    m_RemovedComponents:
+    - {fileID: 4198488051341176938, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+    - {fileID: 3410761302458668704, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 8582602058372932309, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1049307992910479124}
+  m_SourcePrefab: {fileID: 100100000, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+--- !u!1 &1975931570621040304 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8582602058372932309, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+  m_PrefabInstance: {fileID: 7813864453442774117}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1049307992910479124
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975931570621040304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0495f762816dbe47a7de4f178fc587f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  concentration: {fileID: 0}
+  constructionMenu: {fileID: 0}
+  buildingPrefab: {fileID: 6815607758482877518, guid: 5204f3e1049618540b6ce62f7dcd48f1, type: 3}
+  defenseTowerPrefab: {fileID: 2433686029046135036, guid: 68105a2f9df32d447ba0349072ff43f0, type: 3}
+  upgradedBarracksPrefab: {fileID: 3058214127999949662, guid: dda4441abb79d4140a4e028950e22cad, type: 3}
+  concentrationStorage: {fileID: 1737369036289490979, guid: df72ae0f5c61db4409a2bbb4f4572b1c, type: 3}
+  upgradedDefenseTower: {fileID: 4083095997658018058, guid: ac76cad0580c7b84aa90367dcd9b8c97, type: 3}
+  areaDamageTower: {fileID: 3994371643690341818, guid: dfcf8628e07cf3846a83030d4c6485ba, type: 3}
+  numBuildings: 0
+  captureZone: {fileID: 7129964310503149296}
+  barracksPrice: 20
+  towerPrice: 40
+  upgradedBarracksPrice: 100
+  conStoragePrice: 200
+  upgradedTowerPrice: 150
+  areaTowerPrice: 250
+  spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
+  audioManager: {fileID: 0}
+  menuManager: {fileID: 0}
+--- !u!114 &7129964310503149296 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1045631785863670421, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+  m_PrefabInstance: {fileID: 7813864453442774117}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2220375f0f51b924baa9d30f66c6f306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

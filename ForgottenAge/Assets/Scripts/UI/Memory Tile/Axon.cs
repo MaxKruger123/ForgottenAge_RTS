@@ -15,15 +15,19 @@ public class Axon : MonoBehaviour
     public bool priceDecreased = true; // Flag to track if the price has been decreased
     public MemoryTileConstruction memoryTileConstruction;
 
+    public AxonBehaviour axonBehaviour;
+
     void Start()
     {
         currentHealth = maxHealth; // Set current health to max health at the start
         priceDecreased = true; // Set the flag to true at the start
+
+        axonBehaviour = transform.GetComponent<AxonBehaviour>();
     }
 
     void Update()
     {
-        healthBar.fillAmount = currentHealth / maxHealth;
+        //healthBar.fillAmount = currentHealth / maxHealth; FOR THE HEALTH BAR 
 
         if (currentHealth == maxHealth)
         {
@@ -39,6 +43,8 @@ public class Axon : MonoBehaviour
         }
     }
 
+    
+
     // Function to take damage
     public void TakeDamage(float damageAmount)
     {
@@ -49,7 +55,7 @@ public class Axon : MonoBehaviour
             ChangeColorToGray();
             gameObject.tag = "DeadAxon";
             dead = true;
-           
+            axonBehaviour.Die();
             priceDecreased = false; // Reset the flag since the Axon is damaged
         }
         else if (currentHealth > 0f)

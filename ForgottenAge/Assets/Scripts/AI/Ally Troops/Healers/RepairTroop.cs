@@ -49,10 +49,11 @@ public class RepairTroop : MonoBehaviour
             // If a target axon is found, move towards it
             if (targetAxon != null)
             {
-                agent.SetDestination(targetAxon.transform.position);
+                Vector2 axonCentre = targetAxon.GetComponent<LineRenderer>().GetPosition(targetAxon.GetComponent<LineRenderer>().positionCount / 2);
+                agent.SetDestination(axonCentre);
 
                 // Check if the repair troop is within healing range
-                if (Vector3.Distance(transform.position, targetAxon.transform.position) <= agent.stoppingDistance)
+                if (Vector3.Distance(transform.position, axonCentre) <= agent.stoppingDistance)
                 {
 
                     //Debug.Log("STOP");
@@ -101,7 +102,8 @@ public class RepairTroop : MonoBehaviour
 
         foreach (GameObject axon in allAxons)
         {
-            float distance = Vector3.Distance(transform.position, axon.transform.position);
+            Vector2 axonCentre = axon.GetComponent<LineRenderer>().GetPosition(axon.GetComponent<LineRenderer>().positionCount / 2);
+            float distance = Vector3.Distance(transform.position, axonCentre);
             if (distance < minDistance)
             {
                 minDistance = distance;
