@@ -68,10 +68,7 @@ public class MemoryTileConstruction : MonoBehaviour
 
     void Update()
     {
-        if (captureZone.cantBuild == false)
-        {
-            captureZone.ChangeColorToBlue();
-        }
+        
     }
 
     private void OnMouseOver()

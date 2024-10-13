@@ -13,6 +13,8 @@ public class NeuronBehaviour : MonoBehaviour
     public bool reinitialise = false;
     public bool initialised = false;
 
+    public CaptureZone captureZone;
+
     public int searchDistance;
     // Start is called before the first frame update
     void Start()
@@ -37,6 +39,11 @@ public class NeuronBehaviour : MonoBehaviour
         {
             InitialiseDendrites();
             reinitialise = false;
+        }
+
+        if (connectedNeurons.Count == 0)
+        {
+            captureZone.DestroyNearestBuilding();
         }
         
     }

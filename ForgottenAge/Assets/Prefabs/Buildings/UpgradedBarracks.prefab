@@ -372,9 +372,9 @@ GameObject:
   - component: {fileID: 7143086885762895988}
   - component: {fileID: 8698053763483619905}
   - component: {fileID: 8628675682409871660}
-  - component: {fileID: 2355374107090665178}
   - component: {fileID: 9049861234337100051}
   - component: {fileID: 7162772413419372545}
+  - component: {fileID: 4616663739729717012}
   m_Layer: 0
   m_Name: UpgradedBarracks
   m_TagString: Building
@@ -484,51 +484,7 @@ MonoBehaviour:
   queueText: {fileID: 9028669020285205055}
   queueImage: {fileID: 378713895080141995}
   cardManager: {fileID: 0}
---- !u!61 &2355374107090665178
-BoxCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3058214127999949662}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 1
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 2.89, y: 2.31}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1}
-  m_EdgeRadius: 0
+  audioManager: {fileID: 0}
 --- !u!208 &9049861234337100051
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -562,6 +518,41 @@ MonoBehaviour:
   currentHealth: 0
   healthBar: {fileID: 4684744845972222777}
   deathEffect: {fileID: 3259086518229417968, guid: 641697adb4a422a4a97eba3809d18783, type: 3}
+--- !u!58 &4616663739729717012
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3058214127999949662}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 0
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.021186387, y: 0}
+  serializedVersion: 2
+  m_Radius: 1.000089
 --- !u!1 &5557200175662917503
 GameObject:
   m_ObjectHideFlags: 0

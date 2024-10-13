@@ -182,7 +182,6 @@ public class EnemyTroop : MonoBehaviour
 
             if (IsTargeted())
             {
-                
                 FleeAndShoot();
             }
             else if (targetTank != null)
@@ -191,7 +190,7 @@ public class EnemyTroop : MonoBehaviour
 
                 if (IsTankUnderAttack())
                 {
-                    if (shootingCoroutine == null)
+                    if (shootingCoroutine == null) // Ensure only one shooting coroutine is running
                     {
                         FindAndAttackTargetAttackingTank();
                     }
@@ -201,21 +200,17 @@ public class EnemyTroop : MonoBehaviour
             {
                 if (!IsTargeted())
                 {
-                   
-                    FindNearestNormalEnemy();
-                }
+                    FindNearestAlly();
 
-                if (targetBuilding != null && shootingCoroutine == null)
-                {
-                    FindAndAttackTargetAttackingNormalEnemy();
+                    if (targetAlly != null && shootingCoroutine == null) // Ensure only one shooting coroutine is running
+                    {
+                        agent.SetDestination(targetAlly.transform.position);
+                        shootingCoroutine = StartCoroutine(ShootAlly());
+                    }
                 }
                 else
                 {
-                    FindNearestAlly();
-                    if (targetAlly != null && shootingCoroutine == null)
-                    {
-                        shootingCoroutine = StartCoroutine(ShootAlly());
-                    }
+                    FindAndMoveToNearestAxon();
                 }
             }
 
@@ -289,6 +284,9 @@ public class EnemyTroop : MonoBehaviour
 
         cachedNormalEnemies.Clear();
         cachedNormalEnemies.AddRange(GameObject.FindGameObjectsWithTag("Player"));
+
+        cachedNormalEnemies.Clear();
+        cachedNormalEnemies.AddRange(GameObject.FindGameObjectsWithTag("AllyRanged"));
     }
 
     void FindAllyTroopTargetingTank()
@@ -528,7 +526,11 @@ public class EnemyTroop : MonoBehaviour
                 {
                     targetAlly = ally;
                     Debug.Log("shoott");
-                    shootingCoroutine = StartCoroutine(ShootAlly());
+                    if (shootingCoroutine == null)
+                    {
+                        shootingCoroutine = StartCoroutine(ShootAlly());
+                    }
+                    
                     return;
                 }
             }
@@ -565,9 +567,11 @@ public class EnemyTroop : MonoBehaviour
         }
 
         targetBuilding = nearestNormalEnemy;
-        if (targetBuilding != null)
+        agent.SetDestination(targetBuilding.transform.position);
+        if (targetBuilding != null && shootingCoroutine == null)
         {
-            agent.SetDestination(targetBuilding.transform.position);
+            
+            StartCoroutine(ShootAlly());
         }
     }
 
@@ -581,7 +585,11 @@ public class EnemyTroop : MonoBehaviour
                 {
 
                     targetAlly = ally;
-                    shootingCoroutine = StartCoroutine(ShootAlly());
+                    if (shootingCoroutine == null)
+                    {
+                        shootingCoroutine = StartCoroutine(ShootAlly());
+                    }
+                    
                     return;
                 }
             }
@@ -604,16 +612,23 @@ public class EnemyTroop : MonoBehaviour
 
                 if (distanceToEnemy <= rangedAttackRange)
                 {
+                    // Only shoot if the target is within range
                     Vector3 direction = (targetAlly.transform.position - transform.position).normalized;
                     GameObject projectile = Instantiate(projectilePrefab, transform.position, Quaternion.identity);
+
+                    // Play shooting sound
                     audioManager.SFX.PlayOneShot(audioManager.shoot1);
+
+                    // Set projectile velocity
                     projectile.GetComponent<Rigidbody2D>().velocity = direction * projectileSpeed;
                 }
-                
             }
+
+            // Wait for the shoot interval before firing again
             yield return new WaitForSeconds(shootInterval);
         }
 
+        // Reset the shooting coroutine when finished
         shootingCoroutine = null;
     }
 
@@ -719,12 +734,18 @@ public class EnemyTroop : MonoBehaviour
             agent.SetDestination(fleePosition);
             agent.speed = 2f;  // Increase the agent's speed to flee faster
             shootingCoroutine = StartCoroutine(ShootAlly());
+            StartCoroutine(Wait());
             stopFlee = true;
-            FindNearestNormalEnemy();
+            
         }
 
         
        
+    }
+
+    IEnumerator Wait()
+    {
+        yield return new WaitForSeconds(3f);
     }
 
 

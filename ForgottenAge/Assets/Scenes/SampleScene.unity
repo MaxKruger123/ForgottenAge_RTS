@@ -661,6 +661,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1760895234490079956, guid: 6dbaf9729ac3c0d4781be358eeb495d8, type: 3}
   m_PrefabInstance: {fileID: 156356651}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &174255653 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7129964310503149296, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+  m_PrefabInstance: {fileID: 1028235167}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2220375f0f51b924baa9d30f66c6f306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &197686515
 GameObject:
   m_ObjectHideFlags: 0
@@ -728,6 +739,17 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &216265167 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7129964310503149296, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+  m_PrefabInstance: {fileID: 720728338}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2220375f0f51b924baa9d30f66c6f306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &318155462
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -740,6 +762,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Neuron Intergrated (8)
       objectReference: {fileID: 0}
+    - target: {fileID: 2684984842485781895, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+      propertyPath: captureZone
+      value: 
+      objectReference: {fileID: 549402126}
     - target: {fileID: 3675661467744706321, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 12.219856
@@ -905,6 +931,14 @@ PrefabInstance:
     - target: {fileID: 1975931570621040304, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
       propertyPath: m_Name
       value: Neuron Intergrated (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 2684984842485781895, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+      propertyPath: captureZone
+      value: 
+      objectReference: {fileID: 1422587149}
+    - target: {fileID: 3023731594260112523, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3675661467744706321, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1095,6 +1129,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Neuron Intergrated (5)
       objectReference: {fileID: 0}
+    - target: {fileID: 2684984842485781895, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+      propertyPath: captureZone
+      value: 
+      objectReference: {fileID: 1099406476}
     - target: {fileID: 3675661467744706321, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
       propertyPath: m_LocalPosition.x
       value: -9.035462
@@ -1690,6 +1728,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &549402126 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7129964310503149296, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+  m_PrefabInstance: {fileID: 318155462}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2220375f0f51b924baa9d30f66c6f306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &551477856 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 429666288921509020, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
@@ -1718,6 +1767,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Neuron Intergrated (10)
       objectReference: {fileID: 0}
+    - target: {fileID: 2684984842485781895, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+      propertyPath: captureZone
+      value: 
+      objectReference: {fileID: 216265167}
     - target: {fileID: 3675661467744706321, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.488173
@@ -2797,6 +2850,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Neuron Intergrated (9)
       objectReference: {fileID: 0}
+    - target: {fileID: 2684984842485781895, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+      propertyPath: captureZone
+      value: 
+      objectReference: {fileID: 1880528590}
     - target: {fileID: 3675661467744706321, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
       propertyPath: m_LocalPosition.x
       value: 10.295502
@@ -3492,6 +3549,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Neuron Intergrated (4)
       objectReference: {fileID: 0}
+    - target: {fileID: 2684984842485781895, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+      propertyPath: captureZone
+      value: 
+      objectReference: {fileID: 174255653}
     - target: {fileID: 3675661467744706321, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
       propertyPath: m_LocalPosition.x
       value: -13.496456
@@ -3537,6 +3598,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+--- !u!114 &1099406476 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7129964310503149296, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+  m_PrefabInstance: {fileID: 441366154}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2220375f0f51b924baa9d30f66c6f306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1175341441
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3795,6 +3867,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   captureZone: {fileID: 1786741178}
   tilesCaptured: 0
+--- !u!114 &1264792161 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7129964310503149296, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+  m_PrefabInstance: {fileID: 1766143858}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2220375f0f51b924baa9d30f66c6f306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!4 &1275047679 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1760895234490079956, guid: 6dbaf9729ac3c0d4781be358eeb495d8, type: 3}
@@ -4054,6 +4137,17 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1760895234490079956, guid: 6dbaf9729ac3c0d4781be358eeb495d8, type: 3}
   m_PrefabInstance: {fileID: 97134624}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1422587149 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7129964310503149296, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+  m_PrefabInstance: {fileID: 417436470}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2220375f0f51b924baa9d30f66c6f306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1430609448
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -126446,6 +126540,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Neuron Intergrated (6)
       objectReference: {fileID: 0}
+    - target: {fileID: 2684984842485781895, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+      propertyPath: captureZone
+      value: 
+      objectReference: {fileID: 1264792161}
     - target: {fileID: 3675661467744706321, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.971633
@@ -127194,6 +127292,17 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1880528590 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7129964310503149296, guid: 5d8f1ba42d9798d4fae0cd5c1d2d2bee, type: 3}
+  m_PrefabInstance: {fileID: 962151476}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2220375f0f51b924baa9d30f66c6f306, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1892762408
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -128154,7 +128263,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3093178820467266377, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -31.731018
+      value: -31.730957
       objectReference: {fileID: 0}
     - target: {fileID: 3773789247045919119, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target

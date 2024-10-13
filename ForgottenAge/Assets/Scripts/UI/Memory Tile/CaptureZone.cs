@@ -57,39 +57,12 @@ public class CaptureZone : MonoBehaviour
 
     private void Update()
     {
-        //UpdateCaptureState();
-        //NewUpdateCaptureState();
-        if (!isFlashing)
-        {
-            UpdateColor();
-        }
+        
     }
 
     private void UpdateCaptureState()
     {
-        if (nearestAxons[0].dead == true && nearestAxons[1].dead == false)
-        {
-            priceIncrease = true;
-            cantBuild = false;
-        }
-        else if (nearestAxons[0].dead == false && nearestAxons[1].dead == true)
-        {
-            priceIncrease = true;
-            cantBuild = false;
-        }
-        else if (nearestAxons[0].dead == true && nearestAxons[1].dead == true && !buildingDestroyed)
-        {
-            priceIncrease = false;
-            cantBuild = true;
-            UpdateColor();
-            DestroyNearestBuilding(); // Destroy the nearest building when both axons are dead
-            numBuildings.numBuildings = 0;
-        }
-        else if (nearestAxons[0].dead == false && nearestAxons[1].dead == false)
-        {
-            cantBuild = false;
-            priceIncrease = false;
-        }
+        
     }
 
     private void NewUpdateCaptureState()
@@ -182,7 +155,7 @@ public class CaptureZone : MonoBehaviour
         return nearestAxons;
     }
 
-    private void DestroyNearestBuilding()
+    public void DestroyNearestBuilding()
     {
         // Check if the building has already been destroyed
         if (buildingDestroyed)
@@ -199,21 +172,35 @@ public class CaptureZone : MonoBehaviour
             return;
         }
 
-        // Find the nearest building
-        GameObject nearestBuilding = allBuildings
-            .OrderBy(building => Vector3.Distance(transform.position, building.transform.position))
-            .FirstOrDefault();
+        // Find the nearest building and store its distance
+        GameObject nearestBuilding = null;
+        float nearestDistance = Mathf.Infinity;
 
-        // Destroy the nearest building
-        if (nearestBuilding != null)
+        foreach (GameObject building in allBuildings)
         {
-            Debug.Log("Destroying nearest building: " + nearestBuilding.name);
-            Destroy(nearestBuilding); // Call destroy directly after logging
+            float distance = Vector3.Distance(transform.position, building.transform.position);
+            if (distance < nearestDistance)
+            {
+                nearestDistance = distance;
+                nearestBuilding = building;
+            }
+        }
+
+        // Check if the nearest building is within the destroyable range (less than 2 units)
+        if (nearestBuilding != null && nearestDistance < 2f)
+        {
+            Debug.Log("Destroying nearest building: " + nearestBuilding.name + " at distance: " + nearestDistance);
+            Destroy(nearestBuilding); // Destroy the building
 
             // Set the flag to indicate the building has been destroyed
             buildingDestroyed = true;
         }
+        else
+        {
+            Debug.Log("Nearest building is too far to destroy. Distance: " + nearestDistance);
+        }
     }
+
 
     public void ChangeColorToBlue()
     {

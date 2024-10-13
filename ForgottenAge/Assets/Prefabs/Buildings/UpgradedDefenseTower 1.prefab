@@ -226,6 +226,7 @@ MonoBehaviour:
   queueText: {fileID: 345087713207159065}
   queueImage: {fileID: 0}
   cardManager: {fileID: 0}
+  audioManager: {fileID: 0}
 --- !u!208 &6004078243315562569
 NavMeshObstacle:
   m_ObjectHideFlags: 0
@@ -249,7 +250,7 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3994371643690341818}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Density: 1
   m_Material: {fileID: 0}
   m_IncludeLayers:
