@@ -76,6 +76,26 @@ PrefabInstance:
       propertyPath: m_Parameters.numCornerVertices
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0.9481132
+      objectReference: {fileID: 0}
+    - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.9934688
+      objectReference: {fileID: 0}
+    - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.b
+      value: 0.9490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.g
+      value: 0.99215686
+      objectReference: {fileID: 0}
     - target: {fileID: 8582602058372932309, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
       propertyPath: m_Name
       value: Neuron Intergrated
