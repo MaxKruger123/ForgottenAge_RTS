@@ -152,9 +152,8 @@ LineRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Positions:
-  - {x: 0, y: 0, z: 0}
+  m_SortingOrder: 2
+  m_Positions: []
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 3
@@ -173,36 +172,36 @@ LineRenderer:
       - serializedVersion: 3
         time: 0.16636428
         value: 0.59965104
-        inSlope: -1.4984175
-        outSlope: -1.4984175
+        inSlope: -2.6956587
+        outSlope: -2.6956587
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.9122068
+        outWeight: 0.7176644
       - serializedVersion: 3
-        time: 0.37403747
-        value: 0.29101175
-        inSlope: -0.4869397
-        outSlope: -0.4869397
+        time: 0.3655629
+        value: 0.18897094
+        inSlope: -0.21453707
+        outSlope: -0.21453707
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.26405463
+        outWeight: 0.33879733
       - serializedVersion: 3
         time: 1
-        value: 0.114035085
-        inSlope: -0.8557689
-        outSlope: -0.8557689
+        value: 0.073218755
+        inSlope: -0.26465082
+        outSlope: -0.26465082
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.2870836
+        inWeight: 0.35876957
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 0.92784035, b: 0.43867922, a: 0.78431374}
+      key0: {r: 1, g: 0.92784035, b: 0.43867922, a: 1}
       key1: {r: 1, g: 0.92941177, b: 0.4392157, a: 0.78431374}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -218,7 +217,7 @@ LineRenderer:
       ctime5: 0
       ctime6: 0
       ctime7: 0
-      atime0: 0
+      atime0: 386
       atime1: 65535
       atime2: 0
       atime3: 0
@@ -231,7 +230,7 @@ LineRenderer:
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
-    numCapVertices: 10
+    numCapVertices: 90
     alignment: 0
     textureMode: 0
     textureScale: {x: 1, y: 1}
