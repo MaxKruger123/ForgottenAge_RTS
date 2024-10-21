@@ -5,6 +5,7 @@ using UnityEngine;
 public class NeuronBehaviour : MonoBehaviour
 {
     public GameObject dendritePrefab;
+    public GameObject dendriteBranchPrefab;
     public List<GameObject> dendrites;
     public List<GameObject> connectedDendrites = new List<GameObject>();  // List to track connected dendrites
     public GameObject Axon;
@@ -77,66 +78,86 @@ public class NeuronBehaviour : MonoBehaviour
 
     public void InitialiseDendrites()
     {
+        List<float> usedGradients = new List<float>();  // Track previously used gradients
+        float minAngleDifference = 5f;  // Minimum angular difference between dendrites in degrees
+
         foreach (GameObject dendrite in dendrites)
         {
-            // Random gradient and fixed length for each dendrite
-            float gradient = Random.Range(-2f, 2f);  // Use floats and adjust range for more diversity
-            float length = Random.Range(1f, 2f);  // Fixed length for the dendrite
+            float gradient;
+            do
+            {
+                // Generate a random gradient between -2 and 2 (adjust as needed)
+                gradient = Random.Range(-2f, 2f);
+            }
+            // Convert gradient to angle (in degrees) and check if it's too similar to any previous gradients
+            while (!IsGradientAcceptable(gradient, usedGradients, minAngleDifference));
+
+            // Store the used gradient
+            usedGradients.Add(gradient);
 
             // Randomly flip direction along X and Y axes
-            int flipX = Random.Range(0, 2) * 2 - 1; // Randomly either 1 or -1
-            int flipY = Random.Range(0, 2) * 2 - 1; // Randomly either 1 or -1
+            int flipX = Random.Range(0, 2) * 2 - 1;
+            int flipY = Random.Range(0, 2) * 2 - 1;
 
-            // Access the LineRenderer component
+            float length = Random.Range(1f, 2f);
             LineRenderer lineRenderer = dendrite.GetComponent<LineRenderer>();
-
-            // Ensure the LineRenderer has enough positions for 4 points
             lineRenderer.positionCount = 4;
 
             // Calculate deltaX and deltaY using the gradient and length
-            float deltaX = flipX * (length / Mathf.Sqrt(1 + (gradient * gradient)));  // Change in X with possible flip
-            float deltaY = flipY * (gradient * deltaX);  // Change in Y based on the gradient and possible flip
+            float deltaX = flipX * (length / Mathf.Sqrt(1 + (gradient * gradient)));
+            float deltaY = flipY * (gradient * deltaX);
 
-            // Get the parent's position (the neuron) in world space
             Vector3 neuronPosition = transform.position;
-
-            // Define the number of points along the line
             int numPoints = 4;
 
-            // Loop through and set each point along the line
             for (int i = 0; i < numPoints; i++)
             {
-                // Divide the total deltaX and deltaY by (numPoints - 1) to get step size
                 float factor = i / (float)(numPoints - 1);
-
-                // Calculate the x and y coordinates for each point in local space
                 float x = factor * deltaX;
                 float y = factor * deltaY;
-
-                // Create a local position relative to the neuron
                 Vector3 localPosition = new Vector3(x, y, 0);
-
-                // Convert the local position to world space
                 Vector3 worldPosition = neuronPosition + transform.TransformVector(localPosition);
 
-                // Add deviation to the second and third points
                 if (i == 1 || i == 2)
                 {
-                    // length divided by 8 (if length is 2f, deviation will be 0.25f)
                     float xDeviation = Random.Range(length / -8f, length / 8f);
                     float yDeviation = Random.Range(length / -8f, length / 8f);
-
-                    // Apply deviation and update the world position
-                    Vector3 deviation = new Vector3(xDeviation, yDeviation, 0);
-                    worldPosition += deviation;
+                    worldPosition += new Vector3(xDeviation, yDeviation, 0);
                 }
 
-                // Set the position in the LineRenderer (world space)
                 lineRenderer.SetPosition(i, worldPosition);
+
+                // Add branches at this point (optional for first and last points)
+                if (i > 0 && i < numPoints - 1)
+                {
+                    AddDendriteBranch(worldPosition, neuronPosition);
+                }
             }
         }
         initialised = true;
     }
+
+    private bool IsGradientAcceptable(float newGradient, List<float> usedGradients, float minAngleDifference)
+    {
+        // Convert gradient to angle in degrees
+        float newAngle = Mathf.Atan(newGradient) * Mathf.Rad2Deg;
+
+        foreach (float usedGradient in usedGradients)
+        {
+            // Convert used gradient to angle in degrees
+            float usedAngle = Mathf.Atan(usedGradient) * Mathf.Rad2Deg;
+
+            // Check if the difference between angles is less than the minimum allowed
+            if (Mathf.Abs(newAngle - usedAngle) < minAngleDifference)
+            {
+                return false;  // Too similar, reject this gradient
+            }
+        }
+
+        return true;  // Gradient is acceptable
+    }
+
+
 
     // Method to add a connected dendrite to the list
     public void AddConnectedDendrite(GameObject dendrite)
@@ -183,4 +204,61 @@ public class NeuronBehaviour : MonoBehaviour
             connectedNeurons.Remove(disconnectedNeuron);
         }
     }
+
+    private void AddDendriteBranch(Vector3 branchStart, Vector3 parentPosition)
+    {
+        // Instantiate the dendrite branch prefab
+        GameObject branch = Instantiate(dendriteBranchPrefab, branchStart, Quaternion.identity);
+
+        // Parent it to the neuron (or dendrite if desired)
+        branch.transform.parent = transform;
+
+        // Access the LineRenderer of the prefab
+        LineRenderer branchRenderer = branch.GetComponent<LineRenderer>();
+
+        // Ensure the LineRenderer exists
+        if (branchRenderer == null)
+        {
+            Debug.LogError("Prefab does not have a LineRenderer component!");
+            return;
+        }
+
+        // Clone the material to ensure it's not shared with other LineRenderers
+        branchRenderer.material = new Material(branchRenderer.material);
+
+        // Set the position count to 4 for the branch
+        branchRenderer.positionCount = 4;
+
+        // Create a random length and angle for the branch
+        float branchLength = Random.Range(0.5f, 1f) * 3;
+        float branchAngle = Random.Range(-45f, 45f);
+
+        // Calculate the direction of the branch
+        Vector3 direction = (branchStart - parentPosition).normalized;
+        Vector3 rotatedDirection = Quaternion.Euler(0, 0, branchAngle) * direction;
+
+        // Calculate the final end point of the branch
+        Vector3 branchEnd = branchStart + rotatedDirection * branchLength;
+
+        // Add 4 points for the branch, including random deviations for the middle points
+        for (int i = 0; i < 4; i++)
+        {
+            float factor = i / 3f;  // Divide the length into 4 points
+            Vector3 pointPosition = Vector3.Lerp(branchStart, branchEnd, factor);
+
+            // Add deviation to the middle points to make the branch less straight
+            if (i == 1 || i == 2)
+            {
+                float deviationX = Random.Range(branchLength / -10f, branchLength / 10f);
+                float deviationY = Random.Range(branchLength / -10f, branchLength / 10f);
+                pointPosition += new Vector3(deviationX, deviationY, 0);
+            }
+
+            branchRenderer.SetPosition(i, pointPosition);
+        }
+    }
+
+
+
+
 }

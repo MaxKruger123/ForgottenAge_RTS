@@ -13,8 +13,9 @@ public class TutorialManager : MonoBehaviour
     public class HighlightInfo
     {
         public GameObject targetObject;
-        public bool shouldFlicker = false;  // Determines if the object should flicker
-        public bool isUIElement = false;  // Identifies UI elements
+        public bool shouldFlicker = false;
+        public bool isUIElement = false;
+        public bool isLineRenderer = false;  // New field to identify Line Renderer objects
     }
 
     [System.Serializable]
@@ -73,6 +74,7 @@ public class TutorialManager : MonoBehaviour
     private bool waitingForTileClick = false;
     private bool waitingForBuildMenuOpen = false;
     private bool waitingForBuildingSelection = false;
+    private List<(LineRenderer lineRenderer, Color originalColor)> activeLineRendererHighlights = new List<(LineRenderer, Color)>();
 
     // Component references
     private CameraController cameraController;
@@ -249,6 +251,10 @@ public class TutorialManager : MonoBehaviour
                 {
                     CreateArrowIndicator(info.targetObject);
                 }
+                else if (info.isLineRenderer)
+                {
+                    HighlightLineRenderer(info.targetObject, info.shouldFlicker);
+                }
                 else if (info.shouldFlicker)
                 {
                     SpriteRenderer spriteRenderer = info.targetObject.GetComponent<SpriteRenderer>();
@@ -261,6 +267,58 @@ public class TutorialManager : MonoBehaviour
                 activeHighlights.Add((info.targetObject, info.targetObject.transform.localScale));
             }
         }
+    }
+
+    // New method to highlight Line Renderer
+    void HighlightLineRenderer(GameObject targetObject, bool shouldFlicker)
+    {
+        LineRenderer lineRenderer = targetObject.GetComponent<LineRenderer>();
+        if (lineRenderer != null)
+        {
+            Color originalColor = lineRenderer.startColor;
+            activeLineRendererHighlights.Add((lineRenderer, originalColor));
+
+            if (shouldFlicker)
+            {
+                Coroutine flickerCoroutine = StartCoroutine(FlickerLineRenderer(lineRenderer));
+                activeFlickerCoroutines.Add(flickerCoroutine);
+            }
+            else
+            {
+                lineRenderer.startColor = Color.yellow;
+                lineRenderer.endColor = Color.yellow;
+            }
+        }
+    }
+
+    // New coroutine to make a Line Renderer flicker
+    IEnumerator FlickerLineRenderer(LineRenderer lineRenderer)
+    {
+        Color originalColor = lineRenderer.startColor;
+        Color flickerColor = Color.yellow;
+        float flickerDuration = 1f;
+
+        while (true)
+        {
+            yield return StartCoroutine(LerpLineRendererColor(lineRenderer, originalColor, flickerColor, flickerDuration));
+            yield return StartCoroutine(LerpLineRendererColor(lineRenderer, flickerColor, originalColor, flickerDuration));
+        }
+    }
+
+    // New coroutine to lerp Line Renderer color
+    IEnumerator LerpLineRendererColor(LineRenderer lineRenderer, Color startColor, Color endColor, float duration)
+    {
+        float elapsedTime = 0f;
+        while (elapsedTime < duration)
+        {
+            Color lerpedColor = Color.Lerp(startColor, endColor, elapsedTime / duration);
+            lineRenderer.startColor = lerpedColor;
+            lineRenderer.endColor = lerpedColor;
+            elapsedTime += Time.deltaTime;
+            yield return null;
+        }
+        lineRenderer.startColor = endColor;
+        lineRenderer.endColor = endColor;
     }
 
     // Create an arrow indicator for UI elements
@@ -347,6 +405,16 @@ public class TutorialManager : MonoBehaviour
             }
         }
         activeArrows.Clear();
+
+        foreach (var (lineRenderer, originalColor) in activeLineRendererHighlights)
+        {
+            if (lineRenderer != null)
+            {
+                lineRenderer.startColor = originalColor;
+                lineRenderer.endColor = originalColor;
+            }
+        }
+        activeLineRendererHighlights.Clear();
     }
 
     // End the tutorial

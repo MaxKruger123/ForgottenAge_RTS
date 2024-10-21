@@ -36,6 +36,10 @@ PrefabInstance:
       propertyPath: searchDistance
       value: 10
       objectReference: {fileID: 0}
+    - target: {fileID: 5274444341944676834, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: dendriteBranchPrefab
+      value: 
+      objectReference: {fileID: 9175798697729740434, guid: af616d9a65e82524aac0de742c55a953, type: 3}
     - target: {fileID: 5879493217397023876, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -83,6 +87,26 @@ PrefabInstance:
     - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
       propertyPath: m_Parameters.numCornerVertices
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.b
+      value: 0.9481132
+      objectReference: {fileID: 0}
+    - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.g
+      value: 0.9934688
+      objectReference: {fileID: 0}
+    - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Parameters.colorGradient.key0.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.b
+      value: 0.9490196
+      objectReference: {fileID: 0}
+    - target: {fileID: 8374597762312366411, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Parameters.colorGradient.key1.g
+      value: 0.99215686
       objectReference: {fileID: 0}
     - target: {fileID: 8582602058372932309, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
       propertyPath: m_Name

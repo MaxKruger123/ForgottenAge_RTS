@@ -1,0 +1,319 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &6435776170693135072
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 6711673044810609526}
+  - component: {fileID: 5766602184753808790}
+  m_Layer: 0
+  m_Name: TutorialManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &6711673044810609526
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435776170693135072}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.08876234, y: 1.3969016, z: -0.41944513}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5766602184753808790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6435776170693135072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c69bca8c220936429549dbb87a0bd14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  instructionText: {fileID: 0}
+  textBoxPanel: {fileID: 0}
+  buildInterfaceButton: {fileID: 0}
+  tutorialSections:
+  - sectionName: Welcome
+    steps:
+    - instructions:
+      - Welcome, this game is about dementia.
+      - We wanted to present a first person perspective to the endless and fruitless
+        struggle sufferers face everyday.
+      - Now lets get you prepared for the battle to come.
+      highlightObjects: []
+      requiredCameraMovement: 0
+      readTime: 5
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Camera movement -  mouse
+    steps:
+    - instructions:
+      - Hold right click to drag the camera.
+      highlightObjects: []
+      requiredCameraMovement: 1
+      readTime: 0
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Camera movement -  panning
+    steps:
+    - instructions:
+      - Or you can move the mouse to the edge to pan.
+      highlightObjects: []
+      requiredCameraMovement: 2
+      readTime: 0
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Memory tile
+    steps:
+    - instructions:
+      - Memory tiles can be captured and allows you to build buildings on them,
+      - Each memory tiles are connected by Axons, if an Axon is destoryed the cost
+        of the building on the memory tile will be doubled.
+      - If both Axons are destroyed, the memory tile is lost.
+      highlightObjects:
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      requiredCameraMovement: 0
+      readTime: 6
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Axons
+    steps:
+    - instructions:
+      - Axons connects the memory tiles, if an Axon is destroyed, it'll slowly regenerate
+        back to full.
+      - Axons connects the memory tiles, if an Axon is destroyed, it'll slowly regenerate
+        back to full.
+      highlightObjects:
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      requiredCameraMovement: 0
+      readTime: 5
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Construction
+    steps:
+    - instructions:
+      - To build a building, right click on a memory tile.
+      highlightObjects:
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 0
+      requiredCameraMovement: 0
+      readTime: 3
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Construction - building
+    steps:
+    - instructions:
+      - Build a barracks.
+      highlightObjects:
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 1
+      requiredCameraMovement: 0
+      readTime: 3
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Troop - menu
+    steps:
+    - instructions:
+      - Right click on the barracks to open the recruitment menu.
+      highlightObjects: []
+      requiredCameraMovement: 0
+      readTime: 3
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Troop - production
+    steps:
+    - instructions:
+      - Produce 5 Basic Troops.
+      highlightObjects:
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 1
+      requiredCameraMovement: 0
+      readTime: 3
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Construction and Troop -  additional
+    steps:
+    - instructions:
+      - Remember there are other buildings and troops you can build to fight on longer.
+      highlightObjects: []
+      requiredCameraMovement: 0
+      readTime: 8
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Currency - Concentration
+    steps:
+    - instructions:
+      - This is your Concentration, the main currecy of the game.
+      - You have a passive income of concentration of 2/s while enemies can also
+        drop concentration on death.
+      - Concentration is used for both building and troop constructions.
+      highlightObjects:
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 1
+      requiredCameraMovement: 0
+      readTime: 5
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Currency - Dream Token
+    steps:
+    - instructions:
+      - This is your Dream Token.
+      - Dream Tokens can be used in the shop for equipments, or be used to instantly
+        construct troops in the barracks.
+      - Dream Token can only be dropped from enemies or through card events.
+      highlightObjects:
+      - targetObject: {fileID: 0}
+        shouldFlicker: 1
+        isUIElement: 1
+      requiredCameraMovement: 0
+      readTime: 5
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Combat intro
+    steps:
+    - instructions:
+      - Now that you have made 3 basic troops, time for a combat scenario.
+      highlightObjects: []
+      requiredCameraMovement: 0
+      readTime: 4
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  - sectionName: Combat
+    steps:
+    - instructions:
+      - During combat, your troops will automatically pick the target they want to
+        engage and advance towards them
+      highlightObjects: []
+      requiredCameraMovement: 0
+      readTime: 20
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 1
+      enemiesToEnable:
+      - {fileID: 0}
+      - {fileID: 0}
+      - {fileID: 0}
+      waitForEnemiesDestroyed: 1
+  - sectionName: Combat - after
+    steps:
+    - instructions:
+      - After combat, your troops will automatically spread themselves equally among
+        your active memory tiles.
+      - This is about survival. Are you ready for the inevitable?
+      highlightObjects: []
+      requiredCameraMovement: 0
+      readTime: 8
+      requiresInput: 0
+      requiredInputObject: {fileID: 0}
+      enableEnemies: 0
+      enemiesToEnable: []
+      waitForEnemiesDestroyed: 0
+  targetMemoryTile: {fileID: 0}
+  arrowPrefab: {fileID: 7441700282977100218, guid: 4396d157c18230340b18cc1524b53266, type: 3}
+  arrowGap: 1
+  arrowWidth: 80
+  mainMenuSceneName: Main Menu
