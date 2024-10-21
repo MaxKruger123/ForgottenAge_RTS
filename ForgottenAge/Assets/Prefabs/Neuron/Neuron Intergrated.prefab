@@ -21,8 +21,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5009726335837126894, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Radius
+      value: 0.5161901
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009726335837126894, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
       propertyPath: m_Enabled
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5009726335837126894, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Offset.y
+      value: 0.0024810235
       objectReference: {fileID: 0}
     - target: {fileID: 5274444341944676834, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
       propertyPath: searchDistance
@@ -81,6 +89,10 @@ PrefabInstance:
       value: Neuron Intergrated
       objectReference: {fileID: 0}
     - target: {fileID: 8582602058372932309, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_Layer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8582602058372932309, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
       propertyPath: m_TagString
       value: MemoryTile
       objectReference: {fileID: 0}
@@ -93,6 +105,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 8582602058372932309, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1049307992910479124}
+    - targetCorrespondingSourceObject: {fileID: 8582602058372932309, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: -5303774742282971161}
   m_SourcePrefab: {fileID: 100100000, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
 --- !u!1 &1975931570621040304 stripped
 GameObject:
@@ -130,6 +145,22 @@ MonoBehaviour:
   spawnEffect: {fileID: 3259086518229417968, guid: 9faefcf86c1070e4e991da199d296f28, type: 3}
   audioManager: {fileID: 0}
   menuManager: {fileID: 0}
+--- !u!114 &-5303774742282971161
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1975931570621040304}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9809bf1345abc5648af68b3a82653f08, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_OverrideArea: 1
+  m_Area: 1
+  m_IgnoreFromBuild: 0
+  m_AffectedAgents: ffffffff
 --- !u!114 &7129964310503149296 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 1045631785863670421, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}

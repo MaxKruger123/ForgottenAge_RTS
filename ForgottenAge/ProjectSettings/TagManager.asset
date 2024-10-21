@@ -18,6 +18,8 @@ TagManager:
   - Kamikaze
   - RepairTroop
   - DeadAxon
+  - TowerProjectile
+  - Projectile
   layers:
   - Default
   - TransparentFX
@@ -32,7 +34,7 @@ TagManager:
   - Background
   - 
   - Environment
-  - 
+  - Neuron
   - 
   - 
   - 

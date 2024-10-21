@@ -166,7 +166,7 @@ GameObject:
   - component: {fileID: 4278508057937526353}
   - component: {fileID: 7905500876586086743}
   - component: {fileID: 7738912228402109761}
-  m_Layer: 6
+  m_Layer: 3
   m_Name: Enemy_Kamikaze
   m_TagString: Kamikaze
   m_Icon: {fileID: 0}
@@ -291,6 +291,7 @@ MonoBehaviour:
   currencyDrop: {fileID: 8677679166032479334, guid: 3c6828466a8630a49afc38f1e2dd852a, type: 3}
   currencyDropTwo: {fileID: 3956598094168691203, guid: 25f27d411242fe54bbbfb0b19a111687, type: 3}
   concentration: {fileID: 8992103966716098725, guid: 83361a45f9ed46c46b35151e62d70678, type: 3}
+  audioManager: {fileID: 0}
 --- !u!114 &7108756153176010892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -320,6 +321,8 @@ MonoBehaviour:
   tankUnderAttack: 0
   threateningTroop: {fileID: 0}
   stopFlee: 0
+  audioManager: {fileID: 0}
+  rotationSpeed: 5
 --- !u!195 &4278508057937526353
 NavMeshAgent:
   m_ObjectHideFlags: 0
@@ -334,7 +337,7 @@ NavMeshAgent:
   m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 1
+  m_StoppingDistance: 2.3
   m_AutoTraverseOffMeshLink: 1
   m_AutoBraking: 1
   m_AutoRepath: 1
@@ -516,7 +519,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2236687583996941197
 Transform:
   m_ObjectHideFlags: 0

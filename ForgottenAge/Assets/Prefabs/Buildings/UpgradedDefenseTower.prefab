@@ -415,7 +415,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   buildingType: 4
-  projectilePrefab: {fileID: 986697290854198135, guid: 5225898369b354d478a6b2fcf2f8cdfc, type: 3}
+  projectilePrefab: {fileID: 986697290854198135, guid: 90e44fb77427bbe47a578ad83db959d6, type: 3}
   projectileSpeed: 15
   shootInterval: 1
   shootTimer: 0

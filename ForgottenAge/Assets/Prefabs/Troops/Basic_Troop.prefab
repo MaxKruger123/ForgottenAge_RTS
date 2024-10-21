@@ -359,6 +359,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxHealth: 10
   currentHealth: 0
+  audioManager: {fileID: 0}
   healthBar: {fileID: 4271834942883653057}
   cardManager: {fileID: 0}
   deathEffect: {fileID: 1420983840688499619, guid: 8b7afb8d3c9318d4ea027453cfe34f2b, type: 3}
@@ -419,6 +420,7 @@ MonoBehaviour:
   retreatDuration: 3
   retreatCheckInterval: 0.5
   nearestAllyToHeal: {fileID: 0}
+  audioManager: {fileID: 0}
   hasReachedTile: 0
 --- !u!195 &-502297358609278984
 NavMeshAgent:
@@ -434,7 +436,7 @@ NavMeshAgent:
   m_Acceleration: 3
   avoidancePriority: 50
   m_AngularSpeed: 120
-  m_StoppingDistance: 0
+  m_StoppingDistance: 1
   m_AutoTraverseOffMeshLink: 0
   m_AutoBraking: 0
   m_AutoRepath: 0

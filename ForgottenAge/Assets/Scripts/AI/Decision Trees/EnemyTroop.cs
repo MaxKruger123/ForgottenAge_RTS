@@ -571,7 +571,7 @@ public class EnemyTroop : MonoBehaviour
         if (targetBuilding != null && shootingCoroutine == null)
         {
             
-            StartCoroutine(ShootAlly());
+            shootingCoroutine = StartCoroutine(ShootAlly());
         }
     }
 
@@ -662,7 +662,7 @@ public class EnemyTroop : MonoBehaviour
                     minDistance = distance;
                     nearestAxon = axon;
 
-                    if (distance < 2f && gameObject.CompareTag("Kamikaze"))
+                    if (distance < 2.5f && gameObject.CompareTag("Kamikaze"))
                     {
                         Axon axonScript = axon.GetComponent<Axon>();
                         axonScript.TakeDamage(20f);
@@ -733,7 +733,11 @@ public class EnemyTroop : MonoBehaviour
             // Set the destination to the calculated flee position
             agent.SetDestination(fleePosition);
             agent.speed = 2f;  // Increase the agent's speed to flee faster
-            shootingCoroutine = StartCoroutine(ShootAlly());
+            if (shootingCoroutine == null)
+            {
+                shootingCoroutine = StartCoroutine(ShootAlly());
+            }
+            
             StartCoroutine(Wait());
             stopFlee = true;
             
