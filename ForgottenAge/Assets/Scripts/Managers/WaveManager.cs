@@ -152,26 +152,6 @@ public class WaveManager : MonoBehaviour
         
 
 
-
-        /* THE OLD ONE
-        int enemiesToSpawn = wave.enemiesToSpawn;
-
-        for (int i = 0; i < enemiesToSpawn; i++)
-        {
-            // Choose a random enemy prefab from the list
-            GameObject enemyPrefab = wave.enemyPrefabs[Random.Range(0, wave.enemyPrefabs.Count)];
-
-            // Choose a spawn point based on the index
-            int spawnPointIndex = i % spawnPoints.Length;
-            Vector3 spawnPosition = spawnPoints[spawnPointIndex].position;
-
-            // Instantiate enemy at the chosen spawn point
-            Instantiate(enemyPrefab, spawnPosition, Quaternion.identity);
-            Instantiate(enemySpawnEffect, new Vector3(spawnPosition.x, spawnPosition.y, -1), Quaternion.identity);
-
-            yield return new WaitForSeconds(0.1f); // Adjust this delay as needed
-        }*/
-
         // Check if all enemies are dead
         while (GameObject.FindGameObjectWithTag("Enemy") != null || GameObject.FindGameObjectWithTag("EnemyRanged") != null)
         {
@@ -180,7 +160,9 @@ public class WaveManager : MonoBehaviour
 
         // End of wave, start countdown for next wave
         waveInProgress = false;
-        if (cardWaveCounter == wavesUntilCardEvent)
+        StartWaveTimerCoroutine();
+
+        /*if (cardWaveCounter == wavesUntilCardEvent)
         {
             cardWaveCounter = 0;
             cardScreen.ShowIconButton();
@@ -188,7 +170,7 @@ public class WaveManager : MonoBehaviour
         else
         {
             StartWaveTimerCoroutine();
-        }
+        }*/
         //CheckForCutsceneOrNextWave();
     }
 
