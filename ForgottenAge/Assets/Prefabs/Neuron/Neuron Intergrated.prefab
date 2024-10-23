@@ -16,6 +16,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3993148876304298331, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4198488051341176938, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -32,6 +36,10 @@ PrefabInstance:
       propertyPath: m_Offset.y
       value: 0.0024810235
       objectReference: {fileID: 0}
+    - target: {fileID: 5274444341944676834, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
+      propertyPath: captureZone
+      value: 
+      objectReference: {fileID: 7129964310503149296}
     - target: {fileID: 5274444341944676834, guid: b3f5d0b5a2f006241abd65e3b228589c, type: 3}
       propertyPath: searchDistance
       value: 10

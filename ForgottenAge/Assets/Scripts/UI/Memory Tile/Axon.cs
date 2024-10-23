@@ -16,18 +16,30 @@ public class Axon : MonoBehaviour
     public MemoryTileConstruction memoryTileConstruction;
 
     public AxonBehaviour axonBehaviour;
+    private LineRenderer lineRenderer;
+
+    public Color fullHealthColor; // Color at full health
+    public Color zeroHealthColor;   // Color at zero health
 
     void Start()
     {
         currentHealth = maxHealth; // Set current health to max health at the start
         priceDecreased = true; // Set the flag to true at the start
-
+        lineRenderer = transform.GetComponent<LineRenderer>();
         axonBehaviour = transform.GetComponent<AxonBehaviour>();
+        fullHealthColor = lineRenderer.startColor;
+
     }
 
     void Update()
     {
         //healthBar.fillAmount = currentHealth / maxHealth; FOR THE HEALTH BAR 
+
+        float healthPercentage = currentHealth / maxHealth;
+        Color currentColor = Color.Lerp(zeroHealthColor, fullHealthColor, healthPercentage);
+
+        //lineRenderer.startColor = currentColor;
+        lineRenderer.endColor = currentColor;
 
         if (currentHealth == maxHealth)
         {
@@ -96,4 +108,6 @@ public class Axon : MonoBehaviour
             spriteRenderer.color = Color.blue;
         }
     }
+
+    
 }

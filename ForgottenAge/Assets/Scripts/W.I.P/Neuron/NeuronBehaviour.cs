@@ -79,7 +79,7 @@ public class NeuronBehaviour : MonoBehaviour
     public void InitialiseDendrites()
     {
         List<float> usedGradients = new List<float>();  // Track previously used gradients
-        float minAngleDifference = 5f;  // Minimum angular difference between dendrites in degrees
+        float minAngleDifference = 15f;  // Minimum angular difference between dendrites in degrees
 
         foreach (GameObject dendrite in dendrites)
         {
@@ -99,7 +99,7 @@ public class NeuronBehaviour : MonoBehaviour
             int flipX = Random.Range(0, 2) * 2 - 1;
             int flipY = Random.Range(0, 2) * 2 - 1;
 
-            float length = Random.Range(1f, 2f);
+            float length = Random.Range(1.25f, 2f);
             LineRenderer lineRenderer = dendrite.GetComponent<LineRenderer>();
             lineRenderer.positionCount = 4;
 
@@ -120,8 +120,8 @@ public class NeuronBehaviour : MonoBehaviour
 
                 if (i == 1 || i == 2)
                 {
-                    float xDeviation = Random.Range(length / -8f, length / 8f);
-                    float yDeviation = Random.Range(length / -8f, length / 8f);
+                    float xDeviation = Random.Range(length / -4f, length / 4f);
+                    float yDeviation = Random.Range(length / -4f, length / 4f);
                     worldPosition += new Vector3(xDeviation, yDeviation, 0);
                 }
 
@@ -231,7 +231,7 @@ public class NeuronBehaviour : MonoBehaviour
 
         // Create a random length and angle for the branch
         float branchLength = Random.Range(0.5f, 1f) * 3;
-        float branchAngle = Random.Range(-45f, 45f);
+        float branchAngle = Random.Range(-70f, 70f);
 
         // Calculate the direction of the branch
         Vector3 direction = (branchStart - parentPosition).normalized;

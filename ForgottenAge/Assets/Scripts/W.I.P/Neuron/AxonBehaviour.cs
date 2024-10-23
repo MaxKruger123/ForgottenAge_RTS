@@ -19,7 +19,7 @@ public class AxonBehaviour : MonoBehaviour
     private Vector3 controlPoint2;  // Second control point for the Bezier curve
 
     private int maxPoints = 500;  // Maximum number of points the axon will have
-    private float segmentLength = 0.25f;  // Minimum distance between points before a new one is added
+    private float segmentLength = 0.25f;  // Minimum distance between points before a new one is added (og 0.25f)
     private float t = 0;  // Progress along the Bezier curve
 
     public GameObject targetNeuron;  // Store the reference to the target neuron

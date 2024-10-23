@@ -53,7 +53,8 @@ LineRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10306, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: 873b5089c89d5f240b333a954c30a349, type: 2}
+  - {fileID: 2100000, guid: 873b5089c89d5f240b333a954c30a349, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -76,9 +77,9 @@ LineRenderer:
   m_SortingOrder: 2
   m_Positions:
   - {x: 0, y: -0, z: 0}
-  - {x: 0.15045543, y: -0.3884644, z: 0}
-  - {x: 0.96823734, y: -0.8328967, z: 0}
-  - {x: 1.1682563, y: -1.585835, z: 0}
+  - {x: 1.661031, y: -1.9026349, z: 0}
+  - {x: 4.9709463, y: -1.6723564, z: 0}
+  - {x: 7.799428, y: -3.633038, z: 0}
   m_Parameters:
     serializedVersion: 3
     widthMultiplier: 3
@@ -95,31 +96,22 @@ LineRenderer:
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
-        time: 0.087777175
-        value: 0.959625
-        inSlope: -2.5836616
-        outSlope: -2.5836616
+        time: 0.20644556
+        value: 0.4095257
+        inSlope: -1.5571545
+        outSlope: -1.5571545
         tangentMode: 0
         weightedMode: 0
         inWeight: 0.33333334
-        outWeight: 0.33333334
-      - serializedVersion: 3
-        time: 0.2757064
-        value: 0.43020636
-        inSlope: -1.4669911
-        outSlope: -1.4669911
-        tangentMode: 0
-        weightedMode: 0
-        inWeight: 0.4398631
-        outWeight: 0.18073839
+        outWeight: 0.14337495
       - serializedVersion: 3
         time: 1
         value: 0.04636288
-        inSlope: -0.7564282
-        outSlope: -0.7564282
+        inSlope: -0.8177691
+        outSlope: -0.8177691
         tangentMode: 0
         weightedMode: 0
-        inWeight: 0.07599922
+        inWeight: 0.18171485
         outWeight: 0
       m_PreInfinity: 2
       m_PostInfinity: 2
