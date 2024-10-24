@@ -78,34 +78,29 @@ public class NeuronBehaviour : MonoBehaviour
 
     public void InitialiseDendrites()
     {
-        List<float> usedGradients = new List<float>();  // Track previously used gradients
-        float minAngleDifference = 15f;  // Minimum angular difference between dendrites in degrees
+        List<float> usedAngles = new List<float>();  // Track previously used angles
+        float minAngleDifference = 30f;  // Minimum angular difference between dendrites in degrees
 
         foreach (GameObject dendrite in dendrites)
         {
-            float gradient;
+            float angle;
             do
             {
-                // Generate a random gradient between -2 and 2 (adjust as needed)
-                gradient = Random.Range(-2f, 2f);
+                // Generate a random angle between -180 and 180 degrees
+                angle = Random.Range(-180f, 180f);
             }
-            // Convert gradient to angle (in degrees) and check if it's too similar to any previous gradients
-            while (!IsGradientAcceptable(gradient, usedGradients, minAngleDifference));
+            while (!IsAngleAcceptable(angle, usedAngles, minAngleDifference));
 
-            // Store the used gradient
-            usedGradients.Add(gradient);
-
-            // Randomly flip direction along X and Y axes
-            int flipX = Random.Range(0, 2) * 2 - 1;
-            int flipY = Random.Range(0, 2) * 2 - 1;
+            // Store the used angle
+            usedAngles.Add(angle);
 
             float length = Random.Range(1.25f, 2f);
             LineRenderer lineRenderer = dendrite.GetComponent<LineRenderer>();
             lineRenderer.positionCount = 4;
 
-            // Calculate deltaX and deltaY using the gradient and length
-            float deltaX = flipX * (length / Mathf.Sqrt(1 + (gradient * gradient)));
-            float deltaY = flipY * (gradient * deltaX);
+            // Calculate deltaX and deltaY using trigonometry based on the angle and length
+            float deltaX = Mathf.Cos(angle * Mathf.Deg2Rad) * length;
+            float deltaY = Mathf.Sin(angle * Mathf.Deg2Rad) * length;
 
             Vector3 neuronPosition = transform.position;
             int numPoints = 4;
@@ -134,27 +129,23 @@ public class NeuronBehaviour : MonoBehaviour
                 }
             }
         }
+
         initialised = true;
     }
 
-    private bool IsGradientAcceptable(float newGradient, List<float> usedGradients, float minAngleDifference)
+
+    private bool IsAngleAcceptable(float newAngle, List<float> usedAngles, float minAngleDifference)
     {
-        // Convert gradient to angle in degrees
-        float newAngle = Mathf.Atan(newGradient) * Mathf.Rad2Deg;
-
-        foreach (float usedGradient in usedGradients)
+        foreach (float usedAngle in usedAngles)
         {
-            // Convert used gradient to angle in degrees
-            float usedAngle = Mathf.Atan(usedGradient) * Mathf.Rad2Deg;
-
             // Check if the difference between angles is less than the minimum allowed
             if (Mathf.Abs(newAngle - usedAngle) < minAngleDifference)
             {
-                return false;  // Too similar, reject this gradient
+                return false;  // Too similar, reject this angle
             }
         }
 
-        return true;  // Gradient is acceptable
+        return true;  // Angle is acceptable
     }
 
 
